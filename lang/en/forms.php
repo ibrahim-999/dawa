@@ -1,0 +1,42 @@
+<?php
+
+return [
+    'add_category_title' => 'Add Category',
+    'add_category_description' => 'Add Categories,Sub Categories,Subset Categories',
+    'add_chain_title' => 'Add Pharmacies chain Form',
+    'add_chain_description' => 'Add Basic Data & Chain Admin Account ',
+    'edit_chain_title' => 'Edit Pharmacies chain Form',
+    'edit_chain_description' => 'Edit Basic Data & Chain Admin Account ',
+
+    'add_admin_title' => 'Add DawaFast Admins Form',
+    'add_admin_description' => 'Add DawaFast Admins To enable them access the admin portal',
+    'edit_admin_title' => 'Edit DawaFast Admins Form',
+    'edit_admin_description' => 'Edit DawaFast Admins',
+
+    'add_pharmacy_title' => 'Add Partner Pharmacy',
+    'add_pharmacy_description' => 'Add Partner Pharmacy To a Specific Chain',
+    'edit_pharmacy_title' => 'Edit Partner Pharmacy',
+    'edit_pharmacy_description' => 'Edit Pharmacy',
+
+    'add_vendor_title' => 'Add Pharmacy Vendor Account Form',
+    'add_vendor_description' => 'Add Add Pharmacy Vendor Account To enable them access the Vendor portal',
+    'edit_vendor_title' => 'Edit Pharmacy Vendor Account Form',
+    'edit_vendor_description' => 'Edit Add Pharmacy Vendor Account',
+
+    'permissions_for_web-admin' => 'Permissions For DawaFast Admins',
+    'permissions_for_web-vendor' => 'Permissions For Pharmacies Vendors',
+    'web-admin_permissions' => 'Available Permissions For DawaFast Admins',
+    'web-vendor_permissions' => 'Available Permissions For Pharmacies Vendors',
+
+    'add_user_title' => "Add Basic User Data",
+    "add_user_description" => "",
+
+   'edit_user_title' => "Edit User Form",
+   'edit_user_description' => "",
+
+   'add_driver_title' => "Add Basic Driver Data",
+   "add_driver_description" => "",
+
+  'edit_driver_title' => "Edit Driver Form",
+  'edit_driver_description' => ""
+];

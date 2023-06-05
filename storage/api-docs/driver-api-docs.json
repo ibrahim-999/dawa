@@ -1,0 +1,394 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "DawaFast Driver App API Documentation",
+        "description": " DawaFast Driver App API Documentation description",
+        "contact": {
+            "email": "DawaFast@admin.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "localhost"
+        }
+    ],
+    "paths": {
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "logout driver",
+                "operationId": "logout",
+                "parameters": [
+                    {
+                        "name": "content-type",
+                        "in": "header",
+                        "required": true,
+                        "example": "application/json"
+                    },
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "XMLHttpRequest"
+                    },
+                    {
+                        "name": "X-Locale",
+                        "in": "header",
+                        "schema": {
+                            "type": "en",
+                            "enum": [
+                                "en",
+                                "ar"
+                            ]
+                        },
+                        "example": "en"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "logout successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "logout successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "register"
+                ],
+                "summary": "continue sign up",
+                "operationId": "auth-continue-as-has-experience",
+                "parameters": [
+                    {
+                        "name": "content-type",
+                        "in": "header",
+                        "required": true,
+                        "example": "application/json"
+                    },
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "XMLHttpRequest"
+                    },
+                    {
+                        "name": "X-Locale",
+                        "in": "header",
+                        "schema": {
+                            "type": "en",
+                            "enum": [
+                                "en",
+                                "ar"
+                            ]
+                        },
+                        "example": "en"
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "latitude",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "25.123456"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "30.123456"
+                    },
+                    {
+                        "name": "experience",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "has_experience",
+                                "student"
+                            ]
+                        },
+                        "example": "has_experience"
+                    },
+                    {
+                        "name": "job_title",
+                        "in": "query",
+                        "description": "required if experience value is has_experience",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "developer"
+                    },
+                    {
+                        "name": "company_name",
+                        "in": "query",
+                        "description": "required if experience value is has_experience",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "jobzella"
+                    },
+                    {
+                        "name": "employment_type",
+                        "in": "query",
+                        "description": "required if experience value is has_experience",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "full-time",
+                                "part-time",
+                                "contract",
+                                "temporary",
+                                "volunteer",
+                                "internship"
+                            ]
+                        },
+                        "example": "full_time"
+                    },
+                    {
+                        "name": "start_year",
+                        "in": "query",
+                        "description": "required if experience value is has_experience",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2020"
+                    },
+                    {
+                        "name": "end_year",
+                        "in": "query",
+                        "description": "required if experience value is has_experience",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2020"
+                    },
+                    {
+                        "name": "still_in_role",
+                        "in": "query",
+                        "description": "required if experience value is has_experience",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                1,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "completed successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "created successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "unautourized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unautourized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "you already registered.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "you already registered"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "address": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The address field is required."
+                                                    }
+                                                },
+                                                "latitude": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The latitude field is required."
+                                                    }
+                                                },
+                                                "longitude": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The longitude field is required."
+                                                    }
+                                                },
+                                                "experience": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The experience field is required."
+                                                    }
+                                                },
+                                                "job_title": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The job title field is required."
+                                                    }
+                                                },
+                                                "company_name": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The company name field is required."
+                                                    }
+                                                },
+                                                "employment_type": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The employment type field is required."
+                                                    }
+                                                },
+                                                "start_year": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The start year field is required."
+                                                    }
+                                                },
+                                                "end_year": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The end year field is required."
+                                                    }
+                                                },
+                                                "still_in_role": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The still in role field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    }
+}
