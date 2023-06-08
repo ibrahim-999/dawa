@@ -11,9 +11,9 @@ class NotificationService
     public function paginate_simple(int $itemsPerPage): array
     {
         try {
-            $user = getAuthUser();
-            // dd($user);
-            return ['notifications' => $user->notifications()->orderBy('created_at', 'desc')->simplePaginate($itemsPerPage),'unread_notifications_count' => $user->unreadNotifications()->count()];
+//            $user = getAuthUser();
+            $user = auth('web-admin')->user();
+             return ['notifications' => $user->notifications()->orderBy('created_at', 'desc')->simplePaginate($itemsPerPage),'unread_notifications_count' => $user->unreadNotifications()->count()];
         } catch (\Throwable $exception) {
             throw $exception;
         }

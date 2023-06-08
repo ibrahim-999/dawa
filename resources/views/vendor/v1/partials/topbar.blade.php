@@ -195,7 +195,7 @@
                 <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
-                    <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
+                    <span class="badge badge-danger rounded-circle noti-icon-badge" id="notification_count_vendor">0</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-lg">
 
@@ -210,15 +210,8 @@
                         </h5>
                     </div>
 
-                    <div class="noti-scroll" data-simplebar>
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-primary">
-                                <i class="mdi mdi-comment-account-outline"></i>
-                            </div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin
-                                <small class="text-muted">1 min ago</small>
-                            </p>
-                        </a>
+                    <div class="noti-scroll" id="noti-scroll-vendor" data-simplebar>
+
                     </div>
 
                     <!-- All-->

@@ -549,6 +549,7 @@
 
 <!-- Init js -->
 <script src="{{asset('admin-panel-assets/v1')}}/js/pages/chartist.init.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 @include('admin.v1.partials.alerts')
 @include('admin.v1.partials.ajax_alerts')
@@ -573,51 +574,54 @@ selcect group script
     });
 </script>
 <script>
-    function fetchNotifications() {
-        $.ajax({
-            url: '{{ route('notifications.fetch') }}',
-            type: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                var notifications = response;
+    $.ajax({
+        url: '{{ route('admin.notifications.fetch') }}',
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var notificationList = $('#noti-scroll-vendor');
+            notificationList.empty(); // Clear existing notifications
 
-                var notificationList = $('#notification-list');
-                notificationList.empty(); // Clear existing notifications
-
-                notifications.forEach(function (notification) {
+            if (Array.isArray(response['notifications']['data'])) {
+                $.each(response['notifications']['data'], function(index, notification) {
                     var listItem = $('<a></a>')
                         .attr('href', 'javascript:void(0);')
-                        .addClass('dropdown-item notify-item')
-                        .addClass('active');
+                        .addClass('dropdown-item notify-item');
 
                     var notifyIcon = $('<div></div>')
-                        .addClass('notify-icon')
+                        .addClass('notify-icon bg-primary')
                         .append(
-                            $('<img>')
-                                .attr('src', '{{asset('admin-panel-assets/v1')}}/images/users/user-1.jpg')
-                                .addClass('img-fluid rounded-circle')
-                                .attr('alt', '')
+                            $('<i></i>')
+                                .addClass('mdi mdi-comment-account-outline')
                         );
 
                     var notifyDetails = $('<p></p>')
                         .addClass('notify-details')
-                        .text('Cristina Pride');
+                        .text(notification['data']['body']);
+
+                    var timeAgo = $('<small></small>')
+                        .addClass('text-muted')
+                        .text(notification['created_at'] + ' ago');
 
                     var userMsg = $('<p></p>')
-                        .addClass('text-muted mb-0 user-msg')
-                        .append(
-                            $('<small></small>')
-                                .text(notification.data.message)
-                        );
+                        .append(timeAgo);
 
                     listItem.append(notifyIcon, notifyDetails, userMsg);
+
                     notificationList.append(listItem);
+
+                    var notificationData = response['notifications']['data'];
+                    var notificationCount = notificationData.length;
+                    $('#notification_count_vendor').text(notificationCount);
                 });
-            },            error: function (xhr, status, error) {
-                // Handle error if any
+            } else {
+                console.error('Invalid response format. Expected an array of notifications.');
             }
-        });
-    }
+        },
+        error: function (xhr, status, error) {
+            // Handle error if any
+        }
+    });
 </script>
 
 @yield('scripts')
