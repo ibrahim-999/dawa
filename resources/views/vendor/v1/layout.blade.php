@@ -572,7 +572,53 @@ selcect group script
         }
     });
 </script>
+<script>
+    function fetchNotifications() {
+        $.ajax({
+            url: '{{ route('notifications.fetch') }}',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                var notifications = response;
 
+                var notificationList = $('#notification-list');
+                notificationList.empty(); // Clear existing notifications
+
+                notifications.forEach(function (notification) {
+                    var listItem = $('<a></a>')
+                        .attr('href', 'javascript:void(0);')
+                        .addClass('dropdown-item notify-item')
+                        .addClass('active');
+
+                    var notifyIcon = $('<div></div>')
+                        .addClass('notify-icon')
+                        .append(
+                            $('<img>')
+                                .attr('src', '{{asset('admin-panel-assets/v1')}}/images/users/user-1.jpg')
+                                .addClass('img-fluid rounded-circle')
+                                .attr('alt', '')
+                        );
+
+                    var notifyDetails = $('<p></p>')
+                        .addClass('notify-details')
+                        .text('Cristina Pride');
+
+                    var userMsg = $('<p></p>')
+                        .addClass('text-muted mb-0 user-msg')
+                        .append(
+                            $('<small></small>')
+                                .text(notification.data.message)
+                        );
+
+                    listItem.append(notifyIcon, notifyDetails, userMsg);
+                    notificationList.append(listItem);
+                });
+            },            error: function (xhr, status, error) {
+                // Handle error if any
+            }
+        });
+    }
+</script>
 
 @yield('scripts')
 @stack('custom-scripts')

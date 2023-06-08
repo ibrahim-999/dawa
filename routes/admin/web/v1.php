@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
+use App\Http\Controllers\Web\Admin\v1\NotificationController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Web\Admin\v1\AuthController;
 use \App\Http\Controllers\Web\Admin\v1\AdminController;
@@ -80,3 +81,4 @@ Route::post('reset-password', [AdminForgotPasswordController::class, 'submitRese
 
 
 Route::post('admin-fcm-tokens', [AdminFirebaseDeviceTokenController::class, 'storeAdminTokenWithoutDeviceId'])->name('admin.store.token');
+Route::get('notifications-fetch', [NotificationController::class, 'fetchNotifications'])->name('admin.notifications.fetch');
