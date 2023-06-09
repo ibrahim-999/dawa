@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin\v1;
+namespace App\Http\Controllers\Web\Vendor\v1;
 
 use App\Domains\Shared\v1\Enums\HttpRequestStatusEnum;
 use App\Domains\Shared\v1\Services\NotificationService;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
 
-class NotificationController extends Controller
+class VendorNotificationController extends Controller
 {
     private NotificationService $notificationService;
 
@@ -19,7 +18,7 @@ class NotificationController extends Controller
 
     public function fetchNotifications()
     {
-        $notifications = $this->notificationService->paginate_simple(10,'web-admin');
+        $notifications = $this->notificationService->paginate_simple(10,'web-vendor');
 
         return response()->json($notifications, HttpRequestStatusEnum::STATUS_OK->value);
     }

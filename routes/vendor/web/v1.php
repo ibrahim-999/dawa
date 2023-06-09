@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
 use App\Http\Controllers\Web\Admin\v1\VendorFirebaseDeviceTokenController;
+use App\Http\Controllers\Web\Vendor\v1\VendorNotificationController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Web\Vendor\v1\AuthController;
 
@@ -32,3 +33,4 @@ Route::group(['middleware' => 'auth:web-vendor'], function () {
 });
 
 Route::post('vendor-fcm-tokens', [VendorFirebaseDeviceTokenController::class, 'storeVendorTokenWithoutDeviceId'])->name('vendor.store.token');
+Route::get('notifications-fetch', [VendorNotificationController::class, 'fetchNotifications'])->name('vendor.notifications.fetch');

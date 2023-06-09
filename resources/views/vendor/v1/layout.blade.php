@@ -574,7 +574,7 @@ selcect group script
     });
 </script>
 <script>
-    var route = "{{ route('admin.notifications.fetch') }}";
+    var route = "{{ route('vendor.notifications.fetch') }}";
 </script>
 
 <script src="{{asset('admin-panel-assets/v1/js/fetch-notification.js')}}"></script>
