@@ -30,12 +30,15 @@
     <!-- icons -->
     <link href="{{asset('admin-panel-assets/v1')}}/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="{{asset('admin-panel-assets/v1')}}/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
-    <link href="{{asset('admin-panel-assets/v1')}}/libs/nestable2/jquery.nestable.min.css" rel="stylesheet" />
-    <link href="{{asset('admin-panel-assets/v1')}}/css/tree.css" rel="stylesheet" />
-    <link href="{{asset('admin-panel-assets/v1')}}/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
-    <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/nestable2/jquery.nestable.min.css" rel="stylesheet"/>
+    <link href="{{asset('admin-panel-assets/v1')}}/css/tree.css" rel="stylesheet"/>
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet"
+          type="text/css"/>
     <link rel="stylesheet" href="{{asset('admin-panel-assets/v1')}}/libs/chartist/chartist.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 </head>
 
@@ -554,7 +557,9 @@
 <script src="{{asset('admin-panel-assets/v1')}}/js/pages/chartist.init.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+<script src="{{asset('admin-panel-assets/v1/js/firebase.js')}}"></script>
 @include('admin.v1.partials.alerts')
 @include('admin.v1.partials.ajax_alerts')
 <script>
@@ -578,57 +583,11 @@ selcect group script
     });
 </script>
 
-{{-- script firebase token --}}
 <script>
-    $.ajax({
-            url: '{{ route('admin.notifications.fetch') }}',
-            type: 'GET',
-            dataType: 'json',
-        success: function(response) {
-            var notificationList = $('#noti-scroll');
-            notificationList.empty(); // Clear existing notifications
-
-             if (Array.isArray(response['notifications']['data'])) {
-          $.each(response['notifications']['data'], function(index, notification) {
-                    var listItem = $('<a></a>')
-                        .attr('href', 'javascript:void(0);')
-                        .addClass('dropdown-item notify-item');
-
-                    var notifyIcon = $('<div></div>')
-                        .addClass('notify-icon bg-primary')
-                        .append(
-                            $('<i></i>')
-                                .addClass('mdi mdi-comment-account-outline')
-                        );
-
-                    var notifyDetails = $('<p></p>')
-                        .addClass('notify-details')
-                        .text(notification['data']['body']);
-
-                    var timeAgo = $('<small></small>')
-                        .addClass('text-muted')
-                        .text(moment(notification['created_at']).fromNow());
-
-                    var userMsg = $('<p></p>')
-                        .append(timeAgo);
-
-                    listItem.append(notifyIcon, notifyDetails, userMsg);
-
-              notificationList.append(listItem);
-                });
-
-                 var notificationData = response['notifications']['data'];
-                 var notificationCount = notificationData.length;
-                 $('#notification_count').text(notificationCount);             } else {
-                console.error('Invalid response format. Expected an array of notifications.');
-            }
-        },
-        error: function (xhr, status, error) {
-                // Handle error if any
-            }
-        });
+    var route = "{{ route('admin.notifications.fetch') }}";
 </script>
 
+<script src="{{asset('admin-panel-assets/v1/js/fetch-notification.js')}}"></script>
 {{-- end of script --}}
 @yield('scripts')
 @stack('custom-scripts')
