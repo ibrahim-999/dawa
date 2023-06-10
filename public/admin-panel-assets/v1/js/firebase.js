@@ -1,15 +1,36 @@
 var firebaseConfig = {
-    apiKey: "AAAAAVnOUgs:APA91bERqVmF7tT6G9T-65kRgiHwmpdz2Vl6hdbz0cWc9m3HybKwofoz3UxI7lKaGIBccYxfIVvcrHkn3bT3azIfZugpdtYaFhV-X71F84LN2qfDLRyYVZHOJa6ERayE1V9gNw6U_s1Z",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    databaseURL: "YOUR_DATABASE_URL",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBvIB-4iBGILnKN81hNkJVHZNiNWxeui3o",
+    authDomain: "dawafast-bw.firebaseapp.com",
+    databaseURL: "https://dawafast-bw-default-rtdb.firebaseio.com",
+    projectId: "dawafast-bw",
+    storageBucket: "dawafast-bw.appspot.com",
+    messagingSenderId: "5801660939",
+    appId: "1:5801660939:web:83120a78d01944085f2d0e",
+    measurementId: "G-7NLTYRJ7GE"
 };
 firebase.initializeApp(firebaseConfig);
-var messagesRef = firebase.database().ref('messages');
-messagesRef.on('child_added', function (snapshot) {
-    var message = snapshot.val();
-    console.log('New message:', message);
+ const messagesRef = firebase.database().ref('messages');
+
+function sendMessage(messageText) {
+    const newMessageRef = messagesRef.push();
+    newMessageRef.set({
+        text: messageText,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+    });
+}
+messagesRef.on('child_added', (snapshot) => {
+    alert(1);
+
+    const message = snapshot.val();
+    // Update the UI with the new message
+    console.log(message);
+});
+
+messagesRef.on('child_added', (snapshot) => {
+    alert();
+    const message = snapshot.val();
+    const messageContainer = document.getElementById('messageContainer');
+    const messageElement = document.createElement('p');
+    messageElement.textContent = message.text;
+    messageContainer.appendChild(messageElement);
 });

@@ -13,7 +13,8 @@ class NotificationService
         try {
 //            $user = getAuthUser();
             $user = auth($guard)->user();
-             return ['notifications' => $user->notifications()->orderBy('created_at', 'desc')->simplePaginate($itemsPerPage),'unread_notifications_count' => $user->unreadNotifications()->count()];
+             return ['notifications' => $user->notifications()->orderBy('created_at', 'desc')->simplePaginate($itemsPerPage),
+                 'unread_notifications_count' => $user->unreadNotifications()->count()];
         } catch (\Throwable $exception) {
             throw $exception;
         }
@@ -38,10 +39,10 @@ class NotificationService
     }
 
 
-    public function markAllSeen()
+    public function markAllSeen($guard)
     {
         try {
-            $user = auth('sanctum')->user();
+            $user = auth($guard)->user();
 
             $user->unreadNotifications->markAsRead();
         } catch (\Throwable $exception) {

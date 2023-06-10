@@ -1,5 +1,5 @@
 $.ajax({
-    url: route,
+    url: get_route,
     type: 'GET',
     dataType: 'json',
     success: function (response) {
@@ -35,9 +35,7 @@ $.ajax({
                 notificationList.append(listItem);
             });
 
-            var notificationData = response['notifications']['data'];
-            var notificationCount = notificationData.length;
-            $('#notification_count').text(notificationCount);
+             $('#notification_count').text(response['unread_notifications_count']);
         } else {
             console.error('Invalid response format. Expected an array of notifications.');
         }
@@ -46,3 +44,13 @@ $.ajax({
         // Handle error if any
     }
 });
+
+$('.read-notification').on('click',function (){
+     $.ajax({
+        url: read_notification_route,
+        type: 'GET',
+        dataType: 'json',
+        success: function () {
+            $('#notification_count').text(0);
+        }
+    });});

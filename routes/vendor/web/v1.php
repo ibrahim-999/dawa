@@ -34,3 +34,4 @@ Route::group(['middleware' => 'auth:web-vendor'], function () {
 
 Route::post('vendor-fcm-tokens', [VendorFirebaseDeviceTokenController::class, 'storeVendorTokenWithoutDeviceId'])->name('vendor.store.token');
 Route::get('notifications-fetch', [VendorNotificationController::class, 'fetchNotifications'])->name('vendor.notifications.fetch');
+Route::get('notifications-read', [VendorNotificationController::class, 'makeRead'])->name('vendor.notifications.read');
