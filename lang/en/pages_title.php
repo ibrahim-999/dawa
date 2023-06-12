@@ -15,6 +15,7 @@ return [
     "edit_driver" => " Edit driver",
     "index_coupons" => "Coupons",
     "index_drivers" => "Drivers",
+    "create_cart" => "Cart",
 
     'pages_title.edit_pharmacy' => 'edit pharmacy'
 ];
