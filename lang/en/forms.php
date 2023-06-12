@@ -38,5 +38,16 @@ return [
    "add_driver_description" => "",
 
   'edit_driver_title' => "Edit Driver Form",
-  'edit_driver_description' => ""
+  'edit_driver_description' => "",
+
+
+
+  "add_coupon_title" => "Coupon Data",
+  "add_coupon_description" => "",
+  "edit_coupon_title" => "Edit Coupon",
+  "add_brand_title" => "Brand Data",
+  "add_brand_description" => "",
+  "edit_brand_title" => "Edit Brand",
+  "edit_brand_description" => "",
+
 ];

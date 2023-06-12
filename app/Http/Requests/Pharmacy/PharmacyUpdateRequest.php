@@ -24,6 +24,11 @@ class PharmacyUpdateRequest extends FormRequest
         return [
             'name' => ['required','max:255'],
             'info' => ['required','max:500'],
+            'address' => ['required','max:500'],
+
+            'lat' => ['required'],
+            'long' => ['required'],
+            'place_id' => ['required'],
         ];
     }
 }

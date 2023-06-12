@@ -573,10 +573,8 @@ selcect group script
         }
     });
 </script>
-<script>
-    var get_route = "{{ route('admin.notifications.fetch') }}";
-    var read_notification_route = "{{ route('admin.notifications.read') }}";
-</script>
+
+
 
 <script src="{{asset('admin-panel-assets/v1/js/fetch-notification.js')}}"></script>
 

@@ -30,6 +30,7 @@ class AdminUpdateDriverRequest extends FormRequest
             // 'email' => ['required', 'email:rfc,dns', 'unique:drivers,email,'.$this->user->id],
             'email' => ['nullable', 'email', 'unique:drivers,email,'.$this->driver->id],
             'phone.code' => ['required', 'string', 'max:2'],
+            'status' => ['required', 'integer'],
             'phone.number' => ['required', 'alpha_num', 'phone:phone.code', 'max:12', new DuplicateCustomPhoneCheck(new Driver(),$this->driver->id)],
             'password' => [
                 'nullable',

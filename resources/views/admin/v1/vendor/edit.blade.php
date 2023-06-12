@@ -22,29 +22,35 @@
                                       url="{{route('admin.vendors.update',$vendor->id)}}"
                                       method="POST" fileable="false">
                     <x-slot name="inputs">
-                        <x-admin.v1.form.text-input errorName="" prepend="" value="{{$vendor->name}}" size="col-md-6" name="name"
-                                                    title="{{__('labels.name')}}"
-                                                    placeholder="{{__('placeholders.name')}}"/>
-                        <x-admin.v1.form.email-input value="{{$vendor->email}}" prepend="" size="col-md-6" name="email"
-                                                     title="{{__('labels.email')}}"
-                                                     placeholder="{{__('placeholders.email')}}"/>
-                        <x-admin.v1.form.select-input multiple="0" size="col-md-6" name="role"
-                                                      title="{{__('labels.role')}}">
-                            <x-slot name="options">
-                                <option>Select</option>
-                                @foreach($roles as $role)
-                                    <option @if($vendor->roles?->first()?->name == $role) selected
-                                            @endif value="{{$role}}">{{$role}}</option>
-                                @endforeach
-                            </x-slot>
-                        </x-admin.v1.form.select-input>
+                        <div class="row">
+                            <x-admin.v1.form.text-input errorName="" prepend="" value="{{$vendor->name}}" size="col-md-6" name="name"
+                                title="{{__('labels.name')}}"
+                                placeholder="{{__('placeholders.name')}}"/>
+                            <x-admin.v1.form.email-input value="{{$vendor->email}}" prepend="" size="col-md-6" name="email"
+                                                        title="{{__('labels.email')}}"
+                                                        placeholder="{{__('placeholders.email')}}"/>
+                        </div>
+                        <div class="row">
+                            <x-admin.v1.form.select-input multiple="0" size="col-md-6" name="role"
+                            title="{{__('labels.role')}}">
+                                <x-slot name="options">
+                                    <option>Select</option>
+                                    @foreach($roles as $role)
+                                        <option @if($vendor->roles?->first()?->name == $role) selected
+                                                @endif value="{{$role}}">{{$role}}</option>
+                                    @endforeach
+                                </x-slot>
+                                </x-admin.v1.form.select-input>
 
-                        <x-admin.v1.form.password-input prepend="" size="col-md-6" name="password"
+                            <x-admin.v1.form.password-input prepend="" size="col-md-6" name="password"
                                                         title="{{__('labels.password')}}"
                                                         placeholder="{{__('placeholders.password')}}"/>
-                        <x-admin.v1.form.password-input prepend="" size="col-md-6" name="password_confirmation"
-                                                        title="{{__('labels.password_confirmation')}}"
-                                                        placeholder="{{__('placeholders.password_confirmation')}}"/>
+                        </div>
+                        <div class="row">
+                            <x-admin.v1.form.password-input prepend="" size="col-md-6" name="password_confirmation"
+                            title="{{__('labels.password_confirmation')}}"
+                            placeholder="{{__('placeholders.password_confirmation')}}"/>
+                        </div>
                         @method('PATCH')
                     </x-slot>
                     <x-slot name="buttons">

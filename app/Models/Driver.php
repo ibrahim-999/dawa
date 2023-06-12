@@ -38,7 +38,8 @@ class Driver extends Authenticatable
         'stc_number',
         'step',
         'is_active',
-        'has_message'
+        'has_message',
+        'status'
     ];
 
     /**

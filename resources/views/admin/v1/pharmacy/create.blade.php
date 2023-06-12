@@ -24,6 +24,7 @@
                           url="{{route('pharmacies.store')}}"
                           method="POST" fileable="false">
         <x-slot name="inputs">
+            <div class="row">
             <x-admin.v1.form.select-input multiple="0" size="col-md-6" name="chain_id"
                                           title="{{__('labels.chain')}}">
                 <x-slot name="options">
@@ -43,6 +44,19 @@
             <x-admin.v1.form.text-area-input prepend="" value="{{old('address')}}" length="500" rows="4" size="col-md-6"
                                              name="address" title="{{__('labels.address')}}"
                                              placeholder="{{__('placeholders.address')}}"/>
+
+
+            <div class="form-group mb-3 col-md-12">
+                    <div  class="input-group">
+                    <input class="form-control" placeholder="Enter Location" id="pac-input" name="pac-input"/>
+                </div>
+            </div>
+            <div id="map" style="height: 400px;"></div>
+            <input type="hidden"  id="pac-lat" name="lat"/>
+            <input type="hidden"  id="pac-lng" name="long"/>
+            <input type="hidden"  id="pac-place-id" name="place_id"/>
+
+        </div>
         </x-slot>
         <x-slot name="buttons">
             <x-admin.v1.buttons.regular-btn btnType="btn-primary" type="submit" title="{{__('labels.create')}}"/>
@@ -51,4 +65,12 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+<script
+src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap&libraries=places&v=weekly"
+defer
+></script>
+<script src="{{asset('/')}}create-map.js"></script>
+
 @endsection

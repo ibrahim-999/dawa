@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cart_variant', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Cart::class)->constrained('carts')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Cart::class)->constrained('cart')->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Variant::class)->constrained('variants')->cascadeOnDelete();
             $table->integer('quantity')->nullable();
             $table->double('initial_price')->nullable();

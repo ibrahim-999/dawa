@@ -1,11 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
-use App\Http\Controllers\Web\Admin\v1\VendorFirebaseDeviceTokenController;
-use App\Http\Controllers\Web\Vendor\v1\VendorNotificationController;
+use App\Http\Controllers\Web\Admin\v1\VendorForgotPasswordController;
+use App\Http\Controllers\Web\Vendor\v1\AuthController;
+use App\Http\Controllers\Web\Vendor\v1\VendorFirebaseDeviceTokenController;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\Web\Vendor\v1\AuthController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +21,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('login', [AuthController::class, 'login'])->name('vendor.login.post');
 
     Route::get('reset-password/{token}/{email}', [VendorForgotPasswordController::class, 'showResetPasswordForm'])->name('vendor.reset-pasword.get');
-    Route::post('reset-password', [VendorForgotPasswordController::class, 'submitResetPasswordForm'])->name('vendor.reset-pasword.post');
+    Route::post('reset-password', [VendorForgotPasswordConلtroller::class, 'submitResetPasswordForm'])->name('vendor.reset-pasword.post');
 });
 
 
@@ -33,5 +31,3 @@ Route::group(['middleware' => 'auth:web-vendor'], function () {
 });
 
 Route::post('vendor-fcm-tokens', [VendorFirebaseDeviceTokenController::class, 'storeVendorTokenWithoutDeviceId'])->name('vendor.store.token');
-Route::get('notifications-fetch', [VendorNotificationController::class, 'fetchNotifications'])->name('vendor.notifications.fetch');
-Route::get('notifications-read', [VendorNotificationController::class, 'makeRead'])->name('vendor.notifications.read');

@@ -84,4 +84,14 @@ class DriverController extends Controller
         }
     }
 
+    public function show(Driver $driver)
+    {
+        return view('admin/v1/driver/show', compact('driver'));
+    }
+
+    public function warning(Driver $driver, Request $request)
+    {
+        $updated = $this->driverService->warningDriverByAdmin($request, $driver);
+        return Redirect::back();
+    }
 }

@@ -40,8 +40,8 @@ class NewOrderNotification extends Notification implements ShouldQueue
         $deviceTokens = $notifiable->getDeviceTokens();
 
         $data = [
-            'title' => 'new order',
-            'body' => 'new order created',
+            'title' => __ ('messages.new_order_admin_notification_title'),
+            'body' => __ ('messages.new_order_admin_created_notification_body'),
             'device_tokens' => $deviceTokens
         ];
 
@@ -54,8 +54,9 @@ class NewOrderNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('new order')
-            ->markdown('emails.new-order-created', ['body' => 'new order created']);
+            ->subject(__ ('messages.new_order_admin_mail_subject'))
+            // ->markdown('emails.new-order-created', ['body' => __ ('messages.new_order_created_mail_content')]);
+            ->markdown('emails.new-order-created-admin', ['order' => ($this->order)->refresh(),'body' => __ ('messages.new_order_created_mail_content')]);
     }
 
     // /**
@@ -67,12 +68,12 @@ class NewOrderNotification extends Notification implements ShouldQueue
     {
         return [
             'en' => [
-                'title' => 'new order',
-                'body' => 'new order created'
+                'title' => __ ('messages.new_order_admin_notification_title',[],'en'),
+                'body' => __ ('messages.new_order_admin_created_notification_body',[],'en'),
             ],
             'ar' => [
-                'title' => 'طلب جديد',
-                'body' => 'لديك طلب جديد'
+                'title' => __ ('messages.new_order_admin_notification_title',[],'ar'),
+                'body' => __ ('messages.new_order_admin_created_notification_body',[],'ar'),
             ],
 
             'model_type' => 'order',

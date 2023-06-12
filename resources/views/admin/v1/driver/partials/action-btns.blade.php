@@ -6,6 +6,13 @@
     </x-slot>
 </x-admin.v1.buttons.reference-btn>
 
+<x-admin.v1.buttons.reference-btn btnType="action-icon"
+                                  url="{{route('drivers.show',$driver->id)}}">
+    <x-slot name="title">
+        <i class="mdi mdi-eye"></i>
+    </x-slot>
+</x-admin.v1.buttons.reference-btn>
+
 {{--delete button with modal components--}}
 <x-admin.v1.buttons.modal-btn class="btn btn-sm action-icon" target="delete-{{$driver->id}}">
     <x-slot name="icon">

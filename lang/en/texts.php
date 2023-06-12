@@ -30,4 +30,7 @@ return [
     'delete_driver_body'  => 'delete driver ',
     'products_search' => 'Products Search',
 
+
+    "coupon_index_header" => " coupons",
+    "carts_index_header" => " Carts",
 ];

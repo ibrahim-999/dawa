@@ -56,5 +56,12 @@ return [
     'diver_not_found' => 'Driver not found',
     'cart_modified_successfully' => 'Cart Modified Successfully',
 
-    'not_allowed_to_change_status' => 'It is not allowed to change the status of the order.'
+    'not_allowed_to_change_status' => 'It is not allowed to change the status of the order.',
+
+    'new_order_admin_notification_title' => 'New Order',
+    'new_order_admin_created_notification_body' => 'A new request has been created',
+    'new_order_created_mail_content' => 'new order created',
+    'new_order_admin_mail_subject' => 'New Order',
+
+    'your_order_created_successfully' => 'your order created successfully',
 ];

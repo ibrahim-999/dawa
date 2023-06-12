@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Driver::class)->nullable()->constrained('drivers')->nullOnDelete();
             $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained('users')->nullOnDelete();
             $table->foreignIdFor(\App\Models\Address::class)->nullable()->constrained('addresses')->nullOnDelete();
-            $table->foreignIdFor(\App\Models\Cart::class)->nullable()->constrained('carts')->nullOnDelete();
+            $table->foreignIdFor(\App\Models\Cart::class)->nullable()->constrained('cart')->nullOnDelete();
             $table->tinyInteger('delivery_type')->nullable();
             $table->timestamp('schedule_date')->nullable();
             $table->string('schedule_time')->nullable();

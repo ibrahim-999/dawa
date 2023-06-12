@@ -27,6 +27,7 @@ class AdminUpdateDriverRequest extends FormRequest
     {
         return [
             'name' => ['required','max:255'],
+            'is_active' => ['required','boolean'],
             // 'email' => ['required', 'email:rfc,dns', 'unique:drivers,email,'.$this->user->id],
             'email' => ['nullable', 'email', 'unique:drivers,email,'.$this->driver->id],
             'phone.code' => ['required', 'string', 'max:2'],

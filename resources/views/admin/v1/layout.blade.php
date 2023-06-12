@@ -40,6 +40,18 @@
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+
+    {{-- <link href="{{asset('admin-panel-assets/v1')}}/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" /> --}}
+    {{-- <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" /> --}}
+    {{-- <link href="{{asset('admin-panel-assets/v1')}}/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" /> --}}
+
 </head>
 
 <body>
@@ -548,6 +560,15 @@
 <script src="{{asset('admin-panel-assets/v1')}}/libs/jquery-knob/jquery.knob.min.js"></script>
 <script src="{{asset('admin-panel-assets/v1')}}/js/pages/form-advanced.init.js"></script>
 
+{{-- <script src="{{asset('admin-panel-assets/v1')}}/libs/selectize/js/standalone/selectize.min.js"></script> --}}
+{{-- <script src="{{asset('admin-panel-assets/v1')}}/js/standalone/selectize.min.js"></script> --}}
+{{-- <script src="{{asset('admin-panel-assets/v1')}}/libs/selectize/js/standalone/selectize.min.js"></script> --}}
+<script src="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/multiselect/js/jquery.multi-select.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/select2/js/select2.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-select/js/bootstrap-select.min.js"></script>
 
 <!--Chartist Chart-->
 <script src="{{asset('admin-panel-assets/v1')}}/libs/chartist/chartist.min.js"></script>
@@ -556,11 +577,17 @@
 <!-- Init js -->
 <script src="{{asset('admin-panel-assets/v1')}}/js/pages/chartist.init.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
-<script src="{{asset('admin-panel-assets/v1/js/firebase.js')}}"></script>
-@include('admin.v1.partials.alerts')
+
+    <!-- Plugins js-->
+<script src="{{asset('admin-panel-assets/v1')}}/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+
+<!-- Init js-->
+
+<script src="{{asset('admin-panel-assets/v1')}}/js/pages/form-wizard.init.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/js/pages/form-advanced.init.js"></script>
+
+ @include('admin.v1.partials.alerts')
 @include('admin.v1.partials.ajax_alerts')
 <script>
     {{--
@@ -581,11 +608,6 @@ selcect group script
             });
         }
     });
-</script>
-
-<script>
-    var get_route = "{{ route('admin.notifications.fetch') }}";
-    var read_notification_route = "{{ route('admin.notifications.read') }}";
 </script>
 
 <script src="{{asset('admin-panel-assets/v1/js/fetch-notification.js')}}"></script>

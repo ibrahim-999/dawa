@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin\v1;
+namespace App\Http\Controllers\Web\Vendor\v1;
 
 use App\Domains\Shared\v1\Services\FirebaseDeviceTokenService;
 use App\Http\Controllers\ApiController;
