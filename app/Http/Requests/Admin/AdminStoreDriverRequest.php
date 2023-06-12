@@ -31,6 +31,7 @@ class AdminStoreDriverRequest extends FormRequest
             'email' => ['required', 'email', 'unique:drivers,email'],
             'phone.code' => ['required', 'string', 'max:2'],
             'phone.number' => ['required', 'alpha_num', 'phone:phone.code', 'max:12', new DuplicatePhoneCheck(new Driver())],
+            'status' => ['required', 'integer'],
             'password' => [
                 'required',
                 'confirmed',

@@ -27,6 +27,9 @@ class PharmacyStoreRequest extends FormRequest
             'address' => ['required','max:500'],
             'chain_id' => ['required','exists:chains,id'],
 
+            'lat' => ['required'],
+            'long' => ['required'],
+            'place_id' => ['required'],
         ];
     }
 }

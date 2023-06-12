@@ -23,7 +23,7 @@ class NotificationService
     {
         try {
             $user = getAuthUser();
-
+            
             $notification = $user->notifications()->where($key, $value)->first();
             if(!$notification)
             {

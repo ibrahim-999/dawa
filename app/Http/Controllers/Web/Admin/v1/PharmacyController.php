@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Admin\v1;
 
 use App\Domains\Pharmacy\v1\Services\ChainService;
+use App\Domains\Pharmacy\v1\Services\PharmacyService;
 use App\Domains\Product\v1\Services\CategoryService;
 use App\Domains\Vendor\v1\Services\VendorService;
 use App\Http\Controllers\Controller;
@@ -14,15 +15,15 @@ use Illuminate\Support\Facades\Redirect;
 
 class PharmacyController extends Controller
 {
-
-    private CategoryService $pharmacyService;
+    /// review all function
+    private PharmacyService $pharmacyService;
     private ChainService $chainService;
     private VendorService $vendorService;
 
 
 
     public function __construct(
-        CategoryService $pharmacyService,
+        PharmacyService $pharmacyService,
         ChainService    $chainService,
         VendorService   $vendorService,
 
@@ -55,7 +56,7 @@ class PharmacyController extends Controller
 
     public function store(PharmacyStoreRequest $request)
     {
-
+        // dd($request->all());
         $pharmacy = $this->pharmacyService->add($request);
         if ($pharmacy) {
             return Redirect::route('pharmacies.index')->with('success', __('messages.pharmacy_created_successfully'));

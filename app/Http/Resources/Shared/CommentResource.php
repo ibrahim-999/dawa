@@ -22,7 +22,7 @@ class CommentResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'reason' => $this->reason,
-            'warning' => WarningResource::collection($this->profileComments),
+            'warnings' => WarningResource::collection($this->profileComments),
         ];
         return $data;
     }

@@ -47,7 +47,8 @@ class AuthDriverData extends JsonResource
             'has_message' => $this->has_message,
             'status' => $this->status,
             'is_available' => (bool) $this->setting?->is_available,
-            'warning' => CommentResource::make($this->warningComment)
+            'is_active' => (bool) $this->is_active,
+            'comment' => CommentResource::make($this->warningComment)
         ];
         if ($this->token) {
             $data['token'] = $this->token;

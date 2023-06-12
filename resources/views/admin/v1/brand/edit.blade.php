@@ -19,7 +19,7 @@
 
     <div class="card">
         <div class="card-body">
-            <x-admin.v1.form.form title="{{__('forms.edit_brand_title')}}-{{$brand->name}}"
+            <x-admin.v1.form.form title="{{__('forms.edit_brand_title')}}-{{$brand->title}}"
                                   description="{{__('forms.edit_brand_description')}}"
                                   url="{{route('brands.update',$brand->id)}}"
                                   method="POST" fileable="false">
@@ -29,16 +29,18 @@
                         <div class="col-md-12">
                             <h5>{{__('labels.language')}}-{{ucfirst($local)}}</h5>
                         </div>
-                        <x-admin.v1.form.text-input errorName="" prepend="" value="{{$brand->translate($local)->title}}"
-                                                    size="col-md-12" name="{{$local}}[title]"
-                                                    title="{{__('labels.title',['local'=>$local])}}"
-                                                    placeholder="{{__('placeholders.title',['local'=>$local])}}"/>
-                        <x-admin.v1.form.text-area-input prepend=""
-                                                         value="{{$brand->translate($local)->description}}"
-                                                         length="500" rows="4" size="col-md-12"
-                                                         name="{{$local}}[description]"
-                                                         title="{{__('labels.description')}}"
-                                                         placeholder="{{__('placeholders.description')}}"/>
+                        <div class="row">
+                            <x-admin.v1.form.text-input errorName="" prepend="" value="{{$brand->translate($local)->title}}"
+                                                        size="col-md-6" name="{{$local}}[title]"
+                                                        title="{{__('labels.title',['local'=>$local])}}"
+                                                        placeholder="{{__('placeholders.title',['local'=>$local])}}"/>
+                            <x-admin.v1.form.text-area-input prepend=""
+                                                            value="{{$brand->translate($local)->description}}"
+                                                            length="500" rows="4" size="col-md-6"
+                                                            name="{{$local}}[description]"
+                                                            title="{{__('placeholders.description',['local'=>$local])}}"
+                                                            placeholder="{{__('placeholders.description')}}"/>
+                        </div>                                 
                     @endforeach
 
                 </x-slot>

@@ -80,6 +80,7 @@ class Kernel extends HttpKernel
         'checkUserStatus' => \App\Http\Middleware\CheckUserStatus::class,
         'checkDriverStatus' => \App\Http\Middleware\CheckDriverStatus::class,
         'checkAuth' => \App\Http\Middleware\CheckAuth::class,
-        'lang' => \App\Http\Middleware\GetLocale::class
+        'lang' => \App\Http\Middleware\GetLocale::class,
+        'checkDriverProfileStatus' => \App\Http\Middleware\CheckDriverProfileStatus::class,
     ];
 }

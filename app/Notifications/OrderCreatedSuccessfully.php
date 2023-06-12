@@ -41,7 +41,7 @@ class OrderCreatedSuccessfully extends Notification implements ShouldQueue
 
         $data = [
             'title' => 'new order',
-            'body' => 'new order created',
+            'body' => __('messages.your_order_created_successfully'),
             'device_tokens' => $deviceTokens
         ];
 
@@ -55,9 +55,9 @@ class OrderCreatedSuccessfully extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject('dawafast order')
-            ->markdown('emails.order-created-success', ['body' => 'order created successfully']);
+            // ->markdown('emails.order-created-success', ['body' => 'order created successfully']);
+            ->markdown('emails.new-order-created-success', ['order' => ($this->order)->refresh() ,'body' => __('messages.your_order_created_successfully')]);
     }
-
     // /**
     //  * Get the array representation of the notification.
     //  *
@@ -67,12 +67,12 @@ class OrderCreatedSuccessfully extends Notification implements ShouldQueue
     {
         return [
             'en' => [
-                'title' => 'new order',
-                'body' => 'new order created'
+                'title' => __ ('messages.new_order',[],'en'),
+                'body' => __ ('messages.your_order_created_successfully',[],'en'),
             ],
             'ar' => [
-                'title' => 'طلب جديد',
-                'body' => 'لديك طلب جديد'
+                'title' => __ ('messages.new_order',[],'ar'),
+                'body' => __ ('messages.your_order_created_successfully',[],'ar'),
             ],
 
             'model_type' => 'order',

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
-use App\Http\Controllers\Web\Admin\v1\NotificationController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Web\Admin\v1\AuthController;
 use \App\Http\Controllers\Web\Admin\v1\AdminController;
@@ -17,6 +16,7 @@ use \App\Http\Controllers\Web\Admin\v1\BrandController;
 use \App\Http\Controllers\Web\Admin\v1\ProductController;
 use \App\Http\Controllers\Web\Admin\v1\ProductAttributeController;
 use \App\Http\Controllers\Web\Admin\v1\AttributeValueController;
+use App\Http\Controllers\Web\Admin\v1\CouponController;
 use App\Http\Controllers\Web\Admin\v1\DriverController;
 use App\Http\Controllers\Web\Admin\v1\ForgotPasswordController;
 use App\Http\Controllers\Web\Admin\v1\UserController;
@@ -72,6 +72,8 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
 
     Route::resource('users', UserController::class);
     Route::resource('drivers', DriverController::class);
+    Route::resource('coupons', CouponController::class);
+    Route::post('drivers/{driver}/warning', [DriverController::class, 'warning'])->name('drivers.warningDriverByAdmin');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
@@ -81,4 +83,3 @@ Route::post('reset-password', [AdminForgotPasswordController::class, 'submitRese
 
 
 Route::post('admin-fcm-tokens', [AdminFirebaseDeviceTokenController::class, 'storeAdminTokenWithoutDeviceId'])->name('admin.store.token');
-Route::get('notifications-fetch', [NotificationController::class, 'fetchNotifications'])->name('admin.notifications.fetch');

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\User\V1\AuthController;
 use App\Http\Controllers\Api\User\V1\ProfileController;
 use App\Http\Controllers\Api\User\V1\RegisterController;
 use App\Http\Controllers\Api\User\V1\CartController;
+use App\Http\Controllers\Api\User\V1\CouponController;
 use App\Http\Controllers\Api\User\V1\OrderController;
 
 /*
@@ -42,6 +43,7 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserStatus'] ], function ()
     Route::post('sync/cart', [CartController::class, 'syncCart']);
     Route::get('cart/current', [CartController::class, 'getCurrentCat']);
     Route::post('cart-item/create-or-update', [CartController::class, 'createOrUpdateItem']);
+    Route::get('coupons/{code}', [CouponController::class, 'show']);
 
     Route::post('orders', [OrderController::class, 'store']);
     Route::get('orders', [OrderController::class, 'index']);

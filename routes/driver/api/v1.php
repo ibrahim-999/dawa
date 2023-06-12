@@ -26,10 +26,8 @@ Route::group(['prefix' => 'password'], function () {
         Route::post('verify-otp', [RegisterController::class, 'verifyRegisterOtp']);
     });
 });
-Route::group(['middleware' => ['auth:sanctum-driver', 'checkDriverStatus'] ], function () {
-    Route::post('password/reset', [PasswordController::class, 'passwordReset']);
+Route::group(['middleware' => ['auth:sanctum-driver', 'checkDriverStatus','checkDriverProfileStatus'] ], function () {
     Route::get('me', [AuthController::class, 'me']);
-    Route::post('logout', [AuthController::class, 'logout']);
 
 });
 
@@ -38,4 +36,8 @@ Route::group(['middleware' => ['auth:sanctum-driver'] ], function () {
     Route::post('profile/step/2/complete', [ProfileController::class, 'CompleteProfileStepTwo']);
     Route::post('profile/step/3/complete', [ProfileController::class, 'CompleteProfileStepThree']);
     Route::post('profile/update-availability', [ProfileController::class, 'updateDriverAvailability']);
+    Route::post('password/reset', [PasswordController::class, 'passwordReset']);
+    Route::post('logout', [AuthController::class, 'logout']);
+
+
 });

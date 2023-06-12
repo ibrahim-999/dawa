@@ -13,6 +13,9 @@ class Pharmacy extends Model
         'info',
         'chain_id',
         'address',
+        'lat',
+        'long',
+        'place_id',
     ];
     protected $casts = [
         'created_at' => 'datetime',

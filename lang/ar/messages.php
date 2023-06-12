@@ -48,6 +48,14 @@ return [
 
 
     'cart_not_found' => 'السلة غير موجودة',
+    'not_allowed_to_change_status' => 'لا يجوز تغيير حالة الطلب.',
+
+    'new_order_admin_notification_title' => 'طلب جديد',
+    'new_order_admin_created_notification_body' => 'تم إنشاء طلب جديد',
+    'new_order_created_mail_content' => 'تم إنشاء طلب جديد',
+    'new_order_admin_mail_subject' => 'طلب جديد',
+
+    'your_order_created_successfully' => 'تم إنشاء طلبك بنجاح',
     'cart_modified_successfully' => 'تم تعديل السلة بنجاح',
     'not_allowed_to_change_status' => 'لا يجوز تغيير حالة الطلب.'
 ];

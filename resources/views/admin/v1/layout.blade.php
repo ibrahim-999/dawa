@@ -37,6 +37,18 @@
     <link rel="stylesheet" href="{{asset('admin-panel-assets/v1')}}/libs/chartist/chartist.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+
+    {{-- <link href="{{asset('admin-panel-assets/v1')}}/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" /> --}}
+    {{-- <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" /> --}}
+    {{-- <link href="{{asset('admin-panel-assets/v1')}}/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" /> --}}
+
 </head>
 
 <body>
@@ -545,6 +557,15 @@
 <script src="{{asset('admin-panel-assets/v1')}}/libs/jquery-knob/jquery.knob.min.js"></script>
 <script src="{{asset('admin-panel-assets/v1')}}/js/pages/form-advanced.init.js"></script>
 
+{{-- <script src="{{asset('admin-panel-assets/v1')}}/libs/selectize/js/standalone/selectize.min.js"></script> --}}
+{{-- <script src="{{asset('admin-panel-assets/v1')}}/js/standalone/selectize.min.js"></script> --}}
+{{-- <script src="{{asset('admin-panel-assets/v1')}}/libs/selectize/js/standalone/selectize.min.js"></script> --}}
+<script src="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/multiselect/js/jquery.multi-select.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/select2/js/select2.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-select/js/bootstrap-select.min.js"></script>
 
 <!--Chartist Chart-->
 <script src="{{asset('admin-panel-assets/v1')}}/libs/chartist/chartist.min.js"></script>
@@ -553,6 +574,15 @@
 <!-- Init js -->
 <script src="{{asset('admin-panel-assets/v1')}}/js/pages/chartist.init.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <!-- Plugins js-->
+<script src="{{asset('admin-panel-assets/v1')}}/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+
+<!-- Init js-->
+
+<script src="{{asset('admin-panel-assets/v1')}}/js/pages/form-wizard.init.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.js"></script>
+<script src="{{asset('admin-panel-assets/v1')}}/js/pages/form-advanced.init.js"></script>
 
 @include('admin.v1.partials.alerts')
 @include('admin.v1.partials.ajax_alerts')
@@ -578,54 +608,7 @@ selcect group script
 </script>
 
 {{-- script firebase token --}}
-<script>
-    alert();
 
-    $.ajax({
-            url: '{{ route('admin.notifications.fetch') }}',
-            type: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                alert();
-                var notifications = response;
-
-                var notificationList = $('#noti-scroll');
-                notificationList.empty(); // Clear existing notifications
-
-                notifications.forEach(function (notification) {
-                    var listItem = $('<a></a>')
-                        .attr('href', 'javascript:void(0);')
-                        .addClass('dropdown-item notify-item')
-                        .addClass('active');
-
-                    var notifyIcon = $('<div></div>')
-                        .addClass('notify-icon')
-                        .append(
-                            $('<img>')
-                                .attr('src', '{{asset('admin-panel-assets/v1')}}/images/users/user-1.jpg')
-                                .addClass('img-fluid rounded-circle')
-                                .attr('alt', '')
-                        );
-
-                    var notifyDetails = $('<p></p>')
-                        .addClass('notify-details')
-                        .text('Cristina Pride');
-
-                    var userMsg = $('<p></p>')
-                        .addClass('text-muted mb-0 user-msg')
-                        .append(
-                            $('<small></small>')
-                                .text(notification.data.message)
-                        );
-
-                    listItem.append(notifyIcon, notifyDetails, userMsg);
-                    notificationList.append(listItem);
-                });
-            },            error: function (xhr, status, error) {
-                // Handle error if any
-            }
-        });
-</script>
 
 {{-- end of script --}}
 @yield('scripts')

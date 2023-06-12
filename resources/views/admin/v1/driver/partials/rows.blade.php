@@ -28,6 +28,9 @@
             @endif
         </td>
         <td>
+            {{\App\Domains\Driver\v1\Enums\DriverStatusEnum::from((int)$driver->status)->name}}
+        </td>
+        <td>
             {{$driver->created_at}}
         </td>
         <td>

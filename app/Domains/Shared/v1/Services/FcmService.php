@@ -66,8 +66,10 @@ class FcmService
             'registration_ids'    => $data['device_tokens'],
             "notification"     => [
                 "title" => $data['title'],
-                "body" => $data['body']
+                "body" => $data['body'],
+                "icon" => asset('admin-panel-assets/v1/images/logo-dark.png'),
             ],
         ];
     }
 }
+// asset('admin-panel-assets/v1/images/logo-dark.png')

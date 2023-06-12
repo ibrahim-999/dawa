@@ -23,29 +23,36 @@
                                       url="{{route('admin.vendors.store')}}"
                                       method="POST" fileable="false">
                     <x-slot name="inputs">
-                        <x-admin.v1.form.text-input errorName="" prepend="" value="{{old('name')}}" size="col-md-6" name="name"
-                                                    title="{{__('labels.name')}}"
-                                                    placeholder="{{__('placeholders.name')}}"/>
-                        <x-admin.v1.form.email-input value="{{old('email')}}" prepend="" size="col-md-6" name="email"
-                                                     title="{{__('labels.email')}}"
-                                                     placeholder="{{__('placeholders.email')}}"/>
-                        <x-admin.v1.form.select-input multiple="0" size="col-md-6" name="role"
-                                                      title="{{__('labels.role')}}">
-                            <x-slot name="options">
-                                <option>Select</option>
-                                @foreach($roles as $role)
-                                    <option @if(old('role') == $role) selected
-                                            @endif value="{{$role}}">{{$role}}</option>
-                                @endforeach
-                            </x-slot>
-                        </x-admin.v1.form.select-input>
+                        <div class="row">
+                            <x-admin.v1.form.text-input errorName="" prepend="" value="{{old('name')}}" size="col-md-6" name="name"
+                            title="{{__('labels.name')}}"
+                            placeholder="{{__('placeholders.name')}}"/>
+                            <x-admin.v1.form.email-input value="{{old('email')}}" prepend="" size="col-md-6" name="email"
+                                                        title="{{__('labels.email')}}"
+                                                        placeholder="{{__('placeholders.email')}}"/>
+                        </div>
 
-                        <x-admin.v1.form.password-input prepend="" size="col-md-6" name="password"
+                        <div class="row">
+                            <x-admin.v1.form.select-input multiple="0" size="col-md-6" name="role"
+                            title="{{__('labels.role')}}">
+                                <x-slot name="options">
+                                    <option>Select</option>
+                                    @foreach($roles as $role)
+                                        <option @if(old('role') == $role) selected
+                                                @endif value="{{$role}}">{{$role}}</option>
+                                    @endforeach
+                                </x-slot>
+                                </x-admin.v1.form.select-input>
+
+                            <x-admin.v1.form.password-input prepend="" size="col-md-6" name="password"
                                                         title="{{__('labels.password')}}"
                                                         placeholder="{{__('placeholders.password')}}"/>
+                        </div>
+                        <div class="row">
                         <x-admin.v1.form.password-input prepend="" size="col-md-6" name="password_confirmation"
                                                         title="{{__('labels.password_confirmation')}}"
                                                         placeholder="{{__('placeholders.password_confirmation')}}"/>
+                        </div>
                         <x-admin.v1.form.checkbox-input value="1" checked="1" size="col-md-6" name="invite"
                                                         title="{{__('labels.send_invitation')}}"/>
                     </x-slot>

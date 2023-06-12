@@ -1,6 +1,6 @@
 @extends('admin.v1.layout')
 @section('title')
-    {{__('pages_title.create_driver')}}
+    {{__('pages_title.index_drivers')}}
 @endsection
 @section('content')
     <x-admin.v1.layout.partials.basic-page-header>
@@ -40,7 +40,8 @@
             <th>Customer</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>status</th>
+            <th>active</th>
+            <th>profile status</th>
             <th>Created at</th>
             <th>Updated aT</th>
             <th style="width: 85px;">Action</th>

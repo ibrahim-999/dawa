@@ -288,6 +288,28 @@
                         <x-slot name="title">{{__('labels.drivers')}}</x-slot>
                     </x-admin.v1.sidebar.menu-navigation-item>
                 @endif
+                @if($admin->can('index_coupons')|| $admin->can('index_coupons') )
+                    <x-admin.v1.sidebar.menu-navigation-item name="coupons" title="{{__('labels.coupons')}}"
+                                                             badge="dev">
+                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="badge"></x-slot>
+                        <x-slot name="items">
+                            @can('create_coupons')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('coupons.create')}}"
+                                                                           title="{{__('labels.add')}}" badge="dev">
+                                    <x-slot name="icon"><i class="far fa-plus-square nav-icon"></i></x-slot>
+                                </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                            @can('index_coupons')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('coupons.index')}}"
+                                                                           title="{{__('labels.index')}}" badge="dev">
+                                    <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
+                                </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                        </x-slot>
+                        <x-slot name="title">{{__('labels.coupons')}}</x-slot>
+                    </x-admin.v1.sidebar.menu-navigation-item>
+                @endif
             </ul>
 
         </div>

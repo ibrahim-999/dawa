@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
-use App\Http\Controllers\Web\Admin\v1\VendorFirebaseDeviceTokenController;
+use App\Http\Controllers\Web\Admin\v1\VendorForgotPasswordController;
+use App\Http\Controllers\Web\Vendor\v1\VendorFirebaseDeviceTokenController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Web\Vendor\v1\AuthController;
-
 
 /*
 |--------------------------------------------------------------------------

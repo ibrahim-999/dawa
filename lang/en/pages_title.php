@@ -7,4 +7,14 @@ return [
     'roles' => 'Roles',
     'create_chain' => 'Chains',
     'create_pharmacy' => 'Pharmacies',
+
+
+    "create_coupon" => " Create coupon",
+    "edit_coupon" => " Edit coupon",
+    "create_driver" => " Create driver",
+    "edit_driver" => " Edit driver",
+    "index_coupons" => "Coupons",
+    "index_drivers" => "Drivers",
+
+    'pages_title.edit_pharmacy' => 'edit pharmacy'
 ];

@@ -3,6 +3,7 @@
 namespace App\Domains\Driver\v1\Services;
 
 use App\Domains\Driver\v1\Enums\DriverProfileStep;
+use App\Domains\Driver\v1\Enums\DriverStatusEnum;
 use App\Domains\Shared\v1\Services\Auth\OtpAccessService;
 use App\Domains\Shared\v1\Traits\UploadFilesTrait;
 use App\Models\Driver;
@@ -20,7 +21,7 @@ class DriverService
     use UploadFilesTrait;
     private Driver $driverModel;
     private OtpAccessService $otpAccessService;
-    
+
     public function __construct(Driver $driverModel, OtpAccessService   $otpAccessService)
     {
         $this->driverModel = $driverModel;
@@ -57,6 +58,7 @@ class DriverService
                     'phone' => $this->getRequestPhone($request),
                     'name' => $request->name ?? null,
                     'password' => Hash::make($request->password),
+//                    'status' => DriverStatusEnum::PENDING,
                 ]
             );
         } catch (\Throwable $exception) {
@@ -112,7 +114,7 @@ class DriverService
             $driverUpdated = DB::transaction(function()use($request,$driver){
 
                 $this->uploadFile($request->id_number_image, $driver, 'id_number_image', 'driver');
-                
+
                 $this->uploadFile($request->profile_image, $driver, 'profile', 'driver');
 
                 return $driver->update(
@@ -264,7 +266,7 @@ class DriverService
                 $data['password'] = Hash::make($request->password);
             }
 
-            $data['is_active'] =  $request->is_active ? 1 : 0;
+            $data['is_active'] =  ($request->is_active && ($request->is_active ==1)) ? 1 : 0;
             return $user->update($data);
         } catch (\Throwable $exception) {
             throw $exception;
@@ -293,6 +295,7 @@ class DriverService
                     'email' => $request->email ?? null,
                     'password' => Hash::make($request->password),
                     'is_active' => $request->is_active ? 1 : 0,
+                    'status' => $request->status,
                 ]
             );
         } catch (\Throwable $exception) {
