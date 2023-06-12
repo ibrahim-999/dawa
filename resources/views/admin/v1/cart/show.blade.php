@@ -37,6 +37,11 @@
     </div>
 
     <div class="row">
+        <div class="col-lg-4">
+            <!-- end card-box-->
+            @include('admin.v1.cart.partials.cart_data')
+
+        </div>
         <div class="col-lg-8">
             @include('admin.v1.cart.partials.variants_table')
 

@@ -167,4 +167,10 @@ return [
     'carts_create' => 'Create Carts',
     'carts_show' => 'Show Carts',
     'cart_index' => 'cart',
+    'cart_variants' => 'Cart Variants',
+    'cart_info' => 'CART INFO',
+    'phone' => 'PHONE',
+    'place' => 'PLACE',
+    'is_current' => 'IS CURRENT',
+    'quantity' => 'QUANTITY',
 ];
