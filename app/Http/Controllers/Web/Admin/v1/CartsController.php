@@ -29,7 +29,7 @@ class CartsController extends Controller
     {
         $itemsPerPage = $request->per_page ?? 10;
         $carts = $this->cartService;
-        $carts = $carts->setBuilder(Cart::where('is_current','1'))
+        $carts = $carts->setBuilder(Cart::where('order_id',null))
             ->sort('id', 'DESC')
             ->paginate($itemsPerPage);
 
