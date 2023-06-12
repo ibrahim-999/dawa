@@ -1,18 +1,17 @@
 <?php
 
-use App\Http\Controllers\Web\Admin\V1\CartsController;
 use App\Http\Controllers\Web\Admin\v1\AdminController;
 use App\Http\Controllers\Web\Admin\v1\AdminFirebaseDeviceTokenController;
 use App\Http\Controllers\Web\Admin\v1\AdminForgotPasswordController;
 use App\Http\Controllers\Web\Admin\v1\AttributeValueController;
 use App\Http\Controllers\Web\Admin\v1\AuthController;
 use App\Http\Controllers\Web\Admin\v1\BrandController;
+use App\Http\Controllers\Web\Admin\V1\CartsController;
 use App\Http\Controllers\Web\Admin\v1\CategoryController;
 use App\Http\Controllers\Web\Admin\v1\ChainController;
 use App\Http\Controllers\Web\Admin\v1\CouponController;
 use App\Http\Controllers\Web\Admin\v1\DriverController;
 use App\Http\Controllers\Web\Admin\v1\ForgotPasswordController;
-use App\Http\Controllers\Web\Admin\v1\NotificationController;
 use App\Http\Controllers\Web\Admin\v1\PharmacyController;
 use App\Http\Controllers\Web\Admin\v1\ProductAttributeController;
 use App\Http\Controllers\Web\Admin\v1\ProductController;
@@ -76,7 +75,8 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
     Route::resource('coupons', CouponController::class);
     Route::post('drivers/{driver}/warning', [DriverController::class, 'warning'])->name('drivers.warningDriverByAdmin');
 
-    Route::resource('cart', CartsController::class);
+    Route::get('cart', [CartsController::class, 'index'])->name('admin.cart.index');
+    Route::get('cart/{cart}/show', [CartsController::class, 'show'])->name('admin.cart.show');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });

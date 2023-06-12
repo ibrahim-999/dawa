@@ -49,4 +49,7 @@ return [
     ['module_name' => 'roles', 'name' => 'update_roles', 'guard_name' => 'web-admin'],
     ['module_name' => 'roles', 'name' => 'index_roles', 'guard_name' => 'web-admin'],
     ['module_name' => 'roles', 'name' => 'delete_roles', 'guard_name' => 'web-admin'],
+
+    ['module_name' => 'carts', 'name' => 'show_carts', 'guard_name' => 'web-admin'],
+    ['module_name' => 'carts', 'name' => 'index_carts', 'guard_name' => 'web-admin'],
 ];

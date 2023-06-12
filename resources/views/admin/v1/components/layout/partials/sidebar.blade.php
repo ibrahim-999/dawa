@@ -245,14 +245,14 @@
                     </x-admin.v1.sidebar.menu-navigation-item>
                 @endif
                 @if($admin->can('index_carts') )
-                    <x-admin.v1.sidebar.menu-navigation-item name="carts" title="{{__('labels.products')}}"
+                    <x-admin.v1.sidebar.menu-navigation-item name="carts" title="{{__('labels.cart')}}"
                                                              badge="dev">
-                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="icon"><i data-feather="cart"></i></x-slot>
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
                             @can('index_carts')
-                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('cart.index')}}"
-                                                                           title="{{__('labels.index')}}" badge="dev">
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('admin.cart.index')}}"
+                                                                           title="{{__('labels.cart')}}" badge="dev">
                                     <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
                                 </x-admin.v1.sidebar.single-navigation-item>
                             @endcan
@@ -333,7 +333,7 @@
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
                             @can('create_carts')
-                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('cart.index')}}"
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('admin.cart.index')}}"
                                                                            title="{{__('labels.index')}}" badge="dev">
                                     <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
                                 </x-admin.v1.sidebar.single-navigation-item>

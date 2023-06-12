@@ -2,7 +2,7 @@
     <tr>
 
         <td class="table-user">
-            <a href="">
+            <a href="{{route('admin.cart.show',['cart'=>$cart->id])}}">
                 {{$cart->user->name??'-'}}
             </a>
         </td>
