@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
+use App\Http\Controllers\Api\User\V1\CartController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Web\Admin\v1\AuthController;
 use \App\Http\Controllers\Web\Admin\v1\AdminController;
@@ -74,6 +75,8 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
     Route::resource('drivers', DriverController::class);
     Route::resource('coupons', CouponController::class);
     Route::post('drivers/{driver}/warning', [DriverController::class, 'warning'])->name('drivers.warningDriverByAdmin');
+
+    Route::resource('carts', CartController::class);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });

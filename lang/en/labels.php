@@ -160,4 +160,11 @@ return [
     "" => "",
     "" => "",
     "" => "",
+    'carts' => 'carts',
+    'cart' => 'User',
+    'carts_index' => 'Carts',
+    'carts_edit' => 'Edit Carts',
+    'carts_create' => 'Create Carts',
+    'carts_show' => 'Show Carts',
+    'cart_index' => 'carts',
 ];
