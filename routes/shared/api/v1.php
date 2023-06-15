@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Shared\V1\SliderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Product\CategoryController;
@@ -51,6 +52,9 @@ Route::get('terms', [SettingController::class, 'terms']);
 Route::get('questions', [QuestionController::class, 'index']);
 
 Route::post('contact-us', [ContactController::class, 'store']);
+
+Route::get('sliders', [SliderController::class, 'index']);
+Route::get('sliders/{slider}', [SliderController::class, 'show']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('wishlists', [WishlistController::class, 'index']);

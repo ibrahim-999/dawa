@@ -8,13 +8,12 @@ use Illuminate\Pagination\Paginator;
 
 class NotificationService
 {
-    public function paginate_simple(int $itemsPerPage,$guard): array
+    public function paginate_simple(int $itemsPerPage): array
     {
         try {
-//            $user = getAuthUser();
-            $user = auth($guard)->user();
-             return ['notifications' => $user->notifications()->orderBy('created_at', 'desc')->simplePaginate($itemsPerPage),
-                 'unread_notifications_count' => $user->unreadNotifications()->count()];
+            $user = getAuthUser();
+            // dd($user);
+            return ['notifications' => $user->notifications()->orderBy('created_at', 'desc')->simplePaginate($itemsPerPage),'unread_notifications_count' => $user->unreadNotifications()->count()];
         } catch (\Throwable $exception) {
             throw $exception;
         }
@@ -39,10 +38,10 @@ class NotificationService
     }
 
 
-    public function markAllSeen($guard)
+    public function markAllSeen()
     {
         try {
-            $user = auth($guard)->user();
+            $user = auth('sanctum')->user();
 
             $user->unreadNotifications->markAsRead();
         } catch (\Throwable $exception) {

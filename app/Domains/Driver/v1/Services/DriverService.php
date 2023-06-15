@@ -318,4 +318,50 @@ class DriverService
         }
 
     }
+
+    public function warningDriverByAdmin(Request $request, $driver): ?bool
+    {
+        try {
+            $data = $request->except('_token');
+            $comment = $driver->warningComment;
+            if (!$comment) {
+                $comment = $driver->comments()->create([
+                    'en' => [
+                        'title' => 'your request is rejected',
+                        'body' => 'your request is rejected',
+                    ],
+                    'ar' => [
+                        'title' => ' ar your request is rejected',
+                        'body' => 'ar  your request is rejected',
+                    ],
+                    'type' => 'danger',
+                    'reason' => 'joining_as_driver',
+                ]);
+            }
+            foreach ($data as $key => $value) {
+                if ($value) {
+                    $key = explode("_",$key,2)[1];
+                    $lang = explode("_",$key,2)[0];
+                    $comment->profileComments()->updateOrCreate(['input' => $key],[
+                        'input' => $key,
+                        'en' => [
+                            'message' => $data['en_'.$key]
+                        ],
+                        'ar' => [
+                            'message' => $data['ar_'.$key]
+                        ]
+                    ]);
+                }else{
+                    $comment->profileComments()->where('input',$key)->delete();
+                }
+
+            }
+            // $warnings = $comment?->profileComments->toArray();
+            return true;
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+
+    }
+
 }

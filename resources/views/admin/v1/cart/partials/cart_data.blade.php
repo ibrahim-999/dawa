@@ -11,12 +11,6 @@
         <p class="mb-3">   {{$cart->user->phone??'-'}}</p>
         <h4 class="font-13 text-muted text-uppercase mb-1">{{__('labels.address')}} :</h4>
         <p class="mb-3">  {{$cart->address->address??'-'}}</p>
-        <h4 class="font-13 text-muted text-uppercase mb-1">{{__('labels.place')}} :</h4>
-        <p class="mb-3">  {{$cart->place->name??'-'}}</p>
-        <h4 class="font-13 text-muted text-uppercase mb-1">{{__('labels.is_current')}} :</h4>
-        <p class="mb-3">  {{$cart->place->is_current==1?'Yes':'No'}}</p>
-        <h4 class="font-13 text-muted text-uppercase mb-1">{{__('labels.quantity')}} :</h4>
-        <p class="mb-3"> {{$cart->variants()->sum('quantity')}}</p>
         <h4 class="font-13 text-muted text-uppercase mb-1">{{__('labels.created_at')}} :</h4>
         <p class="mb-3"> {{$cart->created_at}}</p>
     </div>

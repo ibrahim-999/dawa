@@ -1,16 +1,16 @@
 @extends('admin.v1.layout')
 @section('title')
-    {{__('pages_title.create_cart')}}
+    {{__('pages_title.cart')}}
 @endsection
 @section('content')
     <x-admin.v1.layout.partials.basic-page-header>
         <x-slot name="breadcrumbs">
             <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.dashboard')}}" url="{{route('dashboard')}}"
                                                          isActive="0"/>
-            <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.carts_index')}}" url="" isActive="1"/>
+            <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.cart')}}" url="" isActive="1"/>
         </x-slot>
         <x-slot name="title">
-            {{__('texts.carts_index_header')}}
+            {{__('texts.carts')}}
         </x-slot>
     </x-admin.v1.layout.partials.basic-page-header>
 
@@ -29,9 +29,8 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Address</th>
-                    <th>Place</th>
-                    <th>Is Current</th>
                     <th>Quantity</th>
+                    <th>TotalPrice</th>
                     <th>Created at</th>
                     <th style="width: 85px;">Action</th>
                 </x-slot>

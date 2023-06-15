@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web\Admin\v1;
 
-use App\Domains\Product\v1\Services\CartService;
+use App\Domains\User\v1\Services\CartService;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use Illuminate\Http\Request;
@@ -29,7 +29,8 @@ class CartsController extends Controller
     {
         $itemsPerPage = $request->per_page ?? 10;
         $carts = $this->cartService;
-        $carts = $carts->setBuilder(Cart::where('order_id',null))
+        $carts = $carts
+            ->notPurchasedCarts()
             ->sort('id', 'DESC')
             ->paginate($itemsPerPage);
 

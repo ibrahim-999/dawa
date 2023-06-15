@@ -30,15 +30,12 @@
     <!-- icons -->
     <link href="{{asset('admin-panel-assets/v1')}}/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="{{asset('admin-panel-assets/v1')}}/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
-    <link href="{{asset('admin-panel-assets/v1')}}/libs/nestable2/jquery.nestable.min.css" rel="stylesheet"/>
-    <link href="{{asset('admin-panel-assets/v1')}}/css/tree.css" rel="stylesheet"/>
-    <link href="{{asset('admin-panel-assets/v1')}}/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet"
-          type="text/css"/>
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/nestable2/jquery.nestable.min.css" rel="stylesheet" />
+    <link href="{{asset('admin-panel-assets/v1')}}/css/tree.css" rel="stylesheet" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{asset('admin-panel-assets/v1')}}/libs/chartist/chartist.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 
     <link href="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
@@ -587,7 +584,7 @@
 <script src="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.js"></script>
 <script src="{{asset('admin-panel-assets/v1')}}/js/pages/form-advanced.init.js"></script>
 
- @include('admin.v1.partials.alerts')
+@include('admin.v1.partials.alerts')
 @include('admin.v1.partials.ajax_alerts')
 <script>
     {{--
@@ -610,7 +607,9 @@ selcect group script
     });
 </script>
 
-<script src="{{asset('admin-panel-assets/v1/js/fetch-notification.js')}}"></script>
+{{-- script firebase token --}}
+
+
 {{-- end of script --}}
 @yield('scripts')
 @stack('custom-scripts')

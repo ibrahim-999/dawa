@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\User\V1;
 
+use App\Domains\Product\v1\Services\CouponService;
 use App\Domains\Product\v1\Services\ProductService;
 use App\Domains\Product\v1\Services\VariantService;
 use App\Domains\User\v1\Services\CartService;
@@ -21,6 +22,7 @@ class CartController extends ApiController
 
     public function __construct(
         CartService $cartService,
+        private CouponService $couponService
     )
     {
         $this->cartService = $cartService;
@@ -35,7 +37,27 @@ class CartController extends ApiController
     public function getCurrentCat(Request $request)
     {
         $cart = $this->cartService->getCurrentCart($request)->load('variants');
+
+        if ($request->coupon_code) {
+
+            $coupon = $this->couponService->find('code', $request->coupon_code);
+
+    
+            if (!$coupon) {
+                return $this->failResourceNotFoundMessage('coupon');
+            }
+
+            $coupon->load(['categories','products']);
+
+            $validated = $this->couponService->validateCoupon($coupon,$cart);
+
+            if (!$validated) {
+                return $this->failGeneralMessage('coupon is n\'t valid to use');
+            }
+        }
+
         $data = CartResource::make($cart);
+
         return $this->successShowDataResponse($data, 'cart');
     }
     public function createOrUpdateItem(UpdateCartItemRequest $request)

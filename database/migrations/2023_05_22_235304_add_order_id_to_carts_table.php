@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cart', function (Blueprint $table) {
+        Schema::table('carts', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Order::class)->nullable()->constrained('orders')->cascadeOnDelete();
             $table->tinyInteger('is_current')->default(1);
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('cart', function (Blueprint $table) {
+        Schema::table('carts', function (Blueprint $table) {
             $table->dropColumns(['order_id','is_current']);
         });
     }

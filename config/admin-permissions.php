@@ -50,6 +50,12 @@ return [
     ['module_name' => 'roles', 'name' => 'index_roles', 'guard_name' => 'web-admin'],
     ['module_name' => 'roles', 'name' => 'delete_roles', 'guard_name' => 'web-admin'],
 
+    ['module_name' => 'sliders', 'name' => 'create_sliders', 'guard_name' => 'web-admin'],
+    ['module_name' => 'sliders', 'name' => 'show_sliders', 'guard_name' => 'web-admin'],
+    ['module_name' => 'sliders', 'name' => 'update_sliders', 'guard_name' => 'web-admin'],
+    ['module_name' => 'sliders', 'name' => 'index_sliders', 'guard_name' => 'web-admin'],
+    ['module_name' => 'sliders', 'name' => 'delete_sliders', 'guard_name' => 'web-admin'],
+
     ['module_name' => 'carts', 'name' => 'show_carts', 'guard_name' => 'web-admin'],
     ['module_name' => 'carts', 'name' => 'index_carts', 'guard_name' => 'web-admin'],
 ];

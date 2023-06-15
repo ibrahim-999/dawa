@@ -195,7 +195,7 @@
                 <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
-                    <span class="badge badge-danger rounded-circle noti-icon-badge" id="notification_count">0</span>
+                    <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-lg">
 
@@ -210,10 +210,6 @@
                         </h5>
                     </div>
 
-<<<<<<< HEAD
-                    <div class="noti-scroll" id="noti-scrollg" data-simplebar>
-
-=======
                     <div class="noti-scroll" data-simplebar>
 
                         <!-- item-->
@@ -278,7 +274,6 @@
                                 <small class="text-muted">13 days ago</small>
                             </p>
                         </a>
->>>>>>> 1649aad7e31ea44e95708913cb679556ca33e7f7
                     </div>
 
                     <!-- All-->

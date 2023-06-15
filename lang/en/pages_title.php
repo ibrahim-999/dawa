@@ -15,7 +15,18 @@ return [
     "edit_driver" => " Edit driver",
     "index_coupons" => "Coupons",
     "index_drivers" => "Drivers",
-    "create_cart" => "Cart",
 
-    'pages_title.edit_pharmacy' => 'edit pharmacy'
+    'pages_title.edit_pharmacy' => 'edit pharmacy',
+
+    'pages_title.edit_offer' => 'edit offer',
+    "edit_offer" => " Edit offer",
+    "create_offer" => " Create offer",
+    "index_offers" => "Offers",
+    'index_slider' => 'Sliders',
+    'edit_slider' => 'Edit Slider',
+    'create_slider' => 'Create Slider',
+
+    'show_cart' => 'Show Cart',
+    'cart' => 'Carts'
+
 ];

@@ -21,8 +21,8 @@ class CategoryFactory extends Factory
     {
         $arabic_faker=\Faker\Factory::create('ar_EG');
         return [
-            'en' => ['title' => $this->faker->company,'description'=>$this->faker->paragraph(10)],
-            'ar' => ['title' => $arabic_faker->company,'description'=>$arabic_faker->paragraph(10)],
+            'en' => ['title' => $this->faker->word,'description'=>$this->faker->paragraph(10)],
+            'ar' => ['title' => $arabic_faker->word,'description'=>$arabic_faker->paragraph(10)],
         ];
     }
 }

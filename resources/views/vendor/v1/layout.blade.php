@@ -549,7 +549,6 @@
 
 <!-- Init js -->
 <script src="{{asset('admin-panel-assets/v1')}}/js/pages/chartist.init.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 @include('admin.v1.partials.alerts')
 @include('admin.v1.partials.ajax_alerts')
@@ -574,9 +573,6 @@ selcect group script
     });
 </script>
 
-
-
-<script src="{{asset('admin-panel-assets/v1/js/fetch-notification.js')}}"></script>
 
 @yield('scripts')
 @stack('custom-scripts')

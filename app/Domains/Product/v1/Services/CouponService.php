@@ -188,18 +188,22 @@ class CouponService implements CouponServiceContract, CrudContract
         $startDate = Carbon::createFromFormat('Y-m-d', $coupon->start_date);
         $endDate = Carbon::createFromFormat('Y-m-d', $coupon->end_date);
 
-        if ( $dateNow->gte($startDate) && $endDate->gte($dateNow)) {
-            return true;
+        if (! (($startDate->gte($dateNow) || $startDate->lte($dateNow) ) && $endDate->gte($dateNow) )) {
+            return false;
         }
 
         $couponPersonUsagesCount = CouponUsage::where('user_id',$cart->user_id)->where('coupon_id',$coupon->id)->where('status',1)->count();
         $couponAllUsagesCount = CouponUsage::where('coupon_id',$coupon->id)->where('status',1)->count();
-
-        if ($couponPersonUsagesCount < $coupon->num_uses_person && $couponAllUsagesCount <  $coupon->num_uses && $cart->variants->count()) {
-            return true;
+        
+        if (($couponPersonUsagesCount >= $coupon->num_uses_person ) || ($couponAllUsagesCount >=  $coupon->num_uses) || !$cart->variants->count()) {
+            return false;
         }
         
-        return false;
+        if ($cart->getTotalPriceAttribute() < $coupon->min_purchases) {
+            return false;
+        }
+
+        return true;
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User\V1;
 
 use App\Domains\User\v1\Services\Contracts\CreateOrderInterface;
 use App\Domains\User\v1\Services\CreateOrderContext;
+use App\Domains\User\v1\Services\OfferOrderService;
 use App\Domains\User\v1\Services\OrderService;
 use App\Domains\User\v1\Services\OrderStatusValidationService;
 use App\Domains\User\v1\Services\PrescriptionOrderService;
@@ -48,6 +49,8 @@ class OrderController extends ApiController
                 return app()->make(PrescriptionOrderService::class); 
             case 3:
                 return app()->make(SearchOrderService::class); 
+            case 4:
+                return app()->make(OfferOrderService::class); 
             default:
                 return null;
         }

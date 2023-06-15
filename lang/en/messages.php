@@ -64,4 +64,8 @@ return [
     'new_order_admin_mail_subject' => 'New Order',
 
     'your_order_created_successfully' => 'your order created successfully',
+
+    'slider_created_successfully' => 'Slider Created Successfully',
+    'slider_deleted_successfully' => 'Slider Deleted Successfully',
+    'slider_updated_successfully' => 'Slider Updated  Successfully',
 ];

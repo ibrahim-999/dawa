@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\User\V1\ProfileController;
 use App\Http\Controllers\Api\User\V1\RegisterController;
 use App\Http\Controllers\Api\User\V1\CartController;
 use App\Http\Controllers\Api\User\V1\CouponController;
+use App\Http\Controllers\Api\User\V1\OfferController;
 use App\Http\Controllers\Api\User\V1\OrderController;
 
 /*
@@ -49,4 +50,6 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserStatus'] ], function ()
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('orders/{order}', [OrderController::class, 'show']);
     Route::post('orders/{order}/update-status', [OrderController::class, 'updateStatus']);
+
+    Route::get('offers', [OfferController::class, 'index']);
 });

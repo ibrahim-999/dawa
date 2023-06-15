@@ -32,5 +32,15 @@ return [
 
 
     "coupon_index_header" => " coupons",
+    "offers_index_header" => "Offers",
+    "offer_index_header" => "Offers",
+
+    'sliders_search' => 'Search For Slider',
+    'sliders_index_header' => 'All Sliders',
+    'delete_slider_header'  => 'delete',
+    'delete_slider_body'  => 'delete slider ',
     "carts_index_header" => " Carts",
+    "cart" => "Cart",
+    "carts" => "Carts",
+    "show_cart" => "Show Cart"
 ];

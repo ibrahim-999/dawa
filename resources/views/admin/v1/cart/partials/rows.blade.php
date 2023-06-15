@@ -16,13 +16,10 @@
             {{$cart->address->address??'-'}}
         </td>
         <td>
-            {{$cart->place->name??'-'}}
+            {{$cart->total_quantity}}
         </td>
         <td>
-            {{$cart->place->is_current==1?'Yes':'No'}}
-        </td>
-        <td>
-            {{$cart->variants()->sum('quantity')}}
+            {{$cart->total_price}}
         </td>
         <td>
             {{$cart->created_at??'-'}}

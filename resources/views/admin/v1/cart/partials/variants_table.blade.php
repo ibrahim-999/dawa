@@ -13,14 +13,16 @@
         {{--            <button type="button" class="btn btn-light mb-2">Export</button>--}}
     </x-slot>
     <x-slot name="headers">
-         <th>name</th>
+        <th>Product Name</th>
         <th>Price</th>
-        <th>Initial Price</th>
+{{--        <th>Initial Price</th>--}}
         <th>Quantity</th>
-        <th>Is Modified</th>
-        <th>Modification Type</th>
-        <th>Modification value</th>
-        <th>Created at</th>
+{{--        <th>Is Modified</th>--}}
+{{--        <th>Modification Type</th>--}}
+{{--        <th>Modification value</th>--}}
+        <th>Total</th>
+
+{{--        <th>Created at</th>--}}
      </x-slot>
 
     <x-slot name="rows">

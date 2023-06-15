@@ -6,10 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Coupon extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -70,17 +71,16 @@ class Coupon extends Model
         $startDate = Carbon::createFromFormat('Y-m-d', $this->start_date);
         $endDate = Carbon::createFromFormat('Y-m-d', $this->end_date);
 
-        if ( $dateNow->gte($startDate) && $endDate->gte($dateNow)) {
-            return true;
+        if (! ( ($startDate->gte($dateNow) || $startDate->lte($dateNow) ) && $endDate->gte($dateNow) )) {
+            return false;
         }
 
-        $couponPersonUsagesCount = CouponUsage::where('coupon_id',$this->id)->where('status',1)->count();
         $couponAllUsagesCount = CouponUsage::where('coupon_id',$this->id)->where('status',1)->count();
 
-        if ($couponPersonUsagesCount < $this->num_uses_person && $couponAllUsagesCount <  $this->num_uses) {
-            return true;
+        if ($couponAllUsagesCount >=  $this->num_uses) {
+            return false;
         }
         
-        return false;
+        return true;
     }
 }

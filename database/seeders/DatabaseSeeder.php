@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         $this->call([
             AdminPermissionSeeder::class,
             RoleSeeder::class,
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             SettingSeeder::class,
             QuestionSeeder::class,
+//            SliderSeeder::class,
         ]);
     }
 }

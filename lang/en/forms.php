@@ -50,4 +50,10 @@ return [
   "edit_brand_title" => "Edit Brand",
   "edit_brand_description" => "",
 
+  "add_offer_title" => "Offer Data",
+  "add_offer_description" => "",
+
+  "add_slider_title" => "Slider Data",
+  "edit_slider_title" => "Edit Slider",
+
 ];

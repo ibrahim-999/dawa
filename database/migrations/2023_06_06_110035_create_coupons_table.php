@@ -1,5 +1,6 @@
 <?php
 
+use App\Domains\User\v1\Enums\DiscountTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ return new class extends Migration
             $table->string('code');
             $table->date('start_date');
             $table->date('end_date');
-            $table->enum('discount_type',[1,2]);
+            $table->enum('discount_type',[DiscountTypeEnum::AMOUNT->value,DiscountTypeEnum::PRECENTAGE->value]);
             $table->float('discount');
             $table->float('min_purchases');
             $table->float('max_discount')->nullable();

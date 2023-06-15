@@ -26,7 +26,7 @@ class OrderStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => ['required',Rule::in([OrderTypeEnum::PRODUCTS->value, OrderTypeEnum::PRESCRIPTION->value, OrderTypeEnum::SEARCH->value])],
+            'type' => ['required',Rule::in([OrderTypeEnum::PRODUCTS->value, OrderTypeEnum::PRESCRIPTION->value, OrderTypeEnum::SEARCH->value, OrderTypeEnum::OFFER->value])],
             'address_id' => ['required','exists:addresses,id'],
             'delivery_type' => ['required', Rule::in([DeliveryTypeEnum::EXPRESS->value,DeliveryTypeEnum::SCHEDULE->value])],
             'schedule_date' => ['required_if:delivery_type,2','date','date_format:Y-m-d'],
@@ -41,6 +41,9 @@ class OrderStoreRequest extends FormRequest
             'variants' => ['required_if:type,'. OrderTypeEnum::SEARCH->value,'array'],
             'variants.*.variant_id' => ['required','exists:variants,id'],
             'variants.*.quantity' => ['required','numeric','min:1'],
+
+            //offer order
+            'offer_id' => ['required_if:type,'.OrderTypeEnum::OFFER->value,'integer'],
         ];
     }
 }

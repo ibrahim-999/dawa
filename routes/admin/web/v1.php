@@ -1,26 +1,30 @@
 <?php
 
-use App\Http\Controllers\Web\Admin\v1\AdminController;
+use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
+use App\Http\Controllers\Web\Admin\v1\SliderController;
+use App\Http\Controllers\Web\Admin\v1\CartsController;
+use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\Web\Admin\v1\AuthController;
+use \App\Http\Controllers\Web\Admin\v1\AdminController;
 use App\Http\Controllers\Web\Admin\v1\AdminFirebaseDeviceTokenController;
 use App\Http\Controllers\Web\Admin\v1\AdminForgotPasswordController;
-use App\Http\Controllers\Web\Admin\v1\AttributeValueController;
-use App\Http\Controllers\Web\Admin\v1\AuthController;
-use App\Http\Controllers\Web\Admin\v1\BrandController;
-use App\Http\Controllers\Web\Admin\V1\CartsController;
-use App\Http\Controllers\Web\Admin\v1\CategoryController;
-use App\Http\Controllers\Web\Admin\v1\ChainController;
+use \App\Http\Controllers\Web\Admin\v1\VendorController;
+use \App\Http\Controllers\Web\Admin\v1\ChainController;
+use \App\Http\Controllers\Web\Admin\v1\PharmacyController;
+use \App\Http\Controllers\Web\Admin\v1\RoleController;
+use \App\Http\Controllers\Web\Admin\v1\VendorAclController;
+use \App\Http\Controllers\Web\Admin\v1\CategoryController;
+use \App\Http\Controllers\Web\Admin\v1\BrandController;
+use \App\Http\Controllers\Web\Admin\v1\ProductController;
+use \App\Http\Controllers\Web\Admin\v1\ProductAttributeController;
+use \App\Http\Controllers\Web\Admin\v1\AttributeValueController;
 use App\Http\Controllers\Web\Admin\v1\CouponController;
 use App\Http\Controllers\Web\Admin\v1\DriverController;
 use App\Http\Controllers\Web\Admin\v1\ForgotPasswordController;
-use App\Http\Controllers\Web\Admin\v1\PharmacyController;
-use App\Http\Controllers\Web\Admin\v1\ProductAttributeController;
-use App\Http\Controllers\Web\Admin\v1\ProductController;
-use App\Http\Controllers\Web\Admin\v1\RoleController;
+use App\Http\Controllers\Web\Admin\v1\OfferController;
 use App\Http\Controllers\Web\Admin\v1\UserController;
 use App\Http\Controllers\Web\Admin\v1\VariantController;
-use App\Http\Controllers\Web\Admin\v1\VendorAclController;
-use App\Http\Controllers\Web\Admin\v1\VendorController;
-use Illuminate\Support\Facades\Route;
+use App\Models\Offer;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,14 +50,14 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('brands', BrandController::class);
     Route::resource('products', ProductController::class);
-    Route::post('attributes/{product}', [ProductAttributeController::class, 'store'])->name('attributes.store');
-    Route::patch('attribute/{attribute}', [ProductAttributeController::class, 'update'])->name('attributes.update');
-    Route::delete('attributes/{attribute}', [ProductAttributeController::class, 'destroy'])->name('attributes.destroy');
-    Route::post('variants/{product}', [VariantController::class, 'store'])->name('variants.store');
-    Route::delete('variants/{variant}', [VariantController::class, 'destroy'])->name('variants.destroy');
-    Route::post('attribute_values/{attribute}', [AttributeValueController::class, 'store'])->name('attribute_values.store');
-    Route::patch('attribute_value/{attributeValue}', [AttributeValueController::class, 'update'])->name('attribute_values.update');
-    Route::delete('attribute_values/{attribute_value}', [AttributeValueController::class, 'destroy'])->name('attribute_values.destroy');
+    Route::post('attributes/{product}', [ProductAttributeController::class,'store'])->name('attributes.store');
+    Route::patch('attribute/{attribute}', [ProductAttributeController::class,'update'])->name('attributes.update');
+    Route::delete('attributes/{attribute}', [ProductAttributeController::class,'destroy'])->name('attributes.destroy');
+    Route::post('variants/{product}', [VariantController::class,'store'])->name('variants.store');
+    Route::delete('variants/{variant}', [VariantController::class,'destroy'])->name('variants.destroy');
+    Route::post('attribute_values/{attribute}', [AttributeValueController::class,'store'])->name('attribute_values.store');
+    Route::patch('attribute_value/{attributeValue}', [AttributeValueController::class,'update'])->name('attribute_values.update');
+    Route::delete('attribute_values/{attribute_value}', [AttributeValueController::class,'destroy'])->name('attribute_values.destroy');
     Route::resource('admins', AdminController::class);
     Route::resource('vendors', VendorController::class, [
         /**
@@ -61,9 +65,9 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
          **/
         'as' => 'admin'
     ]);
-    Route::post('acl/pharmacy/{pharmacy}', [VendorAclController::class, 'grantPharmacyAccess'])->name('pharmacies.acl.grant');
-    Route::post('acl/chain/{chain}', [VendorAclController::class, 'grantChainAccess'])->name('chains.acl.grant');
-    Route::delete('acl/{access}', [VendorAclController::class, 'revokeAccess'])->name('acl.revoke');
+    Route::post('acl/pharmacy/{pharmacy}',[VendorAclController::class,'grantPharmacyAccess'])->name('pharmacies.acl.grant');
+    Route::post('acl/chain/{chain}',[VendorAclController::class,'grantChainAccess'])->name('chains.acl.grant');
+    Route::delete('acl/{access}',[VendorAclController::class,'revokeAccess'])->name('acl.revoke');
 
     Route::group(['prefix' => 'admins'], function () {
 
@@ -73,9 +77,11 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
     Route::resource('users', UserController::class);
     Route::resource('drivers', DriverController::class);
     Route::resource('coupons', CouponController::class);
+    Route::resource('offers', OfferController::class);
+    Route::resource('sliders', SliderController::class);
     Route::post('drivers/{driver}/warning', [DriverController::class, 'warning'])->name('drivers.warningDriverByAdmin');
 
-    Route::get('cart', [CartsController::class, 'index'])->name('admin.cart.index');
+    Route::resource('cart', CartsController::class);
     Route::get('cart/{cart}/show', [CartsController::class, 'show'])->name('admin.cart.show');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
@@ -86,4 +92,3 @@ Route::post('reset-password', [AdminForgotPasswordController::class, 'submitRese
 
 
 Route::post('admin-fcm-tokens', [AdminFirebaseDeviceTokenController::class, 'storeAdminTokenWithoutDeviceId'])->name('admin.store.token');
-

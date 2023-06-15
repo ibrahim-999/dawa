@@ -244,15 +244,15 @@
                         <x-slot name="title">{{__('labels.products')}}</x-slot>
                     </x-admin.v1.sidebar.menu-navigation-item>
                 @endif
-                @if($admin->can('index_carts') )
-                    <x-admin.v1.sidebar.menu-navigation-item name="carts" title="{{__('labels.cart')}}"
+                @if($admin->can('index_carts'))
+                    <x-admin.v1.sidebar.menu-navigation-item name="carts" title="{{__('labels.carts')}}"
                                                              badge="dev">
-                        <x-slot name="icon"><i data-feather="cart"></i></x-slot>
+                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
                             @can('index_carts')
-                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('admin.cart.index')}}"
-                                                                           title="{{__('labels.cart')}}" badge="dev">
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('cart.index')}}"
+                                                                           title="{{__('labels.index')}}" badge="dev">
                                     <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
                                 </x-admin.v1.sidebar.single-navigation-item>
                             @endcan
@@ -326,20 +326,48 @@
                         <x-slot name="title">{{__('labels.coupons')}}</x-slot>
                     </x-admin.v1.sidebar.menu-navigation-item>
                 @endif
-                @if($admin->can('index_carts')|| $admin->can('create_carts') )
-                    <x-admin.v1.sidebar.menu-navigation-item name="users" title="{{__('labels.cart')}}"
+                @if($admin->can('index_offers')|| $admin->can('index_offers') )
+                    <x-admin.v1.sidebar.menu-navigation-item name="offers" title="{{__('labels.offers')}}"
                                                              badge="dev">
                         <x-slot name="icon"><i data-feather="users"></i></x-slot>
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
-                            @can('create_carts')
-                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('admin.cart.index')}}"
+                            @can('create_offers')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('offers.create')}}"
+                                                                           title="{{__('labels.add')}}" badge="dev">
+                                    <x-slot name="icon"><i class="far fa-plus-square nav-icon"></i></x-slot>
+                                </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                            @can('index_offers')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('offers.index')}}"
                                                                            title="{{__('labels.index')}}" badge="dev">
                                     <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
                                 </x-admin.v1.sidebar.single-navigation-item>
                             @endcan
                         </x-slot>
-                        <x-slot name="title">{{__('labels.cart')}}</x-slot>
+                        <x-slot name="title">{{__('labels.offers')}}</x-slot>
+                    </x-admin.v1.sidebar.menu-navigation-item>
+                @endif
+                @if($admin->can('index_sliders')|| $admin->can('index_sliders') )
+                    <x-admin.v1.sidebar.menu-navigation-item name="sliders" title="{{__('labels.sliders')}}"
+                                                             badge="dev">
+                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="badge"></x-slot>
+                        <x-slot name="items">
+                            @can('create_sliders')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('sliders.create')}}"
+                                                                           title="{{__('labels.add')}}" badge="dev">
+                                    <x-slot name="icon"><i class="far fa-plus-square nav-icon"></i></x-slot>
+                                </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                            @can('index_sliders')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('sliders.index')}}"
+                                                                           title="{{__('labels.index')}}" badge="dev">
+                                    <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
+                                </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                        </x-slot>
+                        <x-slot name="title">{{__('labels.sliders')}}</x-slot>
                     </x-admin.v1.sidebar.menu-navigation-item>
                 @endif
             </ul>
