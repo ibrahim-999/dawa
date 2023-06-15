@@ -2,35 +2,34 @@
 
 namespace App\Http\Controllers\Web\Admin\v1;
 
-use App\Domains\Shared\v1\Enums\HttpRequestStatusEnum;
 use App\Domains\Shared\v1\Services\NotificationService;
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Notifications\NewOrderNotification;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    private NotificationService $notificationService;
-
-
-    public function __construct(NotificationService $notificationService)
+    public function __construct(
+        NotificationService       $notificationService,
+    )
     {
         $this->notificationService = $notificationService;
-    }
 
-    public function fetchNotifications(): JsonResponse
+        $this->middleware('permission:create_notifications', ['only' => ['create', 'store']]);
+        $this->middleware('permission:show_notifications', ['only' => ['show']]);
+        $this->middleware('permission:update_notifications', ['only' =>  ['edit', 'update']]);
+        $this->middleware('permission:index_notifications', ['only' => ['index']]);
+        $this->middleware('permission:delete_notifications', ['only' => ['destroy']]);
+
+    }
+    public function index(Request $request)
     {
-        $notifications = $this->notificationService->paginate_simple(10, 'web-admin');
-
-        return response()->json($notifications, HttpRequestStatusEnum::STATUS_OK->value);
+        $notifications = $this->notificationService;
+        return view('admin/v1/notification/index', compact('notifications'));
     }
 
-    public function makeRead(): JsonResponse
+    public function create()
     {
-        $this->notificationService->markAllSeen('web-admin');
-
-        return response()->json([], HttpRequestStatusEnum::STATUS_OK->value);
+        return view('admin/v1/notification/create');
     }
+
 }

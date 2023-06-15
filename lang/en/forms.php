@@ -55,5 +55,10 @@ return [
 
   "add_slider_title" => "Slider Data",
   "edit_slider_title" => "Edit Slider",
+  "add_notification_title" => "Add Notification Form",
+  "add_notification_description" => "Add Notification For Marketing Campaign",
+  "edit_notification_title" => "Edit Notification Form",
+  "edit_notification_description" => "Edit Notification For Marketing Campaign",
+
 
 ];

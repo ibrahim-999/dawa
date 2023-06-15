@@ -42,5 +42,11 @@ return [
     "carts_index_header" => " Carts",
     "cart" => "Cart",
     "carts" => "Carts",
-    "show_cart" => "Show Cart"
+    "show_cart" => "Show Cart",
+
+    'notifications_search' => 'Search For Notification',
+    'notification_index_header' => 'All Notifications',
+    'notification_create_header' => 'Create Notification',
+    'delete_notification_header'  => 'delete',
+    'delete_notification_body'  => 'delete notification',
 ];

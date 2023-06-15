@@ -27,6 +27,10 @@ return [
     'create_slider' => 'Create Slider',
 
     'show_cart' => 'Show Cart',
-    'cart' => 'Carts'
+    'cart' => 'Carts',
+
+    'index_notification' => 'Notification',
+    'edit_notification' => 'Edit Notification',
+    'create_notification' => 'Create Notification',
 
 ];

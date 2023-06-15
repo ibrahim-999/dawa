@@ -118,6 +118,7 @@ return [
     'parent' => 'Parent Category',
     'title' => 'Title in :LOCAL',
     'description' => 'Description in :LOCAL',
+    'subject' => 'Subject in :LOCAL',
     'specifications' => 'Specifications in :LOCAL',
     'language' => 'Language',
     "coupons" => "coupons",
@@ -152,4 +153,12 @@ return [
     'place' => 'PLACE',
     'is_current' => 'IS CURRENT',
     'quantity' => 'QUANTITY',
+
+    'notifications' => 'notifications',
+    'notification' => 'Notifications',
+    'notifications_index' => 'Notifications',
+    'notifications_edit' => 'Edit Notifications',
+    'notifications_create' => 'Create Notifications',
+    'notifications_show' => 'Show Notifications',
+    'notification_index' => 'notifications',
 ];
