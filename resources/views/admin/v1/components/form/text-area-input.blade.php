@@ -6,7 +6,7 @@
             <span class="input-group-text" id="inputGroupPrepend">{{$prepend}}</span>
         </div>
     @endif
-        <textarea id="{{'Id-'.ucfirst($name)}}" class="form-control" id="{{'Id-'.ucfirst($name)}}" name="{{$name}}" maxlength="{{$length}}" rows="{{$rows}}" placeholder="{{$placeholder}}">{{$value}}</textarea>
+        <textarea id="{{'Id-'.ucfirst($name)}}" class="form-control {{$name}}" id="{{'Id-'.ucfirst($name)}}" name="{{$name}}" maxlength="{{$length}}" rows="{{$rows}}" placeholder="{{$placeholder}}">{{$value}}</textarea>
         @error($name)
         <div class="invalid-feedback" style="display: block">
             {{$message}}

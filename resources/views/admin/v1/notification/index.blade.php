@@ -18,7 +18,7 @@
 
         <x-slot name="left_actions">
             <x-admin.v1.buttons.reference-btn btnType="btn-danger waves-effect waves-light"
-                                              url="{{route('users.create')}}">
+                                              url="{{route('notifications.create')}}">
                 <x-slot name="title">
                     <i class="mdi mdi-plus-circle mr-1"></i> {{__('labels.add')}}
                 </x-slot>
