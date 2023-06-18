@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->enum('sent_type', ['now', 'schedule'])->default('now');
             $table->date('date')->nullable();
             $table->time('time')->nullable();
-            $table->enum('status', ['pending', 'send']);
+            $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
             $table->softDeletes();
         });

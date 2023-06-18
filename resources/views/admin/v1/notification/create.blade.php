@@ -64,9 +64,11 @@
                                 <select class="form-control" name="sent_type" id="sent_type">
                                     <option value="">{{__('translatable.select')}}</option>
                                     <option
-                                        value="now" {{old('sent_type')=='now'?'selected':null}}>{{__('translatable.now')}}</option>
+                                        value="now" {{old('sent_type')=='now'?'selected':null}}>
+                                        {{__('translatable.now')}}</option>
                                     <option
-                                        value="schedule" {{old('sent_type')=='schedule'?'selected':null}}>{{__('translatable.schedule')}}</option>
+                                        value="schedule" {{old('sent_type')=='schedule'?'selected':null}}>
+                                        {{__('translatable.schedule')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mt-2" id="date_div"
@@ -156,6 +158,16 @@
                                             >{{$vendor->name??'-'}}</option>
                                         @endforeach
                                     @endif
+                                </select>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <label>{{__('translatable.status')}}</label>
+                                <select class="form-control" name="status">
+                                    <option value="">{{__('translatable.select')}}</option>
+                                    <option
+                                        value="active" {{old('status')=='active'?'selected':null}}>{{__('translatable.active')}}</option>
+                                    <option
+                                        value="inactive" {{old('status')=='inactive'?'selected':null}}>{{__('translatable.inactive')}}</option>
                                 </select>
                             </div>
 

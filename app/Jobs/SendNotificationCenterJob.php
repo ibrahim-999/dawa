@@ -35,9 +35,9 @@ class SendNotificationCenterJob implements ShouldQueue
             Notification::send($this->vendors, new BroadcastNotification($this->notification));
 
         } elseif (request()->type == 'email') {
-            Notification::send($this->customers, new BroadcastNotification($this->notification));
+            Notification::send($this->customers, new EmailNotification($this->notification));
 
-            Notification::send($this->vendors, new BroadcastNotification($this->notification));
+            Notification::send($this->vendors, new EmailNotification($this->notification));
 
         }elseif (request()->type == 'sms') {
             //

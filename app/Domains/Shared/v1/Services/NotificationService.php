@@ -68,6 +68,18 @@ class NotificationService
         }
     }
 
+    public function setBuilder(Model|Builder $query)
+    {
+        try {
+            $this->notificationCenterModel = $query;
+
+            return $this;
+
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+    }
+
     public function notifications_list($itemsPerPage)
     {
         try {
@@ -87,7 +99,6 @@ class NotificationService
 
             if ($request->user_type == 'users') {
                 $customers = User::whereIn('id', $request->user_id)->get();
-
                 $vendors = [];
                 if ($request->sent_type == 'schedule') {
                     $notification->users()->attach($customers->pluck('id')->toArray(), ['type' => 'customer']);
@@ -112,6 +123,49 @@ class NotificationService
                 SendNotificationCenterJob::dispatch($customers, $vendors, $notification);
             }
             return $notification;
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+    }
+
+    public function update(Request $request)
+    {
+        try {
+            $notification = $this->notificationCenterModel->update($request->all());
+
+            if ($request->user_type == 'users') {
+                $customers = User::whereIn('id', $request->user_id)->get();
+
+                $vendors = [];
+                if ($request->sent_type == 'schedule') {
+                    $this->notificationCenterModel->users()->detach();
+
+                    $this->notificationCenterModel->users()->attach($customers->pluck('id')->toArray(), ['type' => 'customer']);
+                }
+
+            } elseif ($request->user_type == 'vendors') {
+
+                $customers = [];
+
+                $vendors = Vendor::whereIn('id', $request->vender_id)->get();
+
+                if ($request->sent_type == 'schedule') {
+                    $this->notificationCenterModel->users()->detach();
+
+                    $this->notificationCenterModel->users()->attach($vendors->pluck('id')->toArray(), ['type' => 'vendor']);
+                }
+
+            } else {
+                $customers = User::all();
+
+                $vendors = Vendor::all();
+            }
+
+            if ($request->sent_type == 'now') {
+                SendNotificationCenterJob::dispatch($customers, $vendors, $this->notificationCenterModel);
+            }
+            return $notification;
+
         } catch (\Throwable $exception) {
             throw $exception;
         }

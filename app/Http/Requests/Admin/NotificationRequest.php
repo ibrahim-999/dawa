@@ -31,6 +31,7 @@ class NotificationRequest extends FormRequest
             'user_type' => 'required',
             'user_id' => 'required_if:user_type,users',
             'vendor_id' => 'required_if:user_type,vendors',
+            'status' => 'required',
         ]);
 
         return $rules;

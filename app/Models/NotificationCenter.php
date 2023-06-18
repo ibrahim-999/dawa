@@ -13,7 +13,7 @@ class NotificationCenter extends Model
 
     public $translatedAttributes = ['title', 'description', 'subject'];
 
-    public $fillable = ['type', 'user_type', 'date', 'time', 'sent_type', 'sent_type'];
+    public $fillable = ['type', 'user_type', 'date', 'time', 'sent_type', 'sent_type','status'];
 
     public function users()
     {

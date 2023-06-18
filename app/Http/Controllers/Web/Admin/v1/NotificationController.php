@@ -52,6 +52,26 @@ class NotificationController extends Controller
         return Redirect::route('notifications.index')->with('success', __('messages.category_created_successfully'));
     }
 
+    public function edit(NotificationCenter $notification)
+    {
+        $users = User::all();
+
+        $vendors = Vendor::all();
+
+        return view('admin/v1/notification/edit', compact('users', 'vendors', 'notification'));
+
+    }
+
+    public function update(NotificationCenter $notification,NotificationRequest $request)
+    {
+        $updated = $this->notificationService->setBuilder($notification)->update($request);
+
+        if ($updated) {
+            return Redirect::route('notifications.index')->with('success', __('messages.category_created_successfully'));
+        } else {
+            return Redirect::back();
+        }
+    }
     public function destroy(NotificationCenter $notification)
     {
         $this->notificationService->destroy($notification);

@@ -54,7 +54,7 @@ class BroadcastNotification extends Notification implements ShouldQueue
     //  */
     public function toArray(object $notifiable): array
     {
-        return [
+         return [
             'en' => [
                 'title' =>$this->notification->translate('en')->title,
                 'body' => $this->notification->translate('en')->description,
