@@ -108,7 +108,7 @@ class NotificationService
 
                 $customers = [];
 
-                $vendors = Vendor::whereIn('id', $request->vender_id)->get();
+                $vendors = Vendor::whereIn('id', $request->vendor_id)->get();
 
                 if ($request->sent_type == 'schedule') {
                     $notification->users()->attach($vendors->pluck('id')->toArray(), ['type' => 'vendor']);
@@ -147,7 +147,7 @@ class NotificationService
 
                 $customers = [];
 
-                $vendors = Vendor::whereIn('id', $request->vender_id)->get();
+                $vendors = Vendor::whereIn('id', $request->vendor_id)->get();
 
                 if ($request->sent_type == 'schedule') {
                     $this->notificationCenterModel->users()->detach();
