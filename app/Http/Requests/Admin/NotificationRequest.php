@@ -23,8 +23,14 @@ class NotificationRequest extends FormRequest
     public function rules(): array
     {
         $rules = RuleFactory::make([
-            '%title' => 'required|string',
-            '%description' => ['nullable', 'string'],
+            '%title' => 'required',
+            '%description' => ['required', 'string'],
+            '%subject' => 'required_if:type,email',
+            'type' => 'required',
+            'sent_type' => 'required',
+            'user_type' => 'required',
+            'user_id' => 'required_if:user_type,users',
+            'vendor_id' => 'required_if:user_type,vendors',
         ]);
 
         return $rules;

@@ -59,14 +59,30 @@
                                                                      placeholder="{{__('placeholders.description')}}"/>
                                 </div>
                             @endforeach
-                            <div class="col-md-6">
+                            <div class="col-md-12 mt-2">
+                                <label>{{__('translatable.sent_type')}}</label>
+                                <select class="form-control" name="sent_type" id="sent_type">
+                                    <option value="">{{__('translatable.select')}}</option>
+                                    <option
+                                        value="now" {{old('sent_type')=='now'?'selected':null}}>{{__('translatable.now')}}</option>
+                                    <option
+                                        value="schedule" {{old('sent_type')=='schedule'?'selected':null}}>{{__('translatable.schedule')}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mt-2" id="date_div"
+                                 @if(old('sent_type')!='schedule')
+                                     style="display: none"
+                                @endif>
                                 <x-admin.v1.form.date-input prepend=""
                                                             value="{{old('date')}}" size="col-md-12"
                                                             name="date"
                                                             title="{{__('labels.date')}}"
                                                             placeholder="{{__('placeholders.date')}}"/>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-2" id="time_div"
+                                 @if(old('sent_type')!='schedule')
+                                     style="display: none"
+                                @endif>
                                 <label>{{__('translatable.time')}}</label>
                                 <input type="time" class="form-control"
                                        value="{{old('time')}}" size="col-md-12"
@@ -165,6 +181,18 @@
                 $('.subject_dev').fadeOut();
             }
         });
+        $('#sent_type').on('change', function () {
+            $('#date').val('');
+            $('#time_input').val('');
+            if ($(this).val() == 'schedule') {
+                $('#date_div').fadeIn();
+                $('#time_dev').fadeIn();
+            } else {
+                $('#date_dev').fadeOut();
+                $('#time_dev').fadeOut();
+            }
+        });
+
         $('#user_type').on('change', function () {
             if ($(this).val() == 'vendors') {
                 $('#user_id').val('');

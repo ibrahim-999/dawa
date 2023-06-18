@@ -13,5 +13,11 @@ class NotificationCenter extends Model
 
     public $translatedAttributes = ['title', 'description', 'subject'];
 
-    public $fillable = ['type', 'user_type', 'date', 'time', 'sent_type'];
+    public $fillable = ['type', 'user_type', 'date', 'time', 'sent_type', 'sent_type'];
+
+    public function users()
+    {
+       return $this->belongsToMany(User::class, 'users_notification', 'notification_id', 'user_id')
+            ->withPivot('type');
+    }
 }

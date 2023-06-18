@@ -16,9 +16,10 @@ return new class extends Migration {
             $table->enum('user_type', ['users', 'vendors', 'all']);
             $table->enum('sent_type', ['now', 'schedule'])->default('now');
             $table->date('date')->nullable();
-            $table->date('time')->nullable();
+            $table->time('time')->nullable();
             $table->enum('status', ['pending', 'send']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

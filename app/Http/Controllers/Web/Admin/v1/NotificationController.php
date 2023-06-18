@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web\Admin\v1;
 
 use App\Domains\Shared\v1\Services\NotificationService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\NotificationRequest;
+use App\Models\NotificationCenter;
 use App\Models\NotificationsCenter;
 use App\Models\User;
 use App\Models\Vendor;
@@ -29,7 +31,7 @@ class NotificationController extends Controller
 
     public function index(Request $request)
     {
-        $notifications = $this->notificationService;
+        $notifications = $this->notificationService->notifications_list(10);
 
         return view('admin/v1/notification/index', compact('notifications'));
     }
@@ -43,10 +45,18 @@ class NotificationController extends Controller
         return view('admin/v1/notification/create', compact('users', 'vendors'));
     }
 
-    public function store(Request $request)
+    public function store(NotificationRequest $request)
     {
         $this->notificationService->add($request);
 
         return Redirect::route('notifications.index')->with('success', __('messages.category_created_successfully'));
+    }
+
+    public function destroy(NotificationCenter $notification)
+    {
+        $this->notificationService->destroy($notification);
+
+        return Redirect::route('notifications.index')->with('success', __('messages.category_deleted_successfully'));
+
     }
 }

@@ -7,7 +7,8 @@
         <x-slot name="breadcrumbs">
             <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.dashboard')}}" url="{{route('dashboard')}}"
                                                          isActive="0"/>
-            <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.notification_index')}}" url="" isActive="1"/>
+            <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.notification_index')}}" url=""
+                                                         isActive="1"/>
         </x-slot>
         <x-slot name="title">
             {{__('texts.notification_index_header')}}
@@ -29,12 +30,6 @@
 
         </x-slot>
         <x-slot name="headers">
-            <th style="width: 20px;">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                    <label class="custom-control-label" for="customCheck1">&nbsp;</label>
-                </div>
-            </th>
             <th>ID</th>
             <th>Title</th>
             <th>Description</th>
@@ -52,7 +47,7 @@
             <x-admin.v1.table.pagination>
 
                 <x-slot name="links">
-                    {{--{{$notification->links()}}--}}
+                    {{$notifications->links()}}
                 </x-slot>
             </x-admin.v1.table.pagination>
         </x-slot>

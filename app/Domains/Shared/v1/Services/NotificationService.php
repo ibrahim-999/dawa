@@ -73,7 +73,7 @@ class NotificationService
         try {
             $notifications = $this->notificationCenterModel->orderBy('created_at', 'desc')
                 ->simplePaginate($itemsPerPage);
-            return ['notifications' => $notifications];
+            return $notifications;
         } catch (\Throwable $exception) {
             throw $exception;
         }
@@ -84,19 +84,47 @@ class NotificationService
         try {
             $notification = $this->notificationCenterModel->create($request->all());
 
+
             if ($request->user_type == 'users') {
                 $customers = User::whereIn('id', $request->user_id)->get();
+
+                $vendors = [];
+                if ($request->sent_type == 'schedule') {
+                    $notification->users()->attach($customers->pluck('id')->toArray(), ['type' => 'customer']);
+                }
+
             } elseif ($request->user_type == 'vendors') {
+
+                $customers = [];
+
                 $vendors = Vendor::whereIn('id', $request->vender_id)->get();
+
+                if ($request->sent_type == 'schedule') {
+                    $notification->users()->attach($vendors->pluck('id')->toArray(), ['type' => 'vendor']);
+                }
+
             } else {
                 $customers = User::all();
 
                 $vendors = Vendor::all();
             }
-
-            SendNotificationCenterJob::dispatch($customers, $vendors, $notification);
-
+            if ($request->sent_type == 'now') {
+                SendNotificationCenterJob::dispatch($customers, $vendors, $notification);
+            }
             return $notification;
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+    }
+
+    public function destroy($item)
+    {
+        try {
+
+            $item->users()->detach();
+
+            return $item->delete();
+
         } catch (\Throwable $exception) {
             throw $exception;
         }
