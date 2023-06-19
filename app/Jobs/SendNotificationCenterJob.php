@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Notifications\BroadcastNotification;
+use App\Notifications\CampaignFcmNotification;
 use App\Notifications\EmailNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -30,9 +30,9 @@ class SendNotificationCenterJob implements ShouldQueue
 
         if (request()->type == 'broadcast') {
 
-            Notification::send($this->customers, new BroadcastNotification($this->notification));
+            Notification::send($this->customers, new CampaignFcmNotification($this->notification));
 
-            Notification::send($this->vendors, new BroadcastNotification($this->notification));
+            Notification::send($this->vendors, new CampaignFcmNotification($this->notification));
 
         } elseif (request()->type == 'email') {
             Notification::send($this->customers, new EmailNotification($this->notification));
@@ -42,9 +42,9 @@ class SendNotificationCenterJob implements ShouldQueue
         }elseif (request()->type == 'sms') {
             //
         }  else {
-            Notification::send($this->customers, new BroadcastNotification($this->notification));
+            Notification::send($this->customers, new CampaignFcmNotification($this->notification));
 
-            Notification::send($this->vendors, new BroadcastNotification($this->notification));
+            Notification::send($this->vendors, new CampaignFcmNotification($this->notification));
 
             Notification::send($this->customers, new EmailNotification($this->notification));
 

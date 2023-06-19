@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin\v1;
+namespace App\Http\Controllers\Web\Campaigns\v1;
 
-use App\Domains\Shared\v1\Services\NotificationService;
+use App\Domains\Campaigns\v1\Services\CampaignNotificationService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\NotificationRequest;
-use App\Models\NotificationCenter;
-use App\Models\NotificationsCenter;
+use App\Http\Requests\Campaigns\CampaignNotificationRequest;
+use App\Models\CampaignNotification;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class NotificationController extends Controller
+class CampaignNotificationController extends Controller
 {
     public function __construct(
-        NotificationService $notificationService,
+        CampaignNotificationService $campaignNotificationService,
     )
     {
-        $this->notificationService = $notificationService;
+        $this->campaignNotificationService = $campaignNotificationService;
 
         $this->middleware('permission:create_notifications', ['only' => ['create', 'store']]);
         $this->middleware('permission:show_notifications', ['only' => ['show']]);
@@ -31,7 +30,7 @@ class NotificationController extends Controller
 
     public function index(Request $request)
     {
-        $notifications = $this->notificationService->notifications_list(10);
+        $notifications = $this->campaignNotificationService->notifications_list(10);
 
         return view('admin/v1/notification/index', compact('notifications'));
     }
@@ -47,12 +46,12 @@ class NotificationController extends Controller
 
     public function store(NotificationRequest $request)
     {
-        $this->notificationService->add($request);
+        $this->campaignNotificationModel->add($request);
 
-        return Redirect::route('notifications.index')->with('success', __('messages.category_created_successfully'));
+        return Redirect::route('notifications.index')->with('success', __('messages.notification_created_successfully'));
     }
 
-    public function edit(NotificationCenter $notification)
+    public function edit(CampaignNotification $notification)
     {
         $users = User::all();
 
@@ -62,21 +61,21 @@ class NotificationController extends Controller
 
     }
 
-    public function update(NotificationCenter $notification,NotificationRequest $request)
+    public function update(CampaignNotification $notification,CampaignNotificationRequest $request)
     {
-        $updated = $this->notificationService->setBuilder($notification)->update($request);
+        $updated = $this->campaignNotificationModel->setBuilder($notification)->update($request);
 
         if ($updated) {
-            return Redirect::route('notifications.index')->with('success', __('messages.category_created_successfully'));
+            return Redirect::route('notifications.index')->with('success', __('messages.notification_updated_successfully'));
         } else {
             return Redirect::back();
         }
     }
-    public function destroy(NotificationCenter $notification)
+    public function destroy(CampaignNotification $notification)
     {
-        $this->notificationService->destroy($notification);
+        $this->campaignNotificationModel->destroy($notification);
 
-        return Redirect::route('notifications.index')->with('success', __('messages.category_deleted_successfully'));
+        return Redirect::route('notifications.index')->with('success', __('messages.notification_deleted_successfully'));
 
     }
 }

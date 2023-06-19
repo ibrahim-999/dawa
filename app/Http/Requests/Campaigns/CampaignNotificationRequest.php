@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Campaigns;
 
 use Astrotomic\Translatable\Validation\RuleFactory;
 use Illuminate\Foundation\Http\FormRequest;
 
-class NotificationRequest extends FormRequest
+class CampaignNotificationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
