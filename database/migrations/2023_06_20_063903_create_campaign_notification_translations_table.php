@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('locale');
             $table->string('title');
             $table->longText('description')->nullable();
-            $table->text('subject')->nullable();
+            $table->text('status')->nullable();
         });
     }
 

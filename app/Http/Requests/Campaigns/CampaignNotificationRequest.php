@@ -2,8 +2,12 @@
 
 namespace App\Http\Requests\Campaigns;
 
+use App\Domains\Campaigns\v1\Enums\CampaignSentTypeEnum;
+use App\Domains\Campaigns\v1\Enums\CampaignTypeEnum;
+use App\Domains\Campaigns\v1\Enums\CampaignUserTypeEnum;
 use Astrotomic\Translatable\Validation\RuleFactory;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CampaignNotificationRequest extends FormRequest
 {
@@ -26,9 +30,9 @@ class CampaignNotificationRequest extends FormRequest
             '%title' => 'required',
             '%description' => ['required', 'string'],
             '%subject' => 'required_if:type,email',
-            'type' => 'required',
-            'sent_type' => 'required',
-            'user_type' => 'required',
+            'type' => ['required',Rule::in([CampaignTypeEnum::ALL->value, CampaignTypeEnum::EMAIL->value, CampaignTypeEnum::FCM->value, CampaignTypeEnum::SMS->value])],
+            'sent_type' => ['required',Rule::in([CampaignSentTypeEnum::NOW->value, CampaignSentTypeEnum::SCHEDULE->value])],
+            'user_type' => ['required',Rule::in([CampaignUserTypeEnum::ALL->value, CampaignUserTypeEnum::USERS->value, CampaignUserTypeEnum::VENDORS->value])],
             'user_id' => 'required_if:user_type,users',
             'vendor_id' => 'required_if:user_type,vendors',
             'status' => 'required',
