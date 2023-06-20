@@ -87,8 +87,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\morphMany
      */
-    public function images()
-    {
+    public function images(){
         return $this->morphMany(Image::class, 'parentable');
     }
 
@@ -107,8 +106,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\morphMany
      */
-    public function comments()
-    {
+    public function comments(){
         return $this->morphMany(Comment::class, 'notifiable');
     }
 
@@ -117,12 +115,11 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\morphMany
      */
-    public function location()
-    {
+    public function location(){
         return $this->morphOne(Location::class, 'locationable');
     }
 
-    public function campaignable()
+    public function campaignable(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Campaignable::class, 'campaignable');
     }

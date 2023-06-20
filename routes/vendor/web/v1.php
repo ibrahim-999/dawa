@@ -17,7 +17,7 @@ use \App\Http\Controllers\Web\Vendor\v1\AuthController;
 |
 */
 Route::group(['middleware' => 'guest'], function () {
-    Route::view('login/ss', 'vendor/v1/vendor/dashboard')->name('login');
+    //Route::view('login/ss', 'vendor/v1/vendor/dashboard')->name('login');
     Route::view('login', 'vendor/v1/vendor/auth/login')->name('vendor.login.view');
     Route::post('login', [AuthController::class, 'login'])->name('vendor.login.post');
 

@@ -5,11 +5,13 @@ namespace App\Notifications;
 use App\Channels\FcmChannel;
 use App\Domains\Shared\v1\Services\FcmService;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class CampaignFcmNotification extends Notification
+class BroadcastNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+
     protected $fcmService;
     protected $notification;
 
@@ -20,7 +22,7 @@ class CampaignFcmNotification extends Notification
     }
 
     /**
-     * Get the campaign's delivery channels.
+     * Get the notification's delivery channels.
      *
      * @return array<int, string>
      */
@@ -30,7 +32,7 @@ class CampaignFcmNotification extends Notification
     }
 
     /**
-     * Get the voice representation of the campaign.
+     * Get the voice representation of the notification.
      */
     public function toFcm(object $notifiable)
     {
@@ -45,11 +47,11 @@ class CampaignFcmNotification extends Notification
         $this->fcmService->send($data);
     }
 
-    /**
-     * Get the array representation of the campaign.
-     *
-     * @return array<string, mixed>
-     */
+     /**
+      * Get the array representation of the notification.
+      *
+      * @return array<string, mixed>
+      */
     public function toArray(object $notifiable): array
     {
         return [

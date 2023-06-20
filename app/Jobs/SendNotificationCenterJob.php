@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Domains\Campaigns\v1\Enums\CampaignTypeEnum;
 use App\Notifications\CampaignFcmNotification;
 use App\Notifications\EmailNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -28,18 +29,18 @@ class SendNotificationCenterJob implements ShouldQueue
     public function handle(): void
     {
 
-        if (request()->type == 'broadcast') {
+        if (request()->type == CampaignTypeEnum::FCM->value) {
 
             Notification::send($this->customers, new CampaignFcmNotification($this->notification));
 
             Notification::send($this->vendors, new CampaignFcmNotification($this->notification));
 
-        } elseif (request()->type == 'email') {
+        } elseif (request()->type == CampaignTypeEnum::EMAIL->value) {
             Notification::send($this->customers, new EmailNotification($this->notification));
 
             Notification::send($this->vendors, new EmailNotification($this->notification));
 
-        }elseif (request()->type == 'sms') {
+        }elseif (request()->type == CampaignTypeEnum::SMS->value) {
             //
         }  else {
             Notification::send($this->customers, new CampaignFcmNotification($this->notification));

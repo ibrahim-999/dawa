@@ -20,11 +20,11 @@ class CampaignNotificationController extends Controller
     {
         $this->campaignNotificationService = $campaignNotificationService;
 
-        $this->middleware('permission:create_notifications', ['only' => ['create', 'store']]);
-        $this->middleware('permission:show_notifications', ['only' => ['show']]);
-        $this->middleware('permission:update_notifications', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:index_notifications', ['only' => ['index']]);
-        $this->middleware('permission:delete_notifications', ['only' => ['destroy']]);
+        $this->middleware('permission:create_campaigns', ['only' => ['create', 'store']]);
+        $this->middleware('permission:show_campaigns', ['only' => ['show']]);
+        $this->middleware('permission:update_campaigns', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:index_campaigns', ['only' => ['index']]);
+        $this->middleware('permission:delete_campaigns', ['only' => ['destroy']]);
 
     }
 
@@ -32,7 +32,7 @@ class CampaignNotificationController extends Controller
     {
         $campaigns = $this->campaignNotificationService->notifications_list(10);
 
-        return view('admin/v1/notification/index', compact('campaigns'));
+        return view('admin/v1/campaign/index', compact('campaigns'));
     }
 
     public function create(): View
@@ -41,7 +41,7 @@ class CampaignNotificationController extends Controller
 
         $vendors = Vendor::all();
 
-        return view('admin/v1/notification/create', compact('users', 'vendors'));
+        return view('admin/v1/campaign/create', compact('users', 'vendors'));
     }
 
     public function store(CampaignNotificationRequest $request)
@@ -57,7 +57,7 @@ class CampaignNotificationController extends Controller
 
         $vendors = Vendor::all();
 
-        return view('admin/v1/notification/edit', compact('users', 'vendors', 'campaign'));
+        return view('admin/v1/campaign/edit', compact('users', 'vendors', 'campaign'));
 
     }
 

@@ -19,7 +19,7 @@ class EmailNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the notification's delivery channels.
+     * Get the campaign's delivery channels.
      *
      * @return array<int, string>
      */
@@ -29,19 +29,19 @@ class EmailNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Get the mail representation of the campaign.
      */
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
             ->subject($this->notification->subject_en)
             // ->markdown('emails.new-order-created', ['body' => __ ('messages.new_order_created_mail_content')]);
-            ->markdown('emails.new-notification', ['notification' => ($this->notification)->refresh(),
+            ->markdown('emails.new-campaign', ['campaign' => ($this->notification)->refresh(),
                 'body' => $this->notification->description]);
     }
 
     // /**
-    //  * Get the array representation of the notification.
+    //  * Get the array representation of the campaign.
     //  *
     //  * @return array<string, mixed>
     //  */

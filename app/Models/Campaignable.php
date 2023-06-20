@@ -15,7 +15,4 @@ class Campaignable extends Model
     protected $fillable = [
         'title', 'description', 'subject', 'notification_type', 'campaignable_id', 'campaignable_type'
     ];
-
-    // ...
-
 }

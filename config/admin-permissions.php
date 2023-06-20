@@ -59,9 +59,9 @@ return [
     ['module_name' => 'carts', 'name' => 'show_carts', 'guard_name' => 'web-admin'],
     ['module_name' => 'carts', 'name' => 'index_carts', 'guard_name' => 'web-admin'],
 
-    ['module_name' => 'notifications', 'name' => 'create_notifications', 'guard_name' => 'web-admin'],
-    ['module_name' => 'notifications', 'name' => 'show_notifications', 'guard_name' => 'web-admin'],
-    ['module_name' => 'notifications', 'name' => 'update_notifications', 'guard_name' => 'web-admin'],
-    ['module_name' => 'notifications', 'name' => 'index_notifications', 'guard_name' => 'web-admin'],
-    ['module_name' => 'notifications', 'name' => 'delete_notifications', 'guard_name' => 'web-admin'],
+    ['module_name' => 'campaigns', 'name' => 'create_campaigns', 'guard_name' => 'web-admin'],
+    ['module_name' => 'campaigns', 'name' => 'show_campaigns', 'guard_name' => 'web-admin'],
+    ['module_name' => 'campaigns', 'name' => 'update_campaigns', 'guard_name' => 'web-admin'],
+    ['module_name' => 'campaigns', 'name' => 'index_campaigns', 'guard_name' => 'web-admin'],
+    ['module_name' => 'campaigns', 'name' => 'delete_campaigns', 'guard_name' => 'web-admin'],
 ];

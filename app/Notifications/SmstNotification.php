@@ -22,7 +22,7 @@ class SmstNotification extends Notification implements ShouldQueue
         $this->order = $order;
     }
     /**
-     * Get the notification's delivery channels.
+     * Get the campaign's delivery channels.
      *
      * @return array<int, string>
      */
@@ -32,7 +32,7 @@ class SmstNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the voice representation of the notification.
+     * Get the voice representation of the campaign.
      */
     public function toFcm(object $notifiable)
     {
@@ -48,7 +48,7 @@ class SmstNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Get the mail representation of the campaign.
      */
     public function toMail(object $notifiable): MailMessage
     {
@@ -59,7 +59,7 @@ class SmstNotification extends Notification implements ShouldQueue
     }
 
     // /**
-    //  * Get the array representation of the notification.
+    //  * Get the array representation of the campaign.
     //  *
     //  * @return array<string, mixed>
     //  */

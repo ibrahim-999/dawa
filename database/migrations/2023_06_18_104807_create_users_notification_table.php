@@ -10,16 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('campaignable', function (Blueprint $table) {
+        Schema::create('users_notification', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('subject')->nullable();
-            $table->longText('description');
-            $table->text('notification_type');
-            $table->integer('campaignable_id');
-            $table->string("campaignable_type");
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('notification_id');
+            $table->enum('type', ['customer', 'vendor']);
             $table->timestamps();
-
         });
     }
 
@@ -28,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('campaignable');
+        Schema::dropIfExists('users_notification');
     }
 };

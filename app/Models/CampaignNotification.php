@@ -13,15 +13,15 @@ class CampaignNotification extends Model
 
     public $translatedAttributes = ['title', 'description', 'subject'];
 
-    public $fillable = ['type', 'user_type', 'date', 'time', 'sent_type', 'sent_type', 'status'];
+    public $fillable = ['type', 'user_type', 'date', 'time', 'sent_type', 'sent_type'];
 
     public function vendors()
     {
         return $this->morphMany(Vendor::class, 'campaignable');
     }
-
     public function customers()
     {
         return $this->morphMany(User::class, 'campaignable');
     }
+
 }

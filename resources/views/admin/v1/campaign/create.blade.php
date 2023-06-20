@@ -1,0 +1,154 @@
+@extends('admin.v1.layout')
+@section('title')
+    {{__('pages_title.create_campaign')}}
+@endsection
+@section('content')
+    <x-admin.v1.layout.partials.basic-page-header>
+        <x-slot name="breadcrumbs">
+            <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.dashboard')}}" url="{{route('dashboard')}}"
+                                                         isActive="0"/>
+            <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.campaigns_index')}}"
+                                                         url="{{route('campaigns.index')}}" isActive="0"/>
+            <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.campaigns_create')}}" url=""
+                                                         isActive="1"/>
+        </x-slot>
+        <x-slot name="title">
+            {{__('texts.campaign_create_header')}}
+        </x-slot>
+
+    </x-admin.v1.layout.partials.basic-page-header>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <x-admin.v1.form.form title="{{__('forms.add_campaign_title')}}"
+                                      description="{{__('forms.add_campaign_description')}}"
+                                      url="{{route('campaigns.store')}}"
+                                      method="POST" fileable="false">
+                    <x-slot name="inputs">
+                        <div class="row">
+                            @include('admin.v1.campaign.partials.create-partials.title-component')
+                            @include('admin.v1.campaign.partials.create-partials.description-component')
+                            @include('admin.v1.campaign.partials.create-partials.subject-component')
+                            <div class="col-md-12 mt-2">
+                                <label>{{__('translatable.sent_type')}}</label>
+                                <select class="form-control" name="sent_type" id="sent_type">
+                                    <option value="">{{__('translatable.select')}}</option>
+                                    <option
+                                        value="1" {{old('sent_type')=='1'?'selected':null}}>
+                                        {{__('translatable.now')}}</option>
+                                    <option
+                                        value="2" {{old('sent_type')=='2'?'selected':null}}>
+                                        {{__('translatable.schedule')}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mt-2" id="date_div"
+                                 @if(old('sent_type')!='schedule')
+                                     style="display: none"
+                                @endif>
+                                <x-admin.v1.form.date-input prepend=""
+                                                            value="{{old('date')}}" size="col-md-12"
+                                                            name="date"
+                                                            title="{{__('labels.date')}}"
+                                                            placeholder="{{__('placeholders.date')}}"/>
+                            </div>
+                            <div class="col-md-6 mt-2" id="time_div"
+                                 @if(old('sent_type')!='schedule')
+                                     style="display: none"
+                                @endif>
+                                <label>{{__('translatable.time')}}</label>
+                                <input type="time" class="form-control"
+                                       value="{{old('time')}}" size="col-md-12"
+                                       name="time"
+                                       title="{{__('labels.time')}}"
+                                       placeholder="{{__('placeholders.time')}}"/>
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <label>{{__('translatable.type')}}</label>
+                                <select class="form-control" name="type" id="notification_type">
+                                    <option value="">{{__('translatable.select')}}</option>
+                                    <option
+                                        value="1" {{old('type')=='1'?'selected':null}}>{{__('translatable.all')}}</option>
+                                    <option
+                                        value="3" {{old('type')=='3'?'selected':null}}>{{__('translatable.broadcast')}}</option>
+                                    <option
+                                        value="4" {{old('type')=='4'?'selected':null}}>{{__('translatable.sms')}}</option>
+                                    <option
+                                        value="2" {{old('type')=='2'?'selected':null}}>{{__('translatable.email')}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label>{{__('translatable.sendTo')}}</label>
+                                <select class="form-control" name="user_type" id="user_type">
+                                    <option value="">{{__('translatable.select')}}</option>
+                                    <option
+                                        value="1">{{old('user_type')=='1'?'selected':null}}{{__('translatable.all')}}</option>
+                                    <option
+                                        value="2"{{old('user_type')=='2'?'selected':null}}>{{__('translatable.users')}}</option>
+                                    <option
+                                        value="3" {{old('user_type')=='3'?'selected':null}}>{{__('translatable.vendors')}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 mt-2 " id="user_dev"
+                                 @if(old('user_type')!='users')
+                                     style="display: none"
+                                @endif>
+                                <label>{{__('translatable.users')}}</label>
+                                <select class="form-control selectpicker"
+                                        data-actions-box="true"
+                                        data-live-search="true"
+                                        multiple name="user_id[]" id="user_id">
+                                    @if($users->count())
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}"
+                                            @if(old("user_id"))
+                                                {{ in_array($users, old("user_id")) ?? [] ? 'selected' : '' }}
+                                                @endif>
+                                                {{$user->name??'-'}}</option>
+                                        @endforeach
+                                    @endif
+
+                                </select>
+                            </div>
+                            <div class="col-md-12 mt-2 " id="vendor_dev"
+                                 @if(old('user_type')!='vendors')
+                                     style="display: none"
+                                @endif>
+                                <label>{{__('translatable.vendors')}}</label>
+                                <select class="form-control selectpicker" multiple
+                                        data-live-search="true"
+                                        data-actions-box="true"
+                                        name="vendor_id[]" id="vendor_id">
+                                    @if($vendors->count())
+                                        @foreach($vendors as $vendor)
+                                            <option value="{{$vendor->id}}"
+                                            @if(old("vendor_id"))
+                                                {{ in_array($vendors, old("vendor_id")) ?? [] ? 'selected' : '' }}
+                                                @endif
+                                            >{{$vendor->name??'-'}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+
+                                <x-admin.v1.form.checkbox-input value="1" checked="1" size="col-md-6" name="is_active"
+                                                                title="{{__('labels.is_active')}}"/>
+
+                        </div>
+
+
+
+
+                    </x-slot>
+                    <x-slot name="buttons">
+                        <x-admin.v1.buttons.regular-btn btnType="btn-primary" type="submit" class="mt-5"
+                                                        title="{{__('labels.create')}}"/>
+                    </x-slot>
+                </x-admin.v1.form.form>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('scripts')
+    <script src="{{asset('admin-panel-assets/v1/js/campaigns.js')}}"></script>
+@endsection

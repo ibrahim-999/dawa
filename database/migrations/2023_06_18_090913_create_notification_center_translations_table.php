@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('campaign_notification_translations', function (Blueprint $table) {
+        Schema::create('notification_center_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\CampaignNotification::class,'camp_notification_id')->constrained('campaign_notifications')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\NotificationCenter::class)->constrained('notification_centers')->cascadeOnDelete();
             $table->string('locale');
             $table->string('title');
-            $table->string('subject')->nullable();
-            $table->longText('description')->nullable();
+            $table->text('description')->nullable();
+            $table->text('subject')->nullable();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('campaign_notification_translations');
+        Schema::dropIfExists('notification_center_translations');
     }
 };

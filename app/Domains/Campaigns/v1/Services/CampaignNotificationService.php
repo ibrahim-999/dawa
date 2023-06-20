@@ -2,6 +2,8 @@
 
 namespace App\Domains\Campaigns\v1\Services;
 
+use App\Domains\Campaigns\v1\Enums\CampaignSentTypeEnum;
+use App\Domains\Campaigns\v1\Enums\CampaignUserTypeEnum;
 use App\Jobs\SendNotificationCenterJob;
 use App\Models\CampaignNotification;
 use App\Models\User;
@@ -97,10 +99,11 @@ class CampaignNotificationService
             $notification = $this->campaignNotificationModel->create($request->all());
 
 
-            if ($request->user_type == '2') {
+            if ($request->user_type == CampaignUserTypeEnum::USERS->value) {
                 $customers = User::whereIn('id', $request->user_id)->get();
+
                 $vendors = [];
-//                if ($request->sent_type == '2') {
+
                 if ($customers->count()) {
                     foreach ($customers as $customer) {
                         $customer->campaignable()->create([
@@ -109,18 +112,17 @@ class CampaignNotificationService
                             'subject' => $notification->subject,
                             'notification_type' => $request->type,
                         ]);
-//                        }
+
                     }
 
                 }
 
-            } elseif ($request->user_type == '3') {
+            } elseif ($request->user_type == CampaignUserTypeEnum::VENDORS->value) {
 
                 $customers = [];
 
                 $vendors = Vendor::whereIn('id', $request->vendor_id)->get();
 
-//                if ($request->sent_type == '2') {
                 if ($vendors->count()) {
                     foreach ($vendors as $item) {
                         $item->campaignable()->create([
@@ -132,14 +134,13 @@ class CampaignNotificationService
                         ]);
                     }
                 }
-//                }
 
             } else {
                 $customers = User::all();
 
                 $vendors = Vendor::all();
             }
-            if ($request->sent_type == '1') {
+            if ($request->sent_type == CampaignSentTypeEnum::NOW->value) {
                 SendNotificationCenterJob::dispatch($customers, $vendors, $notification);
             }
             return $notification;
@@ -165,7 +166,6 @@ class CampaignNotificationService
                                 'description' => $notification->description,
                                 'subject' => $notification->subject,
                                 'notification_type' => $request->type,
-
                             ]);
                         }
                     }
@@ -214,7 +214,7 @@ class CampaignNotificationService
 
             $item->users()->detach();
 
-            return $item->delete();
+            return $item->users()->delete();
 
         } catch (\Throwable $exception) {
             throw $exception;

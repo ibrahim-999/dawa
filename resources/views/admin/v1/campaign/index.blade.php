@@ -1,0 +1,56 @@
+@extends('admin.v1.layout')
+@section('title')
+    {{__('pages_title.create_campaign')}}
+@endsection
+@section('content')
+    <x-admin.v1.layout.partials.basic-page-header>
+        <x-slot name="breadcrumbs">
+            <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.dashboard')}}" url="{{route('dashboard')}}"
+                                                         isActive="0"/>
+            <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.campaign_index')}}" url=""
+                                                         isActive="1"/>
+        </x-slot>
+        <x-slot name="title">
+            {{__('texts.campaign_index_header')}}
+        </x-slot>
+    </x-admin.v1.layout.partials.basic-page-header>
+
+    <x-admin.v1.table.table>
+
+        <x-slot name="left_actions">
+            <x-admin.v1.buttons.reference-btn btnType="btn-danger waves-effect waves-light"
+                                              url="{{route('campaigns.create')}}">
+                <x-slot name="title">
+                    <i class="mdi mdi-plus-circle mr-1"></i> {{__('labels.add')}}
+                </x-slot>
+            </x-admin.v1.buttons.reference-btn>
+        </x-slot>
+
+        <x-slot name="right_actions">
+
+        </x-slot>
+        <x-slot name="headers">
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>campaign Type</th>
+            <th>campaign Channel</th>
+            <th>Created at</th>
+            <th>Updated at</th>
+            <th style="width: 85px;">Action</th>
+        </x-slot>
+
+        <x-slot name="rows">
+            @include('admin.v1.campaign.partials.rows')
+        </x-slot>
+        <x-slot name="pagination">
+            <x-admin.v1.table.pagination>
+
+                <x-slot name="links">
+                    {{$campaigns->links()}}
+                </x-slot>
+            </x-admin.v1.table.pagination>
+        </x-slot>
+    </x-admin.v1.table.table>
+
+@endsection

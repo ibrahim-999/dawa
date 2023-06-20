@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
 use App\Http\Controllers\Web\Admin\v1\NotificationController;
 use App\Http\Controllers\Web\Admin\v1\SliderController;
 use App\Http\Controllers\Web\Admin\v1\CartsController;
@@ -82,7 +81,7 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
     Route::resource('offers', OfferController::class);
     Route::resource('sliders', SliderController::class);
     Route::post('drivers/{driver}/warning', [DriverController::class, 'warning'])->name('drivers.warningDriverByAdmin');
-    Route::resource('notifications', NotificationController::class);
+    //Route::resource('notifications', NotificationController::class);
     Route::resource('campaigns', CampaignNotificationController::class);
 
 
