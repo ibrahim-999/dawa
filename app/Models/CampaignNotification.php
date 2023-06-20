@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class NotificationCenter extends Model
+class CampaignNotification extends Model
 {
     use HasFactory, Translatable, SoftDeletes;
 
@@ -17,7 +17,12 @@ class NotificationCenter extends Model
 
     public function users()
     {
-       return $this->belongsToMany(User::class, 'users_notification', 'notification_id', 'user_id')
-            ->withPivot('type');
+        return $this
+            ->belongsToMany(
+                User::class,
+                'users_notification',
+                'notification_id',
+                'user_id'
+            )->withPivot('type');
     }
 }

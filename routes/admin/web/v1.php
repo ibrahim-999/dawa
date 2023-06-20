@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
 use App\Http\Controllers\Web\Admin\v1\NotificationController;
 use App\Http\Controllers\Web\Admin\v1\SliderController;
 use App\Http\Controllers\Web\Admin\v1\CartsController;
+use App\Http\Controllers\Web\Campaigns\v1\CampaignNotificationController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Web\Admin\v1\AuthController;
 use \App\Http\Controllers\Web\Admin\v1\AdminController;
@@ -82,6 +83,8 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
     Route::resource('sliders', SliderController::class);
     Route::post('drivers/{driver}/warning', [DriverController::class, 'warning'])->name('drivers.warningDriverByAdmin');
     Route::resource('notifications', NotificationController::class);
+    Route::resource('campaigns', CampaignNotificationController::class);
+
 
     Route::resource('cart', CartsController::class);
     Route::get('cart/{cart}/show', [CartsController::class, 'show'])->name('admin.cart.show');

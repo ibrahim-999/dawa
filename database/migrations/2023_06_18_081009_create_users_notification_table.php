@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->unsignedInteger('notification_id');
             $table->enum('type', ['customer', 'vendor']);
             $table->timestamps();
-            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignIdFor(\App\Models\Vendor::class)->nullable()->constrained('vendors')->nullOnDelete();
 
         });
     }

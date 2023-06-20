@@ -5,13 +5,11 @@ namespace App\Notifications;
 use App\Channels\FcmChannel;
 use App\Domains\Shared\v1\Services\FcmService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class BroadcastNotification extends Notification implements ShouldQueue
+class CampaignFcmNotification extends Notification
 {
     use Queueable;
-
     protected $fcmService;
     protected $notification;
 
@@ -47,14 +45,14 @@ class BroadcastNotification extends Notification implements ShouldQueue
         $this->fcmService->send($data);
     }
 
-    // /**
-    //  * Get the array representation of the notification.
-    //  *
-    //  * @return array<string, mixed>
-    //  */
+    /**
+     * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(object $notifiable): array
     {
-         return [
+        return [
             'en' => [
                 'title' =>$this->notification->translate('en')->title,
                 'body' => $this->notification->translate('en')->description,
