@@ -13,16 +13,15 @@ class CampaignNotification extends Model
 
     public $translatedAttributes = ['title', 'description', 'subject'];
 
-    public $fillable = ['type', 'user_type', 'date', 'time', 'sent_type', 'sent_type','status'];
+    public $fillable = ['type', 'user_type', 'date', 'time', 'sent_type', 'sent_type', 'status'];
 
-    public function users()
+    public function vendors()
     {
-        return $this
-            ->belongsToMany(
-                User::class,
-                'users_notification',
-                'notification_id',
-                'user_id'
-            )->withPivot('type');
+        return $this->morphMany(Vendor::class, 'campaignable');
+    }
+
+    public function customers()
+    {
+        return $this->morphMany(User::class, 'campaignable');
     }
 }

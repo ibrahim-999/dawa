@@ -22,7 +22,7 @@
             <div class="card-body">
                 <x-admin.v1.form.form title="{{__('forms.add_notification_title')}}"
                                       description="{{__('forms.add_notification_description')}}"
-                                      url="{{route('notifications.store')}}"
+                                      url="{{route('campaigns.store')}}"
                                       method="POST" fileable="false">
                     <x-slot name="inputs">
                         <div class="row">
@@ -64,10 +64,10 @@
                                 <select class="form-control" name="sent_type" id="sent_type">
                                     <option value="">{{__('translatable.select')}}</option>
                                     <option
-                                        value="now" {{old('sent_type')=='now'?'selected':null}}>
+                                        value="1" {{old('sent_type')=='1'?'selected':null}}>
                                         {{__('translatable.now')}}</option>
                                     <option
-                                        value="schedule" {{old('sent_type')=='schedule'?'selected':null}}>
+                                        value="2" {{old('sent_type')=='2'?'selected':null}}>
                                         {{__('translatable.schedule')}}</option>
                                 </select>
                             </div>
@@ -98,13 +98,13 @@
                                 <select class="form-control" name="type" id="notification_type">
                                     <option value="">{{__('translatable.select')}}</option>
                                     <option
-                                        value="all" {{old('type')=='all'?'selected':null}}>{{__('translatable.all')}}</option>
+                                        value="1" {{old('type')=='1'?'selected':null}}>{{__('translatable.all')}}</option>
                                     <option
-                                        value="broadcast" {{old('type')=='broadcast'?'selected':null}}>{{__('translatable.broadcast')}}</option>
+                                        value="3" {{old('type')=='3'?'selected':null}}>{{__('translatable.broadcast')}}</option>
                                     <option
-                                        value="sms" {{old('type')=='sms'?'selected':null}}>{{__('translatable.sms')}}</option>
+                                        value="4" {{old('type')=='4'?'selected':null}}>{{__('translatable.sms')}}</option>
                                     <option
-                                        value="email" {{old('type')=='email'?'selected':null}}>{{__('translatable.email')}}</option>
+                                        value="2" {{old('type')=='2'?'selected':null}}>{{__('translatable.email')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mt-2">
@@ -112,11 +112,11 @@
                                 <select class="form-control" name="user_type" id="user_type">
                                     <option value="">{{__('translatable.select')}}</option>
                                     <option
-                                        value="all">{{old('user_type')=='all'?'selected':null}}{{__('translatable.all')}}</option>
+                                        value="1">{{old('user_type')=='1'?'selected':null}}{{__('translatable.all')}}</option>
                                     <option
-                                        value="users"{{old('user_type')=='users'?'selected':null}}>{{__('translatable.users')}}</option>
+                                        value="2"{{old('user_type')=='2'?'selected':null}}>{{__('translatable.users')}}</option>
                                     <option
-                                        value="vendors" {{old('user_type')=='vendors'?'selected':null}}>{{__('translatable.vendors')}}</option>
+                                        value="3" {{old('user_type')=='3'?'selected':null}}>{{__('translatable.vendors')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-12 mt-2 " id="user_dev"
@@ -187,7 +187,7 @@
 @section('scripts')
     <script>
         $('#notification_type').on('change', function () {
-            if ($(this).val() == 'email') {
+            if ($(this).val() == '2') {
                 $('.subject_dev').fadeIn();
             } else {
                 $('.subject_dev').fadeOut();
@@ -196,7 +196,7 @@
         $('#sent_type').on('change', function () {
             $('#date').val('');
             $('#time_input').val('');
-            if ($(this).val() == 'schedule') {
+            if ($(this).val() == '2') {
                 $('#date_div').fadeIn();
                 $('#time_dev').fadeIn();
             } else {
@@ -206,20 +206,20 @@
         });
 
         $('#user_type').on('change', function () {
-            if ($(this).val() == 'vendors') {
+            if ($(this).val() == '3') {
                 $('#user_id').val('');
                 $('#vendor_id').val('');
                 $('#user_dev').fadeOut();
                 $('#vendor_dev').fadeIn();
 
             }
-            if ($(this).val() == 'users') {
+            if ($(this).val() == '2') {
                 $('#user_id').val('');
                 $('#vendor_id').val('');
                 $('#user_dev').fadeIn();
                 $('#vendor_dev').fadeOut();
             }
-            if ($(this).val() == 'all') {
+            if ($(this).val() == '1') {
                 $('#user_id').val('');
                 $('#vendor_id').val('');
                 $('#user_dev').fadeOut();

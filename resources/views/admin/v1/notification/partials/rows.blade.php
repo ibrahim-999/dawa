@@ -1,26 +1,26 @@
-@foreach($notifications as $notification)
+@foreach($campaigns as $campaign)
     <tr>
         <td class="table-user">
-            {{$notification->id}}
+            {{$campaign->id}}
         </td>
         <td class="table-user">
-            {{$notification->title}}
+            {{$campaign->title}}
         </td>
 
         <td>
-            {{$notification->description}}
+            {{$campaign->description}}
         </td>
         <td>
-            {{$notification->user_type}}
+            {{$campaign->user_type}}
         </td>
         <td>
-            {{$notification->type}}
+            {{$campaign->type}}
         </td>
         <td>
-            {{$notification->created_at}}
+            {{$campaign->created_at}}
         </td>
         <td>
-            {{$notification->updated_at}}
+            {{$campaign->updated_at}}
         </td>
         <td>
             @include('admin.v1.notification.partials.action-btns')

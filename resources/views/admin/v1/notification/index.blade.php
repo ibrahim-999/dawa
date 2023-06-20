@@ -19,7 +19,7 @@
 
         <x-slot name="left_actions">
             <x-admin.v1.buttons.reference-btn btnType="btn-danger waves-effect waves-light"
-                                              url="{{route('notifications.create')}}">
+                                              url="{{route('campaigns.create')}}">
                 <x-slot name="title">
                     <i class="mdi mdi-plus-circle mr-1"></i> {{__('labels.add')}}
                 </x-slot>
@@ -47,7 +47,7 @@
             <x-admin.v1.table.pagination>
 
                 <x-slot name="links">
-                    {{$notifications->links()}}
+                    {{$campaigns->links()}}
                 </x-slot>
             </x-admin.v1.table.pagination>
         </x-slot>

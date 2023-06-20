@@ -60,7 +60,10 @@ class Vendor extends Authenticatable
     {
         return $this->hasManyThrough(Pharmacy::class,Chain::class);
     }
-
+    public function campaignable()
+    {
+        return $this->morphMany(CampaignNotification::class, 'campaignable');
+    }
 
 
 }

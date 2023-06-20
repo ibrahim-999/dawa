@@ -13,7 +13,7 @@ use Propaganistas\LaravelPhone\PhoneNumber;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,FirebaseDeviceTokensTrait;
+    use HasApiTokens, HasFactory, Notifiable, FirebaseDeviceTokensTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -77,16 +77,18 @@ class User extends Authenticatable
         return $getCountry;
     }
 
-    public function carts ()
+    public function carts()
     {
         return $this->hasMany(Cart::class);
     }
+
     /**
      * Get all of the comments for the Driver
      *
      * @return \Illuminate\Database\Eloquent\Relations\morphMany
      */
-    public function images(){
+    public function images()
+    {
         return $this->morphMany(Image::class, 'parentable');
     }
 
@@ -97,7 +99,7 @@ class User extends Authenticatable
      */
     public function getProfileImageAttribute()
     {
-        return $this->images()->where('type','profile')->first();
+        return $this->images()->where('type', 'profile')->first();
     }
 
     /**
@@ -105,7 +107,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\morphMany
      */
-    public function comments(){
+    public function comments()
+    {
         return $this->morphMany(Comment::class, 'notifiable');
     }
 
@@ -114,7 +117,13 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\morphMany
      */
-    public function location(){
+    public function location()
+    {
         return $this->morphOne(Location::class, 'locationable');
+    }
+
+    public function campaignable()
+    {
+        return $this->morphMany(Campaignable::class, 'campaignable');
     }
 }

@@ -97,29 +97,49 @@ class CampaignNotificationService
             $notification = $this->campaignNotificationModel->create($request->all());
 
 
-            if ($request->user_type == 'users') {
+            if ($request->user_type == '2') {
                 $customers = User::whereIn('id', $request->user_id)->get();
                 $vendors = [];
-                if ($request->sent_type == 'schedule') {
-                    $notification->users()->attach($customers->pluck('id')->toArray(), ['type' => 'customer']);
+//                if ($request->sent_type == '2') {
+                if ($customers->count()) {
+                    foreach ($customers as $customer) {
+                        $customer->campaignable()->create([
+                            'title' => $notification->title,
+                            'description' => $notification->description,
+                            'subject' => $notification->subject,
+                            'notification_type' => $request->type,
+                        ]);
+//                        }
+                    }
+
                 }
 
-            } elseif ($request->user_type == 'vendors') {
+            } elseif ($request->user_type == '3') {
 
                 $customers = [];
 
                 $vendors = Vendor::whereIn('id', $request->vendor_id)->get();
 
-                if ($request->sent_type == 'schedule') {
-                    $notification->users()->attach($vendors->pluck('id')->toArray(), ['type' => 'vendor']);
+//                if ($request->sent_type == '2') {
+                if ($vendors->count()) {
+                    foreach ($vendors as $item) {
+                        $item->campaignable()->create([
+                            'title' => $notification->title,
+                            'description' => $notification->description,
+                            'subject' => $notification->subject,
+                            'notification_type' => $request->type,
+
+                        ]);
+                    }
                 }
+//                }
 
             } else {
                 $customers = User::all();
 
                 $vendors = Vendor::all();
             }
-            if ($request->sent_type == 'now') {
+            if ($request->sent_type == '1') {
                 SendNotificationCenterJob::dispatch($customers, $vendors, $notification);
             }
             return $notification;
@@ -138,9 +158,18 @@ class CampaignNotificationService
 
                 $vendors = [];
                 if ($request->sent_type == 'schedule') {
-                    $this->campaignNotificationModel->users()->detach();
+                    if ($customers->count()) {
+                        foreach ($customers as $customer) {
+                            $customer->campaignable()->update([
+                                'title' => $notification->title,
+                                'description' => $notification->description,
+                                'subject' => $notification->subject,
+                                'notification_type' => $request->type,
 
-                    $this->campaignNotificationModel->users()->attach($customers->pluck('id')->toArray(), ['type' => 'customer']);
+                            ]);
+                        }
+                    }
+
                 }
 
             } elseif ($request->user_type == 'vendors') {
@@ -151,8 +180,16 @@ class CampaignNotificationService
 
                 if ($request->sent_type == 'schedule') {
                     $this->campaignNotificationModel->users()->detach();
-
-                    $this->campaignNotificationModel->users()->attach($vendors->pluck('id')->toArray(), ['type' => 'vendor']);
+                    if ($vendors->count()) {
+                        foreach ($vendors as $vendor) {
+                            $vendor->campaignable()->update([
+                                'title' => $notification->title,
+                                'description' => $notification->description,
+                                'subject' => $notification->subject,
+                                'notification_type' => $request->type,
+                            ]);
+                        }
+                    }
                 }
 
             } else {

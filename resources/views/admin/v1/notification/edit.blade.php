@@ -1,5 +1,5 @@
 @extends('admin.v1.layout')
-@section('title',__('pages_title.edit_notification')."|".$notification->name)
+@section('title',__('pages_title.edit_notification')."|".$campaign->name)
 @section('content')
     <x-admin.v1.layout.partials.basic-page-header>
         <x-slot name="breadcrumbs">
@@ -8,7 +8,7 @@
             <x-admin.v1.layout.partials.bread-crumb-item title="{{__('labels.notifications_index')}}"
                                                          url="{{route('notifications.index')}}" isActive="0"/>
             <x-admin.v1.layout.partials.bread-crumb-item
-                title="{{__('labels.notifications_edit')}}-{{$notification->name}}" url=""
+                title="{{__('labels.notifications_edit')}}-{{$campaign->name}}" url=""
                 isActive="1"/>
         </x-slot>
         <x-slot name="title">
@@ -18,16 +18,16 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <x-admin.v1.form.form title="{{__('forms.edit_notification_title')}} - {{$notification->name}}"
+                <x-admin.v1.form.form title="{{__('forms.edit_notification_title')}} - {{$campaign->name}}"
                                       description="{{__('forms.edit_user_description')}}"
-                                      url="{{route('notifications.update',$notification->id)}}"
+                                      url="{{route('campaigns.update',$campaign->id)}}"
                                       method="POST" fileable="false">
                     <x-slot name="inputs">
                         <div class="row">
                             @foreach(config('translatable.locales') as $local)
                                 <div class="col-md-6">
                                     <x-admin.v1.form.text-input errorName="{{$local}}.title" prepend=""
-                                                                value="{{$notification->translate($local)->title}}"
+                                                                value="{{$campaign->translate($local)->title}}"
                                                                 size="col-md-12"
                                                                 name="{{$local}}[title]"
                                                                 title="{{__('labels.title',['local'=>$local])}}"
@@ -36,12 +36,12 @@
                             @endforeach
                             @foreach(config('translatable.locales') as $local)
                                 <div class="col-md-6 subject_dev"
-                                     @if($notification->type!='email')
+                                     @if($campaign->type!='email')
                                          style="display: none;"
                                     @endif >
 
                                     <x-admin.v1.form.text-area-input prepend=""
-                                                                     value="{{$notification->translate($local)->subject}}"
+                                                                     value="{{$campaign->translate($local)->subject}}"
                                                                      length="500"
                                                                      rows="4" size="col-md-12"
                                                                      name="{{$local}}[subject]"
@@ -54,7 +54,7 @@
                                     <x-admin.v1.form.text-area-input prepend="" value="{{old($local.'[description]')}}"
                                                                      length="500"
                                                                      rows="4" size="col-md-12"
-                                                                     value="{{$notification->translate($local)->description}}"
+                                                                     value="{{$campaign->translate($local)->description}}"
                                                                      name="{{$local}}[description]"
                                                                      title="{{__('labels.description',['local'=>$local])}}"
                                                                      placeholder="{{__('placeholders.description')}}"/>
@@ -65,10 +65,10 @@
                                 <select class="form-control" name="sent_type" id="sent_type">
                                     <option value="">{{__('translatable.select')}}</option>
                                     <option
-                                        value="now" {{$notification->sent_type=='now'?'selected':null}}>
+                                        value="now" {{$campaign->sent_type=='now'?'selected':null}}>
                                         {{__('translatable.now')}}</option>
                                     <option
-                                        value="schedule" {{$notification->sent_type=='schedule'?'selected':null}}>
+                                        value="schedule" {{$campaign->sent_type=='schedule'?'selected':null}}>
                                         {{__('translatable.schedule')}}</option>
                                 </select>
                             </div>
@@ -77,19 +77,19 @@
                                      style="display: none"
                                 @endif>
                                 <x-admin.v1.form.date-input prepend=""
-                                                            value="{{$notification->date??old('date')}}"
+                                                            value="{{$campaign->date??old('date')}}"
                                                             size="col-md-12"
                                                             name="date"
                                                             title="{{__('labels.date')}}"
                                                             placeholder="{{__('placeholders.date')}}"/>
                             </div>
                             <div class="col-md-6 mt-2" id="time_div"
-                                 @if($notification->sent_type!='schedule')
+                                 @if($campaign->sent_type!='schedule')
                                      style="display: none"
                                 @endif>
                                 <label>{{__('translatable.time')}}</label>
                                 <input type="time" class="form-control"
-                                       value="{{$notification->time??old('time')}}" size="col-md-12"
+                                       value="{{$campaign->time??old('time')}}" size="col-md-12"
                                        name="time"
                                        title="{{__('labels.time')}}"
                                        placeholder="{{__('placeholders.time')}}"/>
@@ -100,13 +100,13 @@
                                 <select class="form-control" name="type" id="notification_type">
                                     <option value="">{{__('translatable.select')}}</option>
                                     <option
-                                        value="all" {{$notification->type=='all'?'selected':null}}>{{__('translatable.all')}}</option>
+                                        value="all" {{$campaign->type=='all'?'selected':null}}>{{__('translatable.all')}}</option>
                                     <option
-                                        value="broadcast" {{$notification->type=='broadcast'?'selected':null}}>{{__('translatable.broadcast')}}</option>
+                                        value="broadcast" {{$campaign->type=='broadcast'?'selected':null}}>{{__('translatable.broadcast')}}</option>
                                     <option
-                                        value="sms" {{$notification->type=='sms'?'selected':null}}>{{__('translatable.sms')}}</option>
+                                        value="sms" {{$campaign->type=='sms'?'selected':null}}>{{__('translatable.sms')}}</option>
                                     <option
-                                        value="email" {{$notification->type=='email'?'selected':null}}>{{__('translatable.email')}}</option>
+                                        value="email" {{$campaign->type=='email'?'selected':null}}>{{__('translatable.email')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mt-2">
@@ -114,15 +114,15 @@
                                 <select class="form-control" name="user_type" id="user_type">
                                     <option value="">{{__('translatable.select')}}</option>
                                     <option
-                                        value="all">{{$notification->user_type=='all'?'selected':null}}{{__('translatable.all')}}</option>
+                                        value="all">{{$campaign->user_type=='all'?'selected':null}}{{__('translatable.all')}}</option>
                                     <option
-                                        value="users"{{$notification->user_type=='users'?'selected':null}}>{{__('translatable.users')}}</option>
+                                        value="users"{{$campaign->user_type=='users'?'selected':null}}>{{__('translatable.users')}}</option>
                                     <option
-                                        value="vendors" {{$notification->user_type=='vendors'?'selected':null}}>{{__('translatable.vendors')}}</option>
+                                        value="vendors" {{$campaign->user_type=='vendors'?'selected':null}}>{{__('translatable.vendors')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-12 mt-2 " id="user_dev"
-                                 @if($notification->user_type!='users')
+                                 @if($campaign->user_type!='users')
                                      style="display: none"
                                 @endif>
                                 <label>{{__('translatable.users')}}</label>
@@ -133,8 +133,8 @@
                                     @if($users->count())
                                         @foreach($users as $user)
                                             <option value="{{$user->id}}"
-                                            @if($notification->users->count())
-                                                @foreach($notification->users()->pluck('user_id') as $item)
+                                            @if($campaign->users->count())
+                                                @foreach($campaign->users()->pluck('user_id') as $item)
                                                     @if($item==$user->id)
                                                         {{'selected'}}
                                                         @endif
@@ -147,7 +147,7 @@
                                 </select>
                             </div>
                             <div class="col-md-12 mt-2 " id="vendor_dev"
-                                 @if($notification->user_type!='vendors')
+                                 @if($campaign->user_type!='vendors')
                                      style="display: none"
                                 @endif>
                                 <label>{{__('translatable.vendors')}}</label>
@@ -158,8 +158,8 @@
                                     @if($vendors->count())
                                         @foreach($vendors as $vendor)
                                             <option value="{{$vendor->id}}"
-                                            @if($notification->users->count())
-                                                @foreach($notification->users()->pluck('user_id') as $item)
+                                            @if($campaign->users->count())
+                                                @foreach($campaign->users()->pluck('user_id') as $item)
                                                     @if($item==$vendor->id)
                                                         {{'selected'}}
                                                         @endif
@@ -175,9 +175,9 @@
                                 <select class="form-control" name="status">
                                     <option value="">{{__('translatable.select')}}</option>
                                     <option
-                                        value="active" {{$notification->status=='active'?'selected':null}}>{{__('translatable.active')}}</option>
+                                        value="active" {{$campaign->status=='active'?'selected':null}}>{{__('translatable.active')}}</option>
                                     <option
-                                        value="inactive" {{$notification->status=='inactive'?'selected':null}}>{{__('translatable.inactive')}}</option>
+                                        value="inactive" {{$campaign->status=='inactive'?'selected':null}}>{{__('translatable.inactive')}}</option>
                                 </select>
                             </div>
 
