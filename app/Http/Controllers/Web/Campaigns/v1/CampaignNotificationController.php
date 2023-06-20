@@ -44,7 +44,7 @@ class CampaignNotificationController extends Controller
         return view('admin/v1/notification/create', compact('users', 'vendors'));
     }
 
-    public function store(NotificationRequest $request)
+    public function store(CampaignNotificationRequest $request)
     {
         $this->campaignNotificationModel->add($request);
 
