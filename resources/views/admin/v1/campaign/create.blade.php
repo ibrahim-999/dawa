@@ -32,7 +32,6 @@
                             <div class="col-md-12 mt-2">
                                 <label>{{__('forms.send_type')}}</label>
                                 <select class="form-control" name="sent_type" id="sent_type">
-                                    <option value="">{{__('forms.select')}}</option>
                                     <option
                                         value="1" {{old('sent_type')=='1'?'selected':null}}>
                                         {{__('forms.now')}}</option>
@@ -131,11 +130,11 @@
                                 </select>
                             </div>
 
-                                <x-admin.v1.form.checkbox-input value="1"
-                                                                checked="1"
-                                                                size="col-md-4"
-                                                                name="is_active"
-                                                                title="{{__('labels.is_active')}}"/>
+                            <x-admin.v1.form.checkbox-input value="1"
+                                                            checked="1"
+                                                            size="col-md-4"
+                                                            name="is_active"
+                                                            title="{{__('labels.is_active')}}"/>
 
                         </div>
 

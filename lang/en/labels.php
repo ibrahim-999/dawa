@@ -154,11 +154,12 @@ return [
     'is_current' => 'IS CURRENT',
     'quantity' => 'QUANTITY',
 
-    'campaign' => 'Campaign',
+    'campaign' => 'campaign',
     'campaigns' => 'Campaigns',
     'campaigns_index' => 'Campaigns',
     'campaigns_edit' => 'Edit Campaigns',
     'campaigns_create' => 'Create Campaigns',
     'campaigns_show' => 'Show Campaigns',
     'campaign_index' => 'Campaigns',
+    'advertisements' => 'Advertisements'
 ];
