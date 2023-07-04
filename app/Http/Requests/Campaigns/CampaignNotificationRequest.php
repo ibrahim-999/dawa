@@ -35,7 +35,7 @@ class CampaignNotificationRequest extends FormRequest
             'user_type' => ['required',Rule::in([CampaignUserTypeEnum::ALL->value, CampaignUserTypeEnum::USERS->value, CampaignUserTypeEnum::VENDORS->value])],
             'user_id' => 'required_if:user_type,users',
             'vendor_id' => 'required_if:user_type,vendors',
-            'is_active' => ['required', 'boolean']
+            'is_active' => ['nullable', 'boolean']
         ]);
 
         return $rules;

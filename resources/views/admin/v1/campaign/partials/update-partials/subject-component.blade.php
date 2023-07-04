@@ -1,11 +1,11 @@
 @foreach(config('translatable.locales') as $local)
     <div class="col-md-6 subject_dev"
-         @if($notification->type!='email')
+         @if($campaign->type!='2')
              style="display: none;"
         @endif >
 
         <x-admin.v1.form.text-area-input prepend=""
-                                         value="{{$notification->translate($local)->subject}}"
+                                         value="{{$campaign->translate($local)->subject}}"
                                          length="500"
                                          rows="4" size="col-md-12"
                                          name="{{$local}}[subject]"

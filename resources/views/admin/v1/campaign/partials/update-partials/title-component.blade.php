@@ -1,7 +1,7 @@
 @foreach(config('translatable.locales') as $local)
     <div class="col-md-6">
         <x-admin.v1.form.text-input errorName="{{$local}}.title" prepend=""
-                                    value="{{$notification->translate($local)->title}}"
+                                    value="{{$campaign->translate($local)->title}}"
                                     size="col-md-12"
                                     name="{{$local}}[title]"
                                     title="{{__('labels.title',['local'=>$local])}}"

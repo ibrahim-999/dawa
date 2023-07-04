@@ -16,8 +16,9 @@ return new class extends Migration {
             $table->string('subject')->nullable();
             $table->longText('description');
             $table->text('notification_type');
+            $table->text('notification_id');
             $table->integer('campaignable_id');
-            $table->string("campaignable_type");
+            $table->string('campaignable_type');
             $table->timestamps();
 
         });

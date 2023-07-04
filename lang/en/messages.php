@@ -68,4 +68,8 @@ return [
     'slider_created_successfully' => 'Slider Created Successfully',
     'slider_deleted_successfully' => 'Slider Deleted Successfully',
     'slider_updated_successfully' => 'Slider Updated  Successfully',
+
+    'campaigns_created_successfully' => 'Campaign Created Successfully',
+    'campaigns_deleted_successfully' => 'Campaign Deleted Successfully',
+    'campaigns_updated_successfully' => 'Campaign Updated  Successfully',
 ];

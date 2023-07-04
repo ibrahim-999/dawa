@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('campaign_notifications', function (Blueprint $table) {
+        Schema::create('camp_notifications', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('type')->default(CampaignTypeEnum::ALL->value)->nullable();
             $table->tinyInteger('user_type')->default(CampaignUserTypeEnum::ALL->value)->nullable();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('campaign_notifications');
+        Schema::dropIfExists('camp_notifications');
     }
 };

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('campaign_notification_translations', function (Blueprint $table) {
+        Schema::create('camp_notification_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\CampaignNotification::class,'camp_notification_id')->constrained('campaign_notifications')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\CampNotification::class,'camp_notification_id')->constrained('camp_notifications')->cascadeOnDelete();
             $table->string('locale');
             $table->string('title');
             $table->string('subject')->nullable();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('campaign_notification_translations');
+        Schema::dropIfExists('camp_notification_translations');
     }
 };

@@ -13,6 +13,12 @@ class Campaignable extends Model
     protected $table = 'campaignable';
 
     protected $fillable = [
-        'title', 'description', 'subject', 'notification_type', 'campaignable_id', 'campaignable_type'
+        'title',
+        'description',
+        'subject',
+        'notification_type',
+        'campaignable_id',
+        'campaignable_type',
+        'notification_id'
     ];
 }

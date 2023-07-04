@@ -154,11 +154,11 @@ return [
     'is_current' => 'IS CURRENT',
     'quantity' => 'QUANTITY',
 
-    'notifications' => 'notifications',
-    'notification' => 'Notifications',
-    'notifications_index' => 'Notifications',
-    'notifications_edit' => 'Edit Notifications',
-    'notifications_create' => 'Create Notifications',
-    'notifications_show' => 'Show Notifications',
-    'notification_index' => 'notifications',
+    'campaign' => 'Campaign',
+    'campaigns' => 'Campaigns',
+    'campaigns_index' => 'Campaigns',
+    'campaigns_edit' => 'Edit Campaigns',
+    'campaigns_create' => 'Create Campaigns',
+    'campaigns_show' => 'Show Campaigns',
+    'campaign_index' => 'Campaigns',
 ];

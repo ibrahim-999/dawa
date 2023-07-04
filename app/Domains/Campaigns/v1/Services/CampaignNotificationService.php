@@ -4,8 +4,8 @@ namespace App\Domains\Campaigns\v1\Services;
 
 use App\Domains\Campaigns\v1\Enums\CampaignSentTypeEnum;
 use App\Domains\Campaigns\v1\Enums\CampaignUserTypeEnum;
-use App\Jobs\SendNotificationCenterJob;
-use App\Models\CampaignNotification;
+use App\Jobs\SendCampaignNotificationJob;
+use App\Models\CampNotification;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,12 +15,10 @@ use Illuminate\Http\Request;
 class CampaignNotificationService
 {
     private Model|Builder $campaignNotificationModel;
-
     public function __construct()
     {
-        $this->campaignNotificationModel = new CampaignNotification();
+        $this->campaignNotificationModel = new CampNotification();
     }
-
     public function paginate_simple(int $itemsPerPage): array
     {
         try {
@@ -31,25 +29,22 @@ class CampaignNotificationService
             throw $exception;
         }
     }
-
     public function find(string $key, string $value): ?Model
     {
         try {
             $user = getAuthUser();
 
-            $notification = $user->notifications()->where($key, $value)->first();
-            if (!$notification) {
+            $campaign = $user->notifications()->where($key, $value)->first();
+            if (!$campaign) {
                 return null;
             }
-            ($notification) ? $notification->markAsRead() : '';
-            return $notification->refresh();
+            ($campaign) ? $campaign->markAsRead() : '';
+            return $campaign->refresh();
         } catch (\Throwable $exception) {
             throw $exception;
         }
 
     }
-
-
     public function markAllSeen()
     {
         try {
@@ -60,7 +55,6 @@ class CampaignNotificationService
             throw $exception;
         }
     }
-
     public function delete(Model $item): bool
     {
         try {
@@ -69,7 +63,6 @@ class CampaignNotificationService
             throw $exception;
         }
     }
-
     public function setBuilder(Model|Builder $query)
     {
         try {
@@ -81,7 +74,6 @@ class CampaignNotificationService
             throw $exception;
         }
     }
-
     public function notifications_list($itemsPerPage)
     {
         try {
@@ -92,12 +84,15 @@ class CampaignNotificationService
             throw $exception;
         }
     }
-
     public function add(Request $request): ?Model
     {
         try {
-            $notification = $this->campaignNotificationModel->create($request->all());
 
+            $campaign = $this->campaignNotificationModel->create($request->all());
+
+            $campaign->update([
+                'is_active' => $request->is_active ? 1 : 0
+            ]);
 
             if ($request->user_type == CampaignUserTypeEnum::USERS->value) {
                 $customers = User::whereIn('id', $request->user_id)->get();
@@ -107,14 +102,13 @@ class CampaignNotificationService
                 if ($customers->count()) {
                     foreach ($customers as $customer) {
                         $customer->campaignable()->create([
-                            'title' => $notification->title,
-                            'description' => $notification->description,
-                            'subject' => $notification->subject,
+                            'title' => $campaign->title,
+                            'description' => $campaign->description,
+                            'subject' => $campaign->subject,
                             'notification_type' => $request->type,
+                            'notification_id' => $campaign->id,
                         ]);
-
                     }
-
                 }
 
             } elseif ($request->user_type == CampaignUserTypeEnum::VENDORS->value) {
@@ -126,10 +120,11 @@ class CampaignNotificationService
                 if ($vendors->count()) {
                     foreach ($vendors as $item) {
                         $item->campaignable()->create([
-                            'title' => $notification->title,
-                            'description' => $notification->description,
-                            'subject' => $notification->subject,
+                            'title' => $campaign->title,
+                            'description' => $campaign->description,
+                            'subject' => $campaign->subject,
                             'notification_type' => $request->type,
+                            'notification_id' => $campaign->id,
 
                         ]);
                     }
@@ -141,52 +136,56 @@ class CampaignNotificationService
                 $vendors = Vendor::all();
             }
             if ($request->sent_type == CampaignSentTypeEnum::NOW->value) {
-                SendNotificationCenterJob::dispatch($customers, $vendors, $notification);
+                SendCampaignNotificationJob::dispatch($customers, $vendors, $campaign);
             }
-            return $notification;
+            return $campaign;
         } catch (\Throwable $exception) {
             throw $exception;
         }
     }
-
     public function update(Request $request)
     {
         try {
-            $notification = $this->campaignNotificationModel->update($request->all());
+            $campaign = $this->campaignNotificationModel->update($request->all());
 
-            if ($request->user_type == 'users') {
+            $this->campaignNotificationModel->update([
+                'is_active' => $request->is_active ? 1 : 0
+            ]);
+            if ($request->user_type == CampaignUserTypeEnum::USERS->value) {
                 $customers = User::whereIn('id', $request->user_id)->get();
 
                 $vendors = [];
-                if ($request->sent_type == 'schedule') {
+                if ($request->sent_type == CampaignSentTypeEnum::SCHEDULE->value) {
                     if ($customers->count()) {
                         foreach ($customers as $customer) {
                             $customer->campaignable()->update([
-                                'title' => $notification->title,
-                                'description' => $notification->description,
-                                'subject' => $notification->subject,
+                                'title' => $campaign->title,
+                                'description' => $campaign->description,
+                                'subject' => $campaign->subject,
                                 'notification_type' => $request->type,
+                                'notification_id' => $campaign->id,
+
                             ]);
                         }
                     }
-
                 }
 
-            } elseif ($request->user_type == 'vendors') {
+            } elseif ($request->user_type == CampaignUserTypeEnum::VENDORS->value) {
 
                 $customers = [];
 
                 $vendors = Vendor::whereIn('id', $request->vendor_id)->get();
 
-                if ($request->sent_type == 'schedule') {
+                if ($request->sent_type == CampaignSentTypeEnum::SCHEDULE->value) {
                     $this->campaignNotificationModel->users()->detach();
                     if ($vendors->count()) {
                         foreach ($vendors as $vendor) {
                             $vendor->campaignable()->update([
-                                'title' => $notification->title,
-                                'description' => $notification->description,
-                                'subject' => $notification->subject,
+                                'title' => $campaign->title,
+                                'description' => $campaign->description,
+                                'subject' => $campaign->subject,
                                 'notification_type' => $request->type,
+                                'notification_id' => $campaign->id,
                             ]);
                         }
                     }
@@ -198,27 +197,24 @@ class CampaignNotificationService
                 $vendors = Vendor::all();
             }
 
-            if ($request->sent_type == 'now') {
-                SendNotificationCenterJob::dispatch($customers, $vendors, $this->campaignNotificationModel);
+            if ($request->sent_type == CampaignSentTypeEnum::NOW->value) {
+                SendCampaignNotificationJob::dispatch($customers, $vendors, $this->campaignNotificationModel);
             }
-            return $notification;
+            return $campaign;
 
         } catch (\Throwable $exception) {
             throw $exception;
         }
     }
-
     public function destroy($item)
     {
         try {
+            $item->campaigns()->delete();
 
-            $item->users()->detach();
-
-            return $item->users()->delete();
+            return $item->delete();
 
         } catch (\Throwable $exception) {
             throw $exception;
         }
     }
-
 }

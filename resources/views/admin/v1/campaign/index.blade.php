@@ -30,11 +30,18 @@
 
         </x-slot>
         <x-slot name="headers">
+            <th style="width: 20px;">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                </div>
+            </th>
             <th>ID</th>
             <th>Title</th>
             <th>Description</th>
-            <th>campaign Type</th>
-            <th>campaign Channel</th>
+            <th>Campaign Type</th>
+            <th>Campaign Channel</th>
+            <th>Status</th>
             <th>Created at</th>
             <th>Updated at</th>
             <th style="width: 85px;">Action</th>

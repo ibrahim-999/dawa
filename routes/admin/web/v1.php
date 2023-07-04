@@ -81,8 +81,7 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
     Route::resource('offers', OfferController::class);
     Route::resource('sliders', SliderController::class);
     Route::post('drivers/{driver}/warning', [DriverController::class, 'warning'])->name('drivers.warningDriverByAdmin');
-    //Route::resource('notifications', NotificationController::class);
-    Route::resource('campaigns', CampaignNotificationController::class);
+    Route::resource('campaigns', CampaignNotificationController::class)->except('show');
 
 
     Route::resource('cart', CartsController::class);

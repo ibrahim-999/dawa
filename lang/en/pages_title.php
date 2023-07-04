@@ -29,8 +29,8 @@ return [
     'show_cart' => 'Show Cart',
     'cart' => 'Carts',
 
-    'index_notification' => 'Notification',
-    'edit_notification' => 'Edit Notification',
-    'create_notification' => 'Create Notification',
+    'index_campaign' => 'Campaign',
+    'edit_campaign' => 'Edit Campaign',
+    'create_campaign' => 'Create Campaign',
 
 ];

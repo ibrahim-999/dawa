@@ -55,10 +55,26 @@ return [
 
   "add_slider_title" => "Slider Data",
   "edit_slider_title" => "Edit Slider",
-  "add_notification_title" => "Add Notification Form",
-  "add_notification_description" => "Add Notification For Marketing Campaign",
-  "edit_notification_title" => "Edit Notification Form",
-  "edit_notification_description" => "Edit Notification For Marketing Campaign",
+  "add_campaign_title" => "Add Campaign Form",
+  "add_campaign_description" => "Add Campaign For Marketing",
+  "edit_campaign_title" => "Edit Campaign Form",
+  "edit_campaign_description" => "Edit Campaign For Marketing",
+    'send_to' => 'Send To',
+    'send_type' => 'Send Type',
+    'select' => 'Select',
+    'now' => 'Now',
+    'sms' => 'SMS',
+    'schedule' => 'Schedule',
+    'campaign_status' => 'Campaign Status',
+    'date' => 'Date',
+    'time' => 'Time',
+    'users' => 'Users',
+    'vendors' => 'Vendors',
+    'fcm' => 'FCM',
+    'email' => 'Email',
+    'all' => 'All',
+    'type' => 'Type',
+
 
 
 ];

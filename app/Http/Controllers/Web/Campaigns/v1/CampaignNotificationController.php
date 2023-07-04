@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Web\Campaigns\v1;
 use App\Domains\Campaigns\v1\Services\CampaignNotificationService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaigns\CampaignNotificationRequest;
-use App\Models\CampaignNotification;
+use App\Models\Campaignable;
+use App\Models\CampNotification;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -51,19 +52,27 @@ class CampaignNotificationController extends Controller
         return Redirect::route('campaigns.index')->with('success', __('messages.notification_created_successfully'));
     }
 
-    public function edit(CampaignNotification $campaign)
+    public function edit(CampNotification $campaign)
     {
         $users = User::all();
 
         $vendors = Vendor::all();
 
-        return view('admin/v1/campaign/edit', compact('users', 'vendors', 'campaign'));
+        $users_selected = Campaignable::where('notification_id',$campaign->id)->
+        where('campaignable_type',User::class)->pluck('campaignable_id');
+
+        $vendors_selected = Campaignable::where('notification_id',$campaign->id)->
+        where('campaignable_type',Vendor::class)->pluck('campaignable_id');
+
+        return view('admin/v1/campaign/edit', compact('users', 'vendors', 'campaign',
+            'users_selected','vendors_selected'));
 
     }
 
-    public function update(CampaignNotification $notification,CampaignNotificationRequest $request)
+    public function update(CampNotification $campaign,CampaignNotificationRequest $request)
     {
-        $updated = $this->campaignNotificationService->setBuilder($notification)->update($request);
+
+        $updated = $this->campaignNotificationService->setBuilder($campaign)->update($request);
 
         if ($updated) {
             return Redirect::route('campaigns.index')->with('success', __('messages.notification_updated_successfully'));
@@ -71,9 +80,9 @@ class CampaignNotificationController extends Controller
             return Redirect::back();
         }
     }
-    public function destroy(CampaignNotification $notification)
+    public function destroy(CampNotification $campaign)
     {
-        $this->campaignNotificationService->destroy($notification);
+        $this->campaignNotificationService->destroy($campaign);
 
         return Redirect::route('campaigns.index')->with('success', __('messages.notification_deleted_successfully'));
 

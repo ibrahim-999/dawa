@@ -30,15 +30,15 @@
                             @include('admin.v1.campaign.partials.create-partials.description-component')
                             @include('admin.v1.campaign.partials.create-partials.subject-component')
                             <div class="col-md-12 mt-2">
-                                <label>{{__('translatable.sent_type')}}</label>
+                                <label>{{__('forms.send_type')}}</label>
                                 <select class="form-control" name="sent_type" id="sent_type">
-                                    <option value="">{{__('translatable.select')}}</option>
+                                    <option value="">{{__('forms.select')}}</option>
                                     <option
                                         value="1" {{old('sent_type')=='1'?'selected':null}}>
-                                        {{__('translatable.now')}}</option>
+                                        {{__('forms.now')}}</option>
                                     <option
                                         value="2" {{old('sent_type')=='2'?'selected':null}}>
-                                        {{__('translatable.schedule')}}</option>
+                                        {{__('forms.schedule')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mt-2" id="date_div"
@@ -55,7 +55,7 @@
                                  @if(old('sent_type')!='schedule')
                                      style="display: none"
                                 @endif>
-                                <label>{{__('translatable.time')}}</label>
+                                <label>{{__('forms.time')}}</label>
                                 <input type="time" class="form-control"
                                        value="{{old('time')}}" size="col-md-12"
                                        name="time"
@@ -64,36 +64,36 @@
                             </div>
 
                             <div class="col-md-6 mt-2">
-                                <label>{{__('translatable.type')}}</label>
+                                <label>{{__('forms.type')}}</label>
                                 <select class="form-control" name="type" id="notification_type">
-                                    <option value="">{{__('translatable.select')}}</option>
+                                    <option value="">{{__('forms.select')}}</option>
                                     <option
-                                        value="1" {{old('type')=='1'?'selected':null}}>{{__('translatable.all')}}</option>
+                                        value="1" {{old('type')=='1'?'selected':null}}>{{__('forms.all')}}</option>
                                     <option
-                                        value="3" {{old('type')=='3'?'selected':null}}>{{__('translatable.broadcast')}}</option>
+                                        value="3" {{old('type')=='3'?'selected':null}}>{{__('forms.fcm')}}</option>
                                     <option
-                                        value="4" {{old('type')=='4'?'selected':null}}>{{__('translatable.sms')}}</option>
+                                        value="4" {{old('type')=='4'?'selected':null}}>{{__('forms.sms')}}</option>
                                     <option
-                                        value="2" {{old('type')=='2'?'selected':null}}>{{__('translatable.email')}}</option>
+                                        value="2" {{old('type')=='2'?'selected':null}}>{{__('forms.email')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mt-2">
-                                <label>{{__('translatable.sendTo')}}</label>
+                                <label>{{__('forms.send_to')}}</label>
                                 <select class="form-control" name="user_type" id="user_type">
-                                    <option value="">{{__('translatable.select')}}</option>
+                                    <option value="">{{__('forms.select')}}</option>
                                     <option
-                                        value="1">{{old('user_type')=='1'?'selected':null}}{{__('translatable.all')}}</option>
+                                        value="1">{{old('user_type')=='1'?'selected':null}}{{__('forms.all')}}</option>
                                     <option
-                                        value="2"{{old('user_type')=='2'?'selected':null}}>{{__('translatable.users')}}</option>
+                                        value="2"{{old('user_type')=='2'?'selected':null}}>{{__('forms.users')}}</option>
                                     <option
-                                        value="3" {{old('user_type')=='3'?'selected':null}}>{{__('translatable.vendors')}}</option>
+                                        value="3" {{old('user_type')=='3'?'selected':null}}>{{__('forms.vendors')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-12 mt-2 " id="user_dev"
                                  @if(old('user_type')!='users')
                                      style="display: none"
                                 @endif>
-                                <label>{{__('translatable.users')}}</label>
+                                <label>{{__('forms.users')}}</label>
                                 <select class="form-control selectpicker"
                                         data-actions-box="true"
                                         data-live-search="true"
@@ -114,7 +114,7 @@
                                  @if(old('user_type')!='vendors')
                                      style="display: none"
                                 @endif>
-                                <label>{{__('translatable.vendors')}}</label>
+                                <label>{{__('forms.vendors')}}</label>
                                 <select class="form-control selectpicker" multiple
                                         data-live-search="true"
                                         data-actions-box="true"
@@ -131,7 +131,10 @@
                                 </select>
                             </div>
 
-                                <x-admin.v1.form.checkbox-input value="1" checked="1" size="col-md-6" name="is_active"
+                                <x-admin.v1.form.checkbox-input value="1"
+                                                                checked="1"
+                                                                size="col-md-4"
+                                                                name="is_active"
                                                                 title="{{__('labels.is_active')}}"/>
 
                         </div>
