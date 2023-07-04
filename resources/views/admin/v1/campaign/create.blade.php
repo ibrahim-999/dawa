@@ -40,26 +40,65 @@
                                         {{__('forms.schedule')}}</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mt-2" id="date_div"
+
+                            <div class="col-md-12 mt-2" id="schedule_type_dev"
                                  @if(old('sent_type')!='schedule')
                                      style="display: none"
                                 @endif>
-                                <x-admin.v1.form.date-input prepend=""
-                                                            value="{{old('date')}}" size="col-md-12"
-                                                            name="date"
-                                                            title="{{__('labels.date')}}"
-                                                            placeholder="{{__('placeholders.date')}}"/>
+                                <label>{{__('forms.schedule_type')}}</label>
+                                <select class="form-control" name="schedule_type" id="schedule_type">
+                                    <option
+                                        value="1" {{old('schedule_type')=='1'?'selected':null}}>
+                                        {{__('forms.daily')}}</option>
+                                    <option
+                                        value="2" {{old('schedule_type')=='2'?'selected':null}}>
+                                        {{__('forms.weekly')}}</option>
+                                </select>
                             </div>
-                            <div class="col-md-6 mt-2" id="time_div"
+                            <div class="col-md-12 mt-2" id="days_of_week_dev"
+                                 @if(old('schedule_type')!='weekly')
+                                     style="display: none"
+                                @endif>
+                                <label>{{__('forms.days_of_week')}}</label>
+                                <select class="form-control" name="days_of_week" id="days_of_week">
+                                    <option
+                                        value="1">{{old('schedule_type')=='1'?'selected':null}}{{__('forms.saturday')}}</option>
+                                    <option
+                                        value="2">{{old('schedule_type')=='2'?'selected':null}}{{__('forms.sunday')}}</option>
+                                    <option
+                                        value="3">{{old('schedule_type')=='3'?'selected':null}}{{__('forms.monday')}}</option>
+                                    <option
+                                        value="4">{{old('schedule_type')=='4'?'selected':null}}{{__('forms.tuesday')}}</option>
+                                    <option
+                                        value="5">{{old('schedule_type')=='5'?'selected':null}}{{__('forms.wednesday')}}</option>
+                                    <option
+                                        value="6">{{old('schedule_type')=='6'?'selected':null}}{{__('forms.thursday')}}</option>
+                                    <option
+                                        value="7">{{old('schedule_type')=='7'?'selected':null}}{{__('forms.friday')}}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mt-2" id="start_date_div"
                                  @if(old('sent_type')!='schedule')
                                      style="display: none"
                                 @endif>
-                                <label>{{__('forms.time')}}</label>
-                                <input type="time" class="form-control"
-                                       value="{{old('time')}}" size="col-md-12"
-                                       name="time"
-                                       title="{{__('labels.time')}}"
-                                       placeholder="{{__('placeholders.time')}}"/>
+                                <x-admin.v1.form.date-time-input
+                                    prepend=""
+                                    value="{{old('start_date')}}" size="col-md-12"
+                                    name="start_date"
+                                    title="{{__('labels.start_date')}}"
+                                    placeholder="{{__('placeholders.date')}}"/>
+                            </div>
+                            <div class="col-md-6 mt-2" id="end_date_div"
+                                 @if(old('sent_type')!='schedule')
+                                     style="display: none"
+                                @endif>
+                                <x-admin.v1.form.date-time-input
+                                    prepend=""
+                                    value="{{old('end_date')}}" size="col-md-12"
+                                    name="end_date"
+                                    title="{{__('labels.end_date')}}"
+                                    placeholder="{{__('placeholders.date')}}"/>
                             </div>
 
                             <div class="col-md-6 mt-2">
@@ -88,6 +127,7 @@
                                         value="3" {{old('user_type')=='3'?'selected':null}}>{{__('forms.vendors')}}</option>
                                 </select>
                             </div>
+
                             <div class="col-md-12 mt-2 " id="user_dev"
                                  @if(old('user_type')!='users')
                                      style="display: none"
