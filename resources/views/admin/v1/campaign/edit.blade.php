@@ -42,60 +42,60 @@
                             </div>
 
                             <div class="col-md-12 mt-2" id="schedule_type_dev"
-                                 @if(old('sent_type')!='schedule')
+                                 @if($campaign->sent_type!='2')
                                      style="display: none"
                                 @endif>
                                 <label>{{__('forms.schedule_type')}}</label>
                                 <select class="form-control" name="schedule_type" id="schedule_type">
                                     <option
-                                        value="1" {{old('schedule_type')=='1'?'selected':null}}>
+                                        value="1" {{$campaign->schedule_type=='1'?'selected':null}}>
                                         {{__('forms.daily')}}</option>
                                     <option
-                                        value="2" {{old('schedule_type')=='2'?'selected':null}}>
+                                        value="2" {{$campaign->schedule_type=='2'?'selected':null}}>
                                         {{__('forms.weekly')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-12 mt-2" id="days_of_week_dev"
-                                 @if(old('schedule_type')!='weekly')
+                                 @if($campaign->schedule_type!='2')
                                      style="display: none"
                                 @endif>
                                 <label>{{__('forms.days_of_week')}}</label>
                                 <select class="form-control" name="days_of_week" id="days_of_week">
                                     <option
-                                        value="1">{{old('schedule_type')=='1'?'selected':null}}{{__('forms.saturday')}}</option>
+                                        value="1"{{$campaign->days_of_week=='1'?'selected':null}}>{{__('forms.saturday')}}</option>
                                     <option
-                                        value="2">{{old('schedule_type')=='2'?'selected':null}}{{__('forms.sunday')}}</option>
+                                        value="2"{{$campaign->days_of_week=='2'?'selected':null}}>{{__('forms.sunday')}}</option>
                                     <option
-                                        value="3">{{old('schedule_type')=='3'?'selected':null}}{{__('forms.monday')}}</option>
+                                        value="3"{{$campaign->days_of_week=='3'?'selected':null}}>{{__('forms.monday')}}</option>
                                     <option
-                                        value="4">{{old('schedule_type')=='4'?'selected':null}}{{__('forms.tuesday')}}</option>
+                                        value="4"{{$campaign->days_of_week=='4'?'selected':null}}>{{__('forms.tuesday')}}</option>
                                     <option
-                                        value="5">{{old('schedule_type')=='5'?'selected':null}}{{__('forms.wednesday')}}</option>
+                                        value="5"{{$campaign->days_of_week=='5'?'selected':null}}>{{__('forms.wednesday')}}</option>
                                     <option
-                                        value="6">{{old('schedule_type')=='6'?'selected':null}}{{__('forms.thursday')}}</option>
+                                        value="6"{{$campaign->days_of_week=='6'?'selected':null}}>{{__('forms.thursday')}}</option>
                                     <option
-                                        value="7">{{old('schedule_type')=='7'?'selected':null}}{{__('forms.friday')}}</option>
+                                        value="7"{{$campaign->days_of_week=='7'?'selected':null}}>{{__('forms.friday')}}</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6 mt-2" id="start_date_div"
-                                 @if(old('sent_type')!='schedule')
+                                 @if($campaign->sent_type!='2')
                                      style="display: none"
                                 @endif>
                                 <x-admin.v1.form.date-time-input
                                     prepend=""
-                                    value="{{old('start_date')}}" size="col-md-12"
+                                    value="{{$campaign->end_date??old('start_date')}}" size="col-md-12"
                                     name="start_date"
                                     title="{{__('labels.start_date')}}"
                                     placeholder="{{__('placeholders.date')}}"/>
                             </div>
                             <div class="col-md-6 mt-2" id="end_date_div"
-                                 @if(old('sent_type')!='schedule')
+                                 @if($campaign->sent_type!='2')
                                      style="display: none"
                                 @endif>
                                 <x-admin.v1.form.date-time-input
                                     prepend=""
-                                    value="{{old('end_date')}}" size="col-md-12"
+                                    value="{{$campaign->end_date??old('end_date')}}" size="col-md-12"
                                     name="end_date"
                                     title="{{__('labels.end_date')}}"
                                     placeholder="{{__('placeholders.date')}}"/>

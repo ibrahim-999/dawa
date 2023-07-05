@@ -42,7 +42,7 @@
                             </div>
 
                             <div class="col-md-12 mt-2" id="schedule_type_dev"
-                                 @if(old('sent_type')!='schedule')
+                                 @if(old('sent_type')!='2')
                                      style="display: none"
                                 @endif>
                                 <label>{{__('forms.schedule_type')}}</label>
@@ -56,30 +56,30 @@
                                 </select>
                             </div>
                             <div class="col-md-12 mt-2" id="days_of_week_dev"
-                                 @if(old('schedule_type')!='weekly')
+                                 @if(old('schedule_type')!='2')
                                      style="display: none"
                                 @endif>
                                 <label>{{__('forms.days_of_week')}}</label>
                                 <select class="form-control" name="days_of_week" id="days_of_week">
                                     <option
-                                        value="1">{{old('days_of_week')=='1'?'selected':null}}{{__('forms.saturday')}}</option>
+                                        value="1"{{old('days_of_week')=='1'?'selected':null}}>{{__('forms.saturday')}}</option>
                                     <option
-                                        value="2">{{old('days_of_week')=='2'?'selected':null}}{{__('forms.sunday')}}</option>
+                                        value="2"{{old('days_of_week')=='2'?'selected':null}}>{{__('forms.sunday')}}</option>
                                     <option
-                                        value="3">{{old('days_of_week')=='3'?'selected':null}}{{__('forms.monday')}}</option>
+                                        value="3"{{old('days_of_week')=='3'?'selected':null}}>{{__('forms.monday')}}</option>
                                     <option
-                                        value="4">{{old('days_of_week')=='4'?'selected':null}}{{__('forms.tuesday')}}</option>
+                                        value="4"{{old('days_of_week')=='4'?'selected':null}}>{{__('forms.tuesday')}}</option>
                                     <option
-                                        value="5">{{old('days_of_week')=='5'?'selected':null}}{{__('forms.wednesday')}}</option>
+                                        value="5"{{old('days_of_week')=='5'?'selected':null}}>{{__('forms.wednesday')}}</option>
                                     <option
-                                        value="6">{{old('days_of_week')=='6'?'selected':null}}{{__('forms.thursday')}}</option>
+                                        value="6"{{old('days_of_week')=='6'?'selected':null}}>{{__('forms.thursday')}}</option>
                                     <option
-                                        value="7">{{old('days_of_week')=='7'?'selected':null}}{{__('forms.friday')}}</option>
+                                        value="7"{{old('days_of_week')=='7'?'selected':null}}>{{__('forms.friday')}}</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6 mt-2" id="start_date_div"
-                                 @if(old('sent_type')!='schedule')
+                                 @if(old('sent_type')!='2')
                                      style="display: none"
                                 @endif>
                                 <x-admin.v1.form.date-time-input
@@ -90,7 +90,7 @@
                                     placeholder="{{__('placeholders.date')}}"/>
                             </div>
                             <div class="col-md-6 mt-2" id="end_date_div"
-                                 @if(old('sent_type')!='schedule')
+                                 @if(old('sent_type')!='2')
                                      style="display: none"
                                 @endif>
                                 <x-admin.v1.form.date-time-input
@@ -177,8 +177,6 @@
                                                             title="{{__('labels.is_active')}}"/>
 
                         </div>
-
-
 
 
                     </x-slot>

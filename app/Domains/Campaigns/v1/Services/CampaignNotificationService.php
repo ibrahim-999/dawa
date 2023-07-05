@@ -159,11 +159,11 @@ class CampaignNotificationService
                     if ($customers->count()) {
                         foreach ($customers as $customer) {
                             $customer->campaignable()->update([
-                                'title' => $campaign->title,
-                                'description' => $campaign->description,
-                                'subject' => $campaign->subject,
+                                'title' => $this->campaignNotificationModel->title,
+                                'description' => $this->campaignNotificationModel->description,
+                                'subject' => $this->campaignNotificationModel->subject,
                                 'notification_type' => $request->type,
-                                'notification_id' => $campaign->id,
+                                'notification_id' => $this->campaignNotificationModel->id,
 
                             ]);
                         }
