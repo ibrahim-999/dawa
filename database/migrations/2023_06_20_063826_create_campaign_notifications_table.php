@@ -7,8 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,8 +18,10 @@ return new class extends Migration
             $table->tinyInteger('type')->default(CampaignTypeEnum::ALL->value)->nullable();
             $table->tinyInteger('user_type')->default(CampaignUserTypeEnum::ALL->value)->nullable();
             $table->tinyInteger('sent_type')->default(CampaignSentTypeEnum::NOW->value)->nullable();
-            $table->date('date')->nullable();
-            $table->time('time')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
+            $table->tinyInteger('schedule_type')->nullable();
+            $table->enum('days_of_week', [1, 2, 3, 4, 5, 6, 7])->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();

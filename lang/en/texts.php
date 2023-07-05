@@ -21,13 +21,13 @@ return [
 
     'user_index_header' => 'DawaFast customers',
     'users_index_header' => 'DawaFast customers',
-    'delete_user_header'  => 'delete',
-    'delete_user_body'  => 'delete user ',
+    'delete_user_header' => 'delete',
+    'delete_user_body' => 'delete user ',
 
     'driver_index_header' => 'DawaFast drivers',
     'drivers_index_header' => 'DawaFast drivers',
-    'delete_driver_header'  => 'delete',
-    'delete_driver_body'  => 'delete driver ',
+    'delete_driver_header' => 'delete',
+    'delete_driver_body' => 'delete driver ',
     'products_search' => 'Products Search',
 
 
@@ -37,8 +37,8 @@ return [
 
     'sliders_search' => 'Search For Slider',
     'sliders_index_header' => 'All Sliders',
-    'delete_slider_header'  => 'delete',
-    'delete_slider_body'  => 'delete slider ',
+    'delete_slider_header' => 'delete',
+    'delete_slider_body' => 'delete slider ',
     "carts_index_header" => " Carts",
     "cart" => "Cart",
     "carts" => "Carts",
@@ -47,7 +47,13 @@ return [
     'campaigns_search' => 'Search For Campaign',
     'campaign_index_header' => 'All Campaigns',
     'campaign_create_header' => 'Create Campaigns',
-    'delete_campaign_header'  => 'delete',
-    'delete_campaign_body'  => 'Delete Campaigns',
-
+    'delete_campaign_header' => 'delete',
+    'delete_campaign_body' => 'Delete Campaigns',
+    'days_1' => 'Sat',
+    'days_2' => 'Sun',
+    'days_3' => 'Mon',
+    'days_4' => 'Tue',
+    'days_5' => 'Wed',
+    'days_6' => 'Thurs',
+    'days_7' => 'Fri',
 ];

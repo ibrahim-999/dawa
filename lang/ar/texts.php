@@ -15,4 +15,11 @@ return [
     'index' => 'Index',
     'web-admin_permissions_description' => 'All available permissions grouped by DawaFast Admin Panel Modules',
     'web-vendor_permissions_description' => 'All available permissions grouped by Pharmacies Vendor Portal Modules',
+    'days_1' => 'Sat',
+    'days_2' => 'Sun',
+    'days_3' => 'Mon',
+    'days_4' => 'Tue',
+    'days_5' => 'Wed',
+    'days_6' => 'Thurs',
+    'days_7' => 'Fri',
 ];

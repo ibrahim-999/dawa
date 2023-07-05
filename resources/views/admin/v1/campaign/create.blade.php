@@ -62,19 +62,19 @@
                                 <label>{{__('forms.days_of_week')}}</label>
                                 <select class="form-control" name="days_of_week" id="days_of_week">
                                     <option
-                                        value="1">{{old('schedule_type')=='1'?'selected':null}}{{__('forms.saturday')}}</option>
+                                        value="1">{{old('days_of_week')=='1'?'selected':null}}{{__('forms.saturday')}}</option>
                                     <option
-                                        value="2">{{old('schedule_type')=='2'?'selected':null}}{{__('forms.sunday')}}</option>
+                                        value="2">{{old('days_of_week')=='2'?'selected':null}}{{__('forms.sunday')}}</option>
                                     <option
-                                        value="3">{{old('schedule_type')=='3'?'selected':null}}{{__('forms.monday')}}</option>
+                                        value="3">{{old('days_of_week')=='3'?'selected':null}}{{__('forms.monday')}}</option>
                                     <option
-                                        value="4">{{old('schedule_type')=='4'?'selected':null}}{{__('forms.tuesday')}}</option>
+                                        value="4">{{old('days_of_week')=='4'?'selected':null}}{{__('forms.tuesday')}}</option>
                                     <option
-                                        value="5">{{old('schedule_type')=='5'?'selected':null}}{{__('forms.wednesday')}}</option>
+                                        value="5">{{old('days_of_week')=='5'?'selected':null}}{{__('forms.wednesday')}}</option>
                                     <option
-                                        value="6">{{old('schedule_type')=='6'?'selected':null}}{{__('forms.thursday')}}</option>
+                                        value="6">{{old('days_of_week')=='6'?'selected':null}}{{__('forms.thursday')}}</option>
                                     <option
-                                        value="7">{{old('schedule_type')=='7'?'selected':null}}{{__('forms.friday')}}</option>
+                                        value="7">{{old('days_of_week')=='7'?'selected':null}}{{__('forms.friday')}}</option>
                                 </select>
                             </div>
 
