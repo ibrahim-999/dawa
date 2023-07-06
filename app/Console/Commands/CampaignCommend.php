@@ -35,7 +35,7 @@ class CampaignCommend extends Command
         if ($daily_notifications->count()) {
             foreach ($daily_notifications as $daily_notification) {
                 if (Carbon::parse($daily_notification->start_date)->gte(Carbon::now()) && Carbon::parse($daily_notification->end_date)->lte(Carbon::now())) {
-                    SendCampaignNotificationJob::dispatch($daily_notification->customers, -$daily_notification->vendors, $daily_notification);
+                    SendCampaignNotificationJob::dispatch($daily_notification->customers, $daily_notification->vendors, $daily_notification);
                 }
             }
         }
@@ -44,7 +44,7 @@ class CampaignCommend extends Command
             foreach ($weekly_notifications as $weekly_notification) {
                 if (date('D') == __('text.days_' . $weekly_notification->week_of_day)) {
                     if (Carbon::parse($weekly_notification->start_date)->gte(Carbon::now()) && Carbon::parse($weekly_notification->end_date)->lte(Carbon::now())) {
-                        SendCampaignNotificationJob::dispatch($daily_notification->customers, -$daily_notification->vendors, $daily_notification);
+                        SendCampaignNotificationJob::dispatch($daily_notification->customers, $weekly_notification->vendors, $weekly_notification);
                     }
                 }
             }
