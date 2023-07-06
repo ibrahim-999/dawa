@@ -42,7 +42,7 @@ class CampaignCommend extends Command
 
         if ($weekly_notifications->count()) {
             foreach ($weekly_notifications as $weekly_notification) {
-                if (date('D') == __('text.days_' . $weekly_notification->week_of_day)) {
+                if (date('D') == __('text.days_' . $weekly_notification->days_of_week)) {
                     if (Carbon::parse($weekly_notification->start_date)->gte(Carbon::now()) && Carbon::parse($weekly_notification->end_date)->lte(Carbon::now())) {
                         SendCampaignNotificationJob::dispatch($weekly_notification->customers, $weekly_notification->vendors, $weekly_notification);
                     }
