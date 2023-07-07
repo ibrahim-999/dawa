@@ -2,12 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\Domains\Campaigns\v1\Enums\CampaignScheduleTypeEnum;
+use App\Domains\Campaigns\v1\Enums\CampaignUserTypeEnum;
 use App\Jobs\SendCampaignNotificationJob;
 use App\Models\CampNotification;
 use App\Models\User;
 use App\Models\Vendor;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class CampaignCommend extends Command
 {
@@ -28,38 +31,44 @@ class CampaignCommend extends Command
     /**
      * Execute the console command.
      */
-    public function handle(): void
+    public function handle()
     {
         $customers = User::all();
 
         $vendors = Vendor::all();
 
-        $daily_notifications = CampNotification::where('schedule_type', 1)->get();
 
-        $weekly_notifications = CampNotification::where('schedule_type', 2)->get();
+        $dailyCampNotifications = CampNotification::where('schedule_type', CampaignScheduleTypeEnum::DAILY->value)
+            ->where('is_active', 1)
+            ->get();
+        $weeklyCampNotifications = CampNotification::where('schedule_type', CampaignScheduleTypeEnum::WEEKLY->value)
+            ->where('is_active', 1)
+            ->get();
 
 
-        if ($daily_notifications->count()) {
-            foreach ($daily_notifications as $daily_notification) {
-                if ($daily_notifications->user_type != 1) {
-                    $customers = $daily_notification->user_type == 2 ? $daily_notification->customers : [];
-                    $vendors = $daily_notification->user_type == 3 ? $daily_notification->vendors : [];
+        if ($dailyCampNotifications->count()) {
+            foreach ($dailyCampNotifications as $dailyCampNotification) {
+                Log::info($dailyCampNotification->user_type);
+                if ($dailyCampNotification->user_type != CampaignUserTypeEnum::ALL->value) {
+                    $customers = $dailyCampNotification->user_type == 2 ? $dailyCampNotification->customers : [];
+                    $vendors = $dailyCampNotification->user_type == 3 ? $dailyCampNotification->vendors : [];
                 }
-                if (Carbon::parse($daily_notification->start_date)->gte(Carbon::now()) && Carbon::parse($daily_notification->end_date)->lte(Carbon::now())) {
-                    SendCampaignNotificationJob::dispatch($customers, $vendors, $daily_notification);
+
+                if (Carbon::parse($dailyCampNotification->start_date)->gte(Carbon::now()) && Carbon::parse($dailyCampNotification->end_date)->lte(Carbon::now())) {
+                    SendCampaignNotificationJob::dispatch($customers, $vendors, $dailyCampNotification);
                 }
             }
         }
 
-        if ($weekly_notifications->count()) {
-            foreach ($weekly_notifications as $weekly_notification) {
-                if ($weekly_notification->user_type != 1) {
-                    $customers = $weekly_notification->user_type == 2 ? $weekly_notification->customers : [];
-                    $vendors = $weekly_notification->user_type == 3 ? $weekly_notification->vendors : [];
+        if ($weeklyCampNotifications->count()) {
+            foreach ($weeklyCampNotifications as $weeklyCampNotification) {
+                if ($weeklyCampNotifications->user_type != CampaignUserTypeEnum::ALL->value) {
+                    $customers = $weeklyCampNotification->customers;
+                    $vendors = $weeklyCampNotification->vendors;
                 }
-                if (date('D') == __('text.days_' . $weekly_notification->days_of_week)) {
-                    if (Carbon::parse($weekly_notification->start_date)->gte(Carbon::now()) && Carbon::parse($weekly_notification->end_date)->lte(Carbon::now())) {
-                        SendCampaignNotificationJob::dispatch($customers, $vendors, $weekly_notification);
+                if (date('D') == __('text.days_' . $weeklyCampNotification->days_of_week)) {
+                    if (Carbon::parse($weeklyCampNotification->start_date)->gte(Carbon::now()) && Carbon::parse($weeklyCampNotification->end_date)->lte(Carbon::now())) {
+                        SendCampaignNotificationJob::dispatch($customers, $vendors, $weeklyCampNotification);
                     }
                 }
             }
