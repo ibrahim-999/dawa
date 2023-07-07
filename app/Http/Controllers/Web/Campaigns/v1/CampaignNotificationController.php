@@ -49,7 +49,7 @@ class CampaignNotificationController extends Controller
     {
         $this->campaignNotificationService->add($request);
 
-        return Redirect::route('campaigns.index')->with('success', __('messages.notification_created_successfully'));
+        return Redirect::route('campaigns.index')->with('success', __('messages.campaigns_created_successfully'));
     }
 
     public function edit(CampNotification $campaign)
@@ -75,7 +75,7 @@ class CampaignNotificationController extends Controller
         $updated = $this->campaignNotificationService->setBuilder($campaign)->update($request);
 
         if ($updated) {
-            return Redirect::route('campaigns.index')->with('success', __('messages.notification_updated_successfully'));
+            return Redirect::route('campaigns.index')->with('success', __('messages.campaigns_updated_successfully'));
         } else {
             return Redirect::back();
         }
@@ -84,7 +84,7 @@ class CampaignNotificationController extends Controller
     {
         $this->campaignNotificationService->destroy($campaign);
 
-        return Redirect::route('campaigns.index')->with('success', __('messages.notification_deleted_successfully'));
+        return Redirect::route('campaigns.index')->with('success', __('messages.campaigns_deleted_successfully'));
 
     }
 }
