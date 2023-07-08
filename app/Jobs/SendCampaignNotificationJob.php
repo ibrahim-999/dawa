@@ -18,7 +18,7 @@ class SendCampaignNotificationJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(private $customers, private $vendors, private $notification, private )
+    public function __construct(private $customers, private $vendors, private $notification)
     {
         //
     }
