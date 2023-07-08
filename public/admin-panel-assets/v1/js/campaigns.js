@@ -10,11 +10,20 @@ $('#sent_type').on('change', function () {
         $('#start_date_div').fadeIn();
         $('#schedule_type_dev').fadeIn();
         $('#end_date_div').fadeIn();
+        $('#Id-Start_date').val('');
+        $('#Id-End_date').val('');
+        $('#Id-Schedule_type').val('');
+        $('#days_of_week').val('');
+
     } else {
         $('#start_date_div').fadeOut();
         $('#days_of_week_dev').fadeOut();
         $('#schedule_type_dev').fadeOut();
         $('#end_date_div').fadeOut();
+        $('#Id-Start_date').val('');
+        $('#Id-End_date').val('');
+        $('#Id-Schedule_type').val('');
+        $('#days_of_week').val('');
     }
 });
 $('#user_type').on('change', function () {
@@ -41,9 +50,14 @@ $('#user_type').on('change', function () {
 
 $('#schedule_type').on('change', function () {
     if ($(this).val() === '2') {
-        console.log('here');
         $('#days_of_week_dev').fadeIn();
+        $('#Id-Start_date').val('');
+        $('#Id-End_date').val('');
+        $('#days_of_week').val('');
     } else {
         $('#days_of_week_dev').fadeOut();
+        $('#Id-Start_date').val('');
+        $('#Id-End_date').val('');
+         $('#days_of_week').val('');
     }
 });

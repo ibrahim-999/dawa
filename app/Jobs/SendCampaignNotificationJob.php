@@ -18,7 +18,7 @@ class SendCampaignNotificationJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(private $customers, private $vendors, private $notification)
+    public function __construct(private $customers, private $vendors, private $notification, private )
     {
         //
     }
@@ -29,28 +29,41 @@ class SendCampaignNotificationJob implements ShouldQueue
     public function handle(): void
     {
 
-        if (request()->type == CampaignTypeEnum::FCM->value) {
+        if ($this->notification->type == CampaignTypeEnum::FCM->value) {
 
             Notification::send($this->customers, new CampaignFcmNotification($this->notification));
 
             Notification::send($this->vendors, new CampaignFcmNotification($this->notification));
 
-        } elseif (request()->type == CampaignTypeEnum::EMAIL->value) {
-            Notification::send($this->customers, new EmailNotification($this->notification));
+        } elseif ($this->notification->type == CampaignTypeEnum::EMAIL->value) {
+            if (!empty($this->customers)) {
+                foreach ($this->customers as $customer) {
+                    Notification::send($customer, new EmailNotification($this->notification));
+                }
+            }
 
-            Notification::send($this->vendors, new EmailNotification($this->notification));
+            if (!empty($this->vendors)) {
+                foreach ($this->vendors as $vendor) {
+                    Notification::send($this->$vendor, new EmailNotification($this->notification));
+                }
+            }
 
-        }elseif (request()->type == CampaignTypeEnum::SMS->value) {
+        } elseif ($this->notification->type == CampaignTypeEnum::SMS->value) {
             //
-        }  else {
+        } else {
             Notification::send($this->customers, new CampaignFcmNotification($this->notification));
 
             Notification::send($this->vendors, new CampaignFcmNotification($this->notification));
-
-            Notification::send($this->customers, new EmailNotification($this->notification));
-
-            Notification::send($this->vendors, new EmailNotification($this->notification));
-
+            if (!empty($this->customers)) {
+                foreach ($this->customers as $customer) {
+                    Notification::send($customer, new EmailNotification($this->notification));
+                }
+            }
+            if (!empty($this->vendors)) {
+                foreach ($this->vendors as $vendor) {
+                    Notification::send($this->$vendor, new EmailNotification($this->notification));
+                }
+            }
         }
 
     }

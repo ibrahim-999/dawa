@@ -15,10 +15,12 @@ use Illuminate\Http\Request;
 class CampaignNotificationService
 {
     private Model|Builder $campaignNotificationModel;
+
     public function __construct()
     {
         $this->campaignNotificationModel = new CampNotification();
     }
+
     public function paginate_simple(int $itemsPerPage): array
     {
         try {
@@ -29,6 +31,7 @@ class CampaignNotificationService
             throw $exception;
         }
     }
+
     public function find(string $key, string $value): ?Model
     {
         try {
@@ -45,6 +48,7 @@ class CampaignNotificationService
         }
 
     }
+
     public function markAllSeen()
     {
         try {
@@ -55,6 +59,7 @@ class CampaignNotificationService
             throw $exception;
         }
     }
+
     public function delete(Model $item): bool
     {
         try {
@@ -63,6 +68,7 @@ class CampaignNotificationService
             throw $exception;
         }
     }
+
     public function setBuilder(Model|Builder $query)
     {
         try {
@@ -74,6 +80,7 @@ class CampaignNotificationService
             throw $exception;
         }
     }
+
     public function notifications_list($itemsPerPage)
     {
         try {
@@ -84,6 +91,7 @@ class CampaignNotificationService
             throw $exception;
         }
     }
+
     public function add(Request $request): ?Model
     {
         try {
@@ -143,6 +151,7 @@ class CampaignNotificationService
             throw $exception;
         }
     }
+
     public function update(Request $request)
     {
         try {
@@ -151,22 +160,23 @@ class CampaignNotificationService
             $this->campaignNotificationModel->update([
                 'is_active' => $request->is_active ? 1 : 0
             ]);
+
+            $this->campaignNotificationModel->campaigns()->delete();
+
             if ($request->user_type == CampaignUserTypeEnum::USERS->value) {
                 $customers = User::whereIn('id', $request->user_id)->get();
 
                 $vendors = [];
-                if ($request->sent_type == CampaignSentTypeEnum::SCHEDULE->value) {
-                    if ($customers->count()) {
-                        foreach ($customers as $customer) {
-                            $customer->campaignable()->update([
-                                'title' => $this->campaignNotificationModel->title,
-                                'description' => $this->campaignNotificationModel->description,
-                                'subject' => $this->campaignNotificationModel->subject,
-                                'notification_type' => $request->type,
-                                'notification_id' => $this->campaignNotificationModel->id,
+                if ($customers->count()) {
+                    foreach ($customers as $customer) {
+                        $customer->campaignable()->create([
+                            'title' => $this->campaignNotificationModel->title,
+                            'description' => $this->campaignNotificationModel->description,
+                            'subject' => $this->campaignNotificationModel->subject,
+                            'notification_type' => $request->type,
+                            'notification_id' => $this->campaignNotificationModel->id,
 
-                            ]);
-                        }
+                        ]);
                     }
                 }
 
@@ -176,18 +186,15 @@ class CampaignNotificationService
 
                 $vendors = Vendor::whereIn('id', $request->vendor_id)->get();
 
-                if ($request->sent_type == CampaignSentTypeEnum::SCHEDULE->value) {
-                    $this->campaignNotificationModel->users()->detach();
-                    if ($vendors->count()) {
-                        foreach ($vendors as $vendor) {
-                            $vendor->campaignable()->update([
-                                'title' => $campaign->title,
-                                'description' => $campaign->description,
-                                'subject' => $campaign->subject,
-                                'notification_type' => $request->type,
-                                'notification_id' => $campaign->id,
-                            ]);
-                        }
+                if ($vendors->count()) {
+                    foreach ($vendors as $vendor) {
+                        $vendor->campaignable()->create([
+                            'title' => $this->campaignNotificationModel->title,
+                            'description' => $this->campaignNotificationModel->description,
+                            'subject' => $this->campaignNotificationModel->subject,
+                            'notification_type' => $request->type,
+                            'notification_id' => $this->campaignNotificationModel->id,
+                        ]);
                     }
                 }
 
@@ -206,6 +213,7 @@ class CampaignNotificationService
             throw $exception;
         }
     }
+
     public function destroy($item)
     {
         try {
