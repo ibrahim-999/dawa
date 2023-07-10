@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\Admin\v1\ActivityLogController;
 use App\Http\Controllers\Web\Admin\v1\NotificationController;
 use App\Http\Controllers\Web\Admin\v1\SliderController;
 use App\Http\Controllers\Web\Admin\v1\CartsController;
@@ -90,6 +91,7 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
     Route::post('drivers/{driver}/warning', [DriverController::class, 'warning'])->name('drivers.warningDriverByAdmin');
     Route::patch('drivers/approve/{driver}', [DriverController::class, 'approveProfile'])->name('drivers.approveProfile');
     Route::resource('campaigns', CampaignNotificationController::class)->except('show');
+    Route::resource('activities', ActivityLogController::class);
 
 
     Route::resource('cart', CartsController::class);

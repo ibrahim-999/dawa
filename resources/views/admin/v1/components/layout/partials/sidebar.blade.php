@@ -436,6 +436,22 @@
                         <x-slot name="title">{{__('labels.advertisements')}}</x-slot>
                     </x-admin.v1.sidebar.menu-navigation-item>
                 @endif
+                @if($admin->can('index_activities')|| $admin->can('index_activities') )
+                    <x-admin.v1.sidebar.menu-navigation-item name="activities" title="{{__('labels.activities')}}"
+                                                             badge="dev">
+                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="badge"></x-slot>
+                        <x-slot name="items">
+                            @can('index_activities')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('activities.index')}}"
+                                                                           title="{{__('labels.activitie')}}" badge="dev">
+                                    <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
+                                </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                        </x-slot>
+                        <x-slot name="title">{{__('labels.activities_logs')}}</x-slot>
+                    </x-admin.v1.sidebar.menu-navigation-item>
+                @endif
             </ul>
 
         </div>
