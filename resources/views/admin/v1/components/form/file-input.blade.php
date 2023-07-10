@@ -16,3 +16,10 @@
 
 </div>
 </div>
+@if ($oldImage)
+<div class="col-2">
+    {{-- <img src="{{ $oldImage }}" class="w-12 h-12" alt="no image"> --}}
+    <img src="{{ $oldImage }}" alt="{{ $oldImage }}"
+    class="shadow" style="width: inherit">
+</div>
+@endif

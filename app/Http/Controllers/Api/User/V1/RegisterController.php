@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User\V1;
 
 use App\Domains\Shared\v1\Contracts\Services\OtpServiceContract;
 use App\Domains\Shared\v1\Services\FirebaseDeviceTokenService;
+use App\Domains\Shared\v1\Services\PointService;
 use App\Domains\User\v1\Services\UserAccessService;
 use App\Domains\User\v1\Services\UserService;
 use App\Http\Controllers\ApiController;
@@ -18,18 +19,21 @@ class RegisterController extends ApiController
     private UserService $userService;
     private OtpServiceContract $otpService;
     private FirebaseDeviceTokenService $firebaseDeviceTokenService;
+    private PointService $pointService;
     
     public function __construct(
         UserAccessService  $accessService,
         UserService        $userService,
         OtpServiceContract $otpService,
-        FirebaseDeviceTokenService $firebaseDeviceTokenService
+        FirebaseDeviceTokenService $firebaseDeviceTokenService,
+        PointService $pointService
     )
     {
         $this->accessService = $accessService;
         $this->userService = $userService;
         $this->otpService = $otpService;
         $this->firebaseDeviceTokenService = $firebaseDeviceTokenService;
+        $this->pointService = $pointService;
 
     }
 
@@ -54,6 +58,7 @@ class RegisterController extends ApiController
             $user->notify((new WelcomeNotification)->delay([
                 'mail' => now()->addMinutes(5)
             ]));
+            $this->pointService->givePointToUserOnAction($user,'register');
             return $this->successShowDataResponse($data, 'login');
         } else {
             $errors = ['otp' => __('auth.invalid_otp')];

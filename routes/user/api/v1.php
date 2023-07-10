@@ -52,4 +52,5 @@ Route::group(['middleware' => ['auth:sanctum', 'checkUserStatus'] ], function ()
     Route::post('orders/{order}/update-status', [OrderController::class, 'updateStatus']);
 
     Route::get('offers', [OfferController::class, 'index']);
+    Route::get('offers/{offers}', [OfferController::class, 'show']);
 });

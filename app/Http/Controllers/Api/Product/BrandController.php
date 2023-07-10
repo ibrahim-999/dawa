@@ -23,8 +23,9 @@ class BrandController extends ApiController
 
     public function index(Request $request)
     {
-        $page_size=$request->page_size ?? 10 ;
-        $brands = $this->brandService->with(['translation'])->search($request)->paginate_simple($page_size);
+        $brands = $this->brandService->with(['translation'])->search($request);
+        $page_size=$request->page_size ?? $brands->count() ;
+        $brands=$brands->paginate_simple($page_size);
         $data= BrandResource::collection($brands)->resource->toArray();
         $data_array=['brands'=>$data['data']];
         unset($data['data']);

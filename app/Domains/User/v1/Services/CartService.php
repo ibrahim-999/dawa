@@ -121,10 +121,6 @@ class CartService implements CartServiceContract, CrudContract
             $place_id = request()->header('X-Place');
             $currentCart = $this->getCartByPlace($user, $place_id);
             if ($currentCart) {
-                if ($request->coupon_code && $coupon = $this->couponService->find('code', $request->coupon_code)) {
-                    $coupon->load(['categories','products']);
-                    $currentCart = $this->addCouponToCart($coupon, $currentCart);
-                }
                 $this->baseModel = $currentCart;
             }
             return $this->baseModel;
@@ -133,17 +129,16 @@ class CartService implements CartServiceContract, CrudContract
         }
     }
 
-    public function addCouponToCart($coupon, $cart)
+    public function getCouponDiscount($coupon, $cart)
     {
         try {
-
             $user = $this->userService->getAuthUser('sanctum');
             $discountType = $coupon->discount_type;
             $discount = $coupon->discount;
             $maxDiscount = $coupon->max_discount;
-            $couponIsApplied = 0;
             $discountedVariants = [];
             $totalPrice = 0;
+            $totalDiscount = 0;
             if ($cart->variants->count()) {
                 foreach ($cart->variants as &$variant) {
 
@@ -158,30 +153,15 @@ class CartService implements CartServiceContract, CrudContract
                         $variant->discount_coupon_value = $discount;
                         $discountedVariants[] = $variant;
                         $totalPrice += $variant->pivot->quantity * $variant->net_price;
-                        $couponIsApplied = 1;
-
-                        //check tota discont // and check max discount
                     }
                 }
-                // dd($cart->variants);
-                if (count($discountedVariants)) {
 
+                if (count($discountedVariants)) {
                     $discount = $this->getTotalDiscount($discountType, $discount, $totalPrice, $maxDiscount);
-                    $cart->discount = $discount;
-                    $cart->coupon = $coupon;
-                    $cart->coupon_id = $coupon->id;
-                    $cart->coupon_discount_type = $coupon->discount_type;
-                    $cart->coupon_discount_value = $coupon->discount;
-                    $cart->variantsData = $cart->variants;
-                    // dd($cart->total_after_discount);
-                    $cart->total_after_discount_coupon = ($cart->total_price - $cart->discount) - $discount;
-                    // dd($discount);
-                    // $cart->update(['coupon_id' => $coupon->id,'discount' => $discount]);
-                    // $coupon->usages()->updateOrCreate(['user_id'=> $user->id]);
+                    $totalDiscount = $discount;
                 }
             }
-
-            return $cart;
+            return $totalDiscount;
         } catch (\Throwable $exception) {
             throw $exception;
         }

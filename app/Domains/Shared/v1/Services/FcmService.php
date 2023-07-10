@@ -7,7 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Http;
 
-class FcmService 
+class FcmService
 {
     /**
      * The password.
@@ -46,9 +46,9 @@ class FcmService
     {
         $response = $this->httpClient::withHeaders([
             'Authorization' => 'key='.$this->server_key,
-            'Content-Type' => 'application/json' 
+            'Content-Type' => 'application/json'
        ])->post("https://fcm.googleapis.com/fcm/send", $this->prepareAndGetNotificationPayload($data));
-        
+
         return $response;
     }
 
@@ -64,9 +64,11 @@ class FcmService
     {
         return [
             'registration_ids'    => $data['device_tokens'],
+            'data'    => isset($data['data']) ? $data['data'] : [],
             "notification"     => [
                 "title" => $data['title'],
                 "body" => $data['body'],
+                "data" => isset($data['data']) ? $data['data'] : [],
                 "icon" => asset('admin-panel-assets/v1/images/logo-dark.png'),
             ],
         ];

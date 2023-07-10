@@ -10,7 +10,7 @@
             header="{{__('texts.add_variant_header')}}"
             fileable="false"
             url="{{route('variants.store',$product->id)}}"
-            method="POST" fileable="false"
+            method="POST" fileable="true"
         >
             <x-slot name="inputs">
                 @foreach(config('translatable.locales') as $local)
@@ -75,6 +75,14 @@
                                                 name="discount"
                                                 title="{{__('labels.discount')}}"
                                                 placeholder="{{__('labels.discount')}}"/>
+                    <x-admin.v1.form.file-input  oldImage="" value="{{old('image')}}" prepend="" size="col-md-6" name="image"
+                    title="{{__('labels.image')}}"
+                    placeholder="{{__('placeholders.image')}}"/>
+                    
+                    <x-admin.v1.form.multi-file-input  oldImage="" value="{{old('images')}}" prepend="" size="col-md-6" name="images"
+                    title="{{__('labels.image')}}"
+                    placeholder="{{__('placeholders.images')}}"/>
+
                    <x-admin.v1.form.checkbox-input value="1" checked="1" size="col-md-12" name="is_active"
                     title="{{__('labels.is_active')}}"/>
             </x-slot>

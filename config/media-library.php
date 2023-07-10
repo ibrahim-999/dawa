@@ -1,5 +1,18 @@
 <?php
 
+use App\Domains\Driver\v1\Media\DriverPathGenerator;
+use App\Domains\Product\v1\Media\BrandPathGenerator;
+use App\Domains\Product\v1\Media\CategoryPathGenerator;
+use App\Domains\Product\v1\Media\OfferPathGenerator;
+use App\Domains\Product\v1\Media\VariantPathGenerator;
+use App\Domains\User\v1\Media\UserPathGenerator;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Driver;
+use App\Models\Offer;
+use App\Models\User;
+use App\Models\Variant;
+
 return [
 
     /*
@@ -69,9 +82,12 @@ return [
      * Here you can specify which path generator should be used for the given class.
      */
     'custom_path_generators' => [
-        // Model::class => PathGenerator::class
-        // or
-        // 'model_morph_alias' => PathGenerator::class
+        Variant::class => VariantPathGenerator::class,
+        Brand::class => BrandPathGenerator::class,
+        Category::class => CategoryPathGenerator::class,
+        Offer::class => OfferPathGenerator::class,
+        Driver::class => DriverPathGenerator::class,
+        User::class => UserPathGenerator::class,
     ],
 
     /*

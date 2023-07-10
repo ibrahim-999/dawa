@@ -23,7 +23,7 @@ class SendNewOrderCreatedNotificationJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(private $admins, private $vendors, private $order)
+    public function __construct(private $admins, private $vendors, private $order, private $drivers)
     {
         //
     }
@@ -42,6 +42,11 @@ class SendNewOrderCreatedNotificationJob implements ShouldQueue
 
         foreach ($this->admins as $admin) {
             $admin->notify((new NewOrderNotification($this->order))->delay([
+                // 'mail' => now()->addMinutes(2)
+            ]));
+        }
+        foreach ($this->drivers as $driver) {
+            $driver->notify((new NewOrderNotification($this->order))->delay([
                 // 'mail' => now()->addMinutes(2)
             ]));
         }

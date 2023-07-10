@@ -183,6 +183,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         L5Swagger\L5SwaggerServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

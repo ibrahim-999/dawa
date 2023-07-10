@@ -9,7 +9,9 @@ use App\Domains\User\v1\Enums\OrderTypeEnum;
 use App\Domains\User\v1\Services\Contracts\CreateOrderInterface;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Pharmacy;
 use App\Models\User;
+use App\Models\Vendor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -22,7 +24,7 @@ class ProductOrderService implements CreateOrderInterface
     private CartService $cartService;
     private VariantService $variantService;
 
-    public function __construct(CartService $cartService)   
+    public function __construct(CartService $cartService)
     {
         $this->basModel = new Order();
         $this->userService = new UserService();
@@ -39,7 +41,7 @@ class ProductOrderService implements CreateOrderInterface
                     'cart' => __('messages.cart_not_found')
                 ]);
             }
-            
+
             $data = $request->validated();
             $user = $this->userService->getAuthUser('sanctum');
             $data['user_id'] = $user->id;
@@ -55,6 +57,7 @@ class ProductOrderService implements CreateOrderInterface
                     'variant_id' => $variant->id,
                     'quantity' => $variant->pivot->quantity,
                     'order_id' => $order->id,
+                    'pharmacy_id' => Pharmacy::whereNotNull('name')->first()?->id,
                 ]);
             }
             $cart->update(['order_id' => $order->id,'is_current' => 0]);

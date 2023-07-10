@@ -30,7 +30,7 @@
     <x-admin.v1.form.form title="{{__('forms.add_category_title')}}"
                           description="{{__('forms.add_category_description')}}"
                           url="{{route('categories.store')}}"
-                          method="POST" fileable="false">
+                          method="POST" fileable="true">
         <x-slot name="inputs">
             <x-admin.v1.form.select-input multiple="0" size="col-md-6" name="parent_id"
                                           title="{{__('labels.parent')}}">
@@ -46,13 +46,17 @@
                 <div class="col-md-12">
                 <h5>{{__('labels.language')}}-{{ucfirst($local)}}</h5>
                 </div>
-            <x-admin.v1.form.text-input errorName="{{$local}}.title" prepend="" value="{{old($local.'[title]')}}" size="col-md-12" name="{{$local}}[title]"
+            <x-admin.v1.form.text-input errorName="{{$local}}.title" prepend="" value="{{old($local.'.title')}}" size="col-md-12" name="{{$local}}[title]"
                                         title="{{__('labels.title',['local'=>$local])}}"
                                         placeholder="{{__('placeholders.title',['local'=>$local])}}"/>
-            <x-admin.v1.form.text-area-input prepend="" value="{{old($local.'[description]')}}" length="500" rows="4" size="col-md-12"
+            <x-admin.v1.form.text-area-input prepend="" value="{{old($local.'.description')}}" length="500" rows="4" size="col-md-12"
                                              name="{{$local}}[description]" title="{{__('labels.description',['local'=>$local])}}"
                                              placeholder="{{__('placeholders.description')}}"/>
             @endforeach
+
+            <x-admin.v1.form.file-input oldImage=""  value="{{old('image')}}" prepend="" size="col-md-6" name="image"
+            title="{{__('labels.image')}}"
+            placeholder="{{__('placeholders.image')}}"/>
 
         </x-slot>
         <x-slot name="buttons">

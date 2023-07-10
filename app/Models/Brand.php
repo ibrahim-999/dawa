@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Brand extends Model implements TranslatableContract
+class Brand extends Model implements TranslatableContract, HasMedia
 {
-    use HasFactory,Translatable;
+    use HasFactory, Translatable, InteractsWithMedia;
 
     public $translatedAttributes = ['title', 'description'];
 
@@ -23,5 +25,14 @@ class Brand extends Model implements TranslatableContract
         $query->where('is_active', 1);
     }
 
+    /**
+     * Get the profile image that owns the Driver
+     *
+     * @return Image
+     */
+    public function getImageAttribute()
+    {
+        return $this->getFirstMedia('images')?->original_url;
+    }
 
 }

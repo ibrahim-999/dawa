@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('wallet');
+            $table->tinyInteger('type');
+            $table->tinyInteger('reason')->nullable();
+            $table->double('value');
+            $table->morphs('transactionable');
+            $table->morphs('userable');
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('wallet_transactions');
     }
 };

@@ -1,5 +1,5 @@
 $('#notification_type').on('change', function () {
-    if ($(this).val() == '2') {
+    if ($(this).val() == '2' || $(this).val() == '1') {
         $('.subject_dev').fadeIn();
     } else {
         $('.subject_dev').fadeOut();
@@ -58,6 +58,6 @@ $('#schedule_type').on('change', function () {
         $('#days_of_week_dev').fadeOut();
         $('#Id-Start_date').val('');
         $('#Id-End_date').val('');
-         $('#days_of_week').val('');
+        $('#days_of_week').val('');
     }
 });

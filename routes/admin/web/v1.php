@@ -23,6 +23,7 @@ use App\Http\Controllers\Web\Admin\v1\CouponController;
 use App\Http\Controllers\Web\Admin\v1\DriverController;
 use App\Http\Controllers\Web\Admin\v1\ForgotPasswordController;
 use App\Http\Controllers\Web\Admin\v1\OfferController;
+use App\Http\Controllers\Web\Admin\v1\SettingController;
 use App\Http\Controllers\Web\Admin\v1\UserController;
 use App\Http\Controllers\Web\Admin\v1\VariantController;
 use App\Models\Offer;
@@ -80,7 +81,14 @@ Route::group(['middleware' => 'auth:web-admin'], function () {
     Route::resource('coupons', CouponController::class);
     Route::resource('offers', OfferController::class);
     Route::resource('sliders', SliderController::class);
+
+    Route::get('settings/loyalty-settings', [SettingController::class, 'loyaltySettings'])->name('settings.loyalty_settings');
+
+    Route::patch('settings/loyalty-point-settings', [SettingController::class, 'updateLoyaltyPointSettings'])->name('settings.loyalty_point_settings.update'); //loyalty_point_actions
+    Route::patch('settings/loyalty-point-actions', [SettingController::class, 'updateLoyaltyPointActions'])->name('settings.loyalty_point_actions.update'); //loyalty_point_actions
+
     Route::post('drivers/{driver}/warning', [DriverController::class, 'warning'])->name('drivers.warningDriverByAdmin');
+    Route::patch('drivers/approve/{driver}', [DriverController::class, 'approveProfile'])->name('drivers.approveProfile');
     Route::resource('campaigns', CampaignNotificationController::class)->except('show');
 
 

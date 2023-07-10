@@ -22,14 +22,15 @@
             <x-admin.v1.form.form title="{{__('forms.edit_brand_title')}}-{{$brand->title}}"
                                   description="{{__('forms.edit_brand_description')}}"
                                   url="{{route('brands.update',$brand->id)}}"
-                                  method="POST" fileable="false">
+                                  method="POST" fileable="true">
                 <x-slot name="inputs">
                     @method('PATCH')
+                    <div class="row">
                     @foreach(config('translatable.locales') as $local)
                         <div class="col-md-12">
                             <h5>{{__('labels.language')}}-{{ucfirst($local)}}</h5>
                         </div>
-                        <div class="row">
+
                             <x-admin.v1.form.text-input errorName="" prepend="" value="{{$brand->translate($local)->title}}"
                                                         size="col-md-6" name="{{$local}}[title]"
                                                         title="{{__('labels.title',['local'=>$local])}}"
@@ -39,10 +40,12 @@
                                                             length="500" rows="4" size="col-md-6"
                                                             name="{{$local}}[description]"
                                                             title="{{__('placeholders.description',['local'=>$local])}}"
-                                                            placeholder="{{__('placeholders.description')}}"/>
-                        </div>                                 
+                                                            placeholder="{{__('placeholders.description')}}"/>                               
                     @endforeach
-
+                    <x-admin.v1.form.file-input  oldImage="{{ $brand->getFirstMediaUrl('images') }}" value="{{old('image')}}" prepend="" size="col-md-6" name="image"
+                        title="{{__('labels.image')}}"
+                        placeholder="{{__('placeholders.image')}}"/>
+                    <div>>
                 </x-slot>
                 <x-slot name="buttons">
                     <x-admin.v1.buttons.regular-btn btnType="btn-primary" type="submit"

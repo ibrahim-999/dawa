@@ -16,6 +16,7 @@ use \App\Http\Controllers\Web\Vendor\v1\AuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::group(['middleware' => 'guest'], function () {
     //Route::view('login/ss', 'vendor/v1/vendor/dashboard')->name('login');
     Route::view('login', 'vendor/v1/vendor/auth/login')->name('vendor.login.view');

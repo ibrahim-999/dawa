@@ -178,10 +178,10 @@
                     </x-admin.v1.sidebar.menu-navigation-item>
                 @endif
 
-                @if($admin->can('index_categories')|| $admin->can('create_categories') )
+                {{-- @if($admin->can('index_categories')|| $admin->can('create_categories') )
                     <x-admin.v1.sidebar.menu-navigation-item name="categories" title="{{__('labels.categories')}}"
                                                              badge="dev">
-                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="icon"><i class="fa fa-list-alt"></i></x-slot>
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
                             @can('index_categories')
@@ -199,11 +199,11 @@
                         </x-slot>
                         <x-slot name="title">{{__('labels.categories')}}</x-slot>
                     </x-admin.v1.sidebar.menu-navigation-item>
-                @endif
-                @if($admin->can('index_brands')|| $admin->can('create_brands') )
+                @endif --}}
+                {{-- @if($admin->can('index_brands')|| $admin->can('create_brands') )
                     <x-admin.v1.sidebar.menu-navigation-item name="brands" title="{{__('labels.brands')}}"
                                                              badge="dev">
-                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="icon"><i class="fa fa-list-alt"></i></x-slot>
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
                             @can('index_brands')
@@ -221,11 +221,11 @@
                         </x-slot>
                         <x-slot name="title">{{__('labels.brands')}}</x-slot>
                     </x-admin.v1.sidebar.menu-navigation-item>
-                @endif
-                @if($admin->can('index_products')|| $admin->can('create_products') )
+                @endif --}}
+                {{-- @if($admin->can('index_products')|| $admin->can('create_products') )
                     <x-admin.v1.sidebar.menu-navigation-item name="products" title="{{__('labels.products')}}"
                                                              badge="dev">
-                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="icon"><i class="fa-product-hunt"></i></x-slot>
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
                             @can('index_products')
@@ -237,6 +237,34 @@
                             @can('create_products')
                                 <x-admin.v1.sidebar.single-navigation-item reference="{{route('products.index')}}"
                                                                            title="{{__('labels.index')}}" badge="dev">
+                                    <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
+                                </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                        </x-slot>
+                        <x-slot name="title">{{__('labels.products')}}</x-slot>
+                    </x-admin.v1.sidebar.menu-navigation-item>
+                @endif --}}
+                @if($admin->can('index_products')|| $admin->can('create_products') )
+                    <x-admin.v1.sidebar.menu-navigation-item name="products" title="{{__('labels.products')}}"
+                                                             badge="dev">
+                        <x-slot name="icon"><i class="fab fa-product-hunt"></i></x-slot>
+                        <x-slot name="badge"></x-slot>
+                        <x-slot name="items">
+                            @can('index_products')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('products.index')}}"
+                                                                           title="{{__('labels.index_products')}}" badge="dev">
+                                    <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
+                                </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                            @can('index_brands')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('brands.index')}}"
+                                                                           title="{{__('labels.index_brands')}}" badge="dev">
+                                    <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
+                                </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                            @can('index_categories')
+                                <x-admin.v1.sidebar.single-navigation-item reference="{{route('categories.index')}}"
+                                                                           title="{{__('labels.index_categories')}}" badge="dev">
                                     <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
                                 </x-admin.v1.sidebar.single-navigation-item>
                             @endcan
@@ -307,7 +335,7 @@
                 @if($admin->can('index_coupons')|| $admin->can('index_coupons') )
                     <x-admin.v1.sidebar.menu-navigation-item name="coupons" title="{{__('labels.coupons')}}"
                                                              badge="dev">
-                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="icon"><i class="fa-solid fa-tag"></i></x-slot>
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
                             @can('create_coupons')
@@ -329,7 +357,7 @@
                 @if($admin->can('index_offers')|| $admin->can('index_offers') )
                     <x-admin.v1.sidebar.menu-navigation-item name="offers" title="{{__('labels.offers')}}"
                                                              badge="dev">
-                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="icon"><i class="fe-gift"></i></x-slot>
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
                             @can('create_offers')
@@ -351,7 +379,7 @@
                 @if($admin->can('index_sliders')|| $admin->can('index_sliders') )
                     <x-admin.v1.sidebar.menu-navigation-item name="sliders" title="{{__('labels.sliders')}}"
                                                              badge="dev">
-                        <x-slot name="icon"><i data-feather="users"></i></x-slot>
+                        <x-slot name="icon"><i class="fe-sliders"></i></x-slot>
                         <x-slot name="badge"></x-slot>
                         <x-slot name="items">
                             @can('create_sliders')
@@ -368,6 +396,22 @@
                             @endcan
                         </x-slot>
                         <x-slot name="title">{{__('labels.sliders')}}</x-slot>
+                    </x-admin.v1.sidebar.menu-navigation-item>
+                @endif
+                @if($admin->can('index_setting')|| $admin->can('index_setting') )
+                    <x-admin.v1.sidebar.menu-navigation-item name="settings" title="{{__('labels.setting')}}"
+                                                             badge="dev">
+                        <x-slot name="icon"><i class="fe-settings"></i></x-slot>
+                        <x-slot name="badge"></x-slot>
+                        <x-slot name="items">
+                            @can('index_setting')
+                            <x-admin.v1.sidebar.single-navigation-item reference="{{route('settings.loyalty_settings')}}"
+                            title="{{__('labels.loyalty_settings')}}" badge="dev">
+                                <x-slot name="icon"><i class="far fa-list-alt nav-icon"></i></x-slot>
+                            </x-admin.v1.sidebar.single-navigation-item>
+                            @endcan
+                        </x-slot>
+                        <x-slot name="title">{{__('labels.settings')}}</x-slot>
                     </x-admin.v1.sidebar.menu-navigation-item>
                 @endif
                 @if($admin->can('index_campaigns')|| $admin->can('index_campaigns') )

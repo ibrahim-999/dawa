@@ -85,4 +85,9 @@ class OfferController extends Controller
         }
     }
 
+    public function show(Offer $offer)
+    {
+        return view('admin/v1/offer/show', compact('offer'));
+    }
+
 }

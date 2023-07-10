@@ -23,21 +23,22 @@
                                       url="{{route('pharmacies.update',$pharmacy->id)}}"
                                       method="POST" fileable="false">
                     <x-slot name="inputs">
-                        <x-admin.v1.form.text-input errorName="" prepend="" value="{{$pharmacy->name}}" size="col-md-6" name="name"
-                                                    title="{{__('labels.name')}}"
-                                                    placeholder="{{__('placeholders.name')}}"/>
-                        <x-admin.v1.form.text-area-input prepend="" value="{{$pharmacy->info}}" size="col-md-6" rows="4"
-                                                         length="500" name="info"
-                                                         title="{{__('labels.info')}}"
-                                                         placeholder="{{__('placeholders.info')}}"/>
+                        <div class="row">
+                            <x-admin.v1.form.text-input errorName="" prepend="" value="{{$pharmacy->name}}" size="col-md-6" name="name"
+                                                        title="{{__('labels.name')}}"
+                                                        placeholder="{{__('placeholders.name')}}"/>
+                            <x-admin.v1.form.text-area-input prepend="" value="{{$pharmacy->info}}" size="col-md-6" rows="4"
+                                                            length="500" name="info"
+                                                            title="{{__('labels.info')}}"
+                                                            placeholder="{{__('placeholders.info')}}"/>
 
-                        <x-admin.v1.form.text-area-input prepend="" value="{{$pharmacy->address}}" length="500" rows="4" size="col-md-6"
-                        name="address" title="{{__('labels.address')}}"
-                        placeholder="{{__('placeholders.address')}}"/>
-
-                        <div class="form-group mb-3 col-md-6">
-                                <div  class="input-group">
-                                <input class="form-control" placeholder="Enter Location" id="pac-input" name="pac-input"/>
+                            <x-admin.v1.form.text-area-input prepend="" value="{{$pharmacy->address}}" length="500" rows="4" size="col-md-6"
+                            name="address" title="{{__('labels.address')}}"
+                            placeholder="{{__('placeholders.address')}}"/>
+                        </div>
+                        <div class="form-group mb-3 col-md-12">
+                            <div  class="input-group">
+                            <input class="form-control" placeholder="Enter Location" id="pac-input" name="pac-input"/>
                             </div>
                         </div>
                         <div id="map" style="height: 400px;"></div>
@@ -60,6 +61,6 @@
 src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap&libraries=places&v=weekly"
 defer
 ></script>
-<script src="{{asset('/')}}edit-map.js"></script>
+<script src="{{asset('/')}}map.js"></script>
 
 @endsection

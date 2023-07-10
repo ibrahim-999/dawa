@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\Shared\V1\ContactController;
 use App\Http\Controllers\Api\Shared\V1\FirebaseDeviceTokenController;
 use App\Http\Controllers\Api\Shared\V1\LocationController;
 use App\Http\Controllers\Api\Shared\V1\NotificationController;
+use App\Http\Controllers\Api\Shared\V1\PointController;
+use App\Http\Controllers\Api\Shared\V1\PointTransactionController;
 use App\Http\Controllers\Api\Shared\V1\QuestionController;
 use App\Http\Controllers\Api\Shared\V1\SettingController;
 
@@ -79,4 +81,11 @@ Route::group(['middleware' => 'checkAuth'], function () {
     Route::get('profile-comments/{reason}/reason', [CommentController::class, 'show']);
 
     Route::post('update-location', [LocationController::class, 'update']);
+    Route::get('points', [PointController::class, 'getUserPoint']); // test
+    Route::post('redeem-points', [PointController::class, 'redeem']);// test
+    Route::post('give-points', [PointController::class, 'givePoints']);// test
+
+    Route::get('wallet-points', [PointTransactionController::class, 'index']);
+    Route::get('loyalty/main', [PointTransactionController::class, 'main']);
+
 });

@@ -26,7 +26,7 @@ class AdminStoreUserRequest extends FormRequest
         return [
             'name' => ['required','max:255'],
             // 'email' => ['required', 'email:rfc,dns', 'unique:admins,email'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'email' => ['nullable', 'email', 'unique:users,email'],
             'phone.code' => ['required', 'string', 'max:2'],
             'phone.number' => ['required', 'alpha_num', 'phone:phone.code', 'max:12', new DuplicatePhoneCheck(new User())],
             'password' => [
@@ -41,7 +41,7 @@ class AdminStoreUserRequest extends FormRequest
             ],
         ];
     }
-    
+
     public function messages()
     {
         return [

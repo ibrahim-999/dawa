@@ -11,7 +11,7 @@ $selected=$selected ?? old('category_id');
     @foreach($categories as $category )
         <li>
 
-        <span class="caret btn-block btn-primary text-white">
+        <span class="caret btn-block btn-primary text-white" style="height: fit-content">
 
         <label for="{{'Id-'.ucfirst($category->title)}}">{{$category->title}}</label>
         <input type="radio" value="{{$category->id}}" name="category_id" @if($selected==$category->id) checked
@@ -20,7 +20,7 @@ $selected=$selected ?? old('category_id');
             <ul class="nested">
                 @foreach($category->childs as $sub_category )
                     <li>
-        <span class="caret btn-block btn-secondary text-white">
+        <span class="caret btn-block btn-secondary text-white" style="height: fit-content">
 
         <label for="{{'Id-'.ucfirst($sub_category->title)}}">{{$sub_category->title}}</label>
         <input type="radio" value="{{$sub_category->id}}" name="category_id" @if($selected==$sub_category->id) checked
@@ -29,7 +29,7 @@ $selected=$selected ?? old('category_id');
                         <ul class="nested">
                             @foreach($sub_category->childs as $subset_category )
 
-                                <li class="dead-caret btn-block btn-success text-white">
+                                <li class="dead-caret btn-block btn-success text-white " style="height: fit-content">
                                 <label
                                     for="{{'Id-'.ucfirst($subset_category->title)}}">{{$subset_category->title}}</label>
                                 <input type="radio" value="{{$subset_category->id}}" name="category_id" @if($selected==$sub_category->id) checked

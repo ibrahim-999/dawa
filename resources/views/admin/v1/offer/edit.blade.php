@@ -106,13 +106,9 @@
                     title="{{__('labels.discount')}}"
                     placeholder="{{__('placeholders.discount')}}"/>
 
-                    <x-admin.v1.form.file-input  value="{{old('image')}}" prepend="" size="col-md-6" name="image"
+                    <x-admin.v1.form.file-input  oldImage="{{ $offer->getFirstMediaUrl('images') }}" value="{{old('image')}}" prepend="" size="col-md-6" name="image"
                     title="{{__('labels.image')}}"
                     placeholder="{{__('placeholders.image')}}"/>
-
-                    <div class="col-6">
-                        <img src="{{ $offer->getFirstMediaUrl('images') }}" class="w-12 h-12" alt="no image">
-                    </div>
 
                     </div>
 

@@ -6,7 +6,7 @@ use App\Http\Requests\Base\BaseApiFormRequest;
 use Astrotomic\Translatable\Validation\RuleFactory;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SliderUpdateRequest extends BaseApiFormRequest
+class SliderUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

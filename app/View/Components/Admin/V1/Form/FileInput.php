@@ -17,8 +17,9 @@ class FileInput extends Component
     public $placeholder;
     public $prepend;
     public $value;
+    public $oldImage;
 
-    public function __construct($size, $name, $title, $placeholder, $prepend,$value)
+    public function __construct($size, $name, $title, $placeholder, $prepend,$value,$oldImage)
     {
         $this->size = $size;
         $this->name = $name;
@@ -26,8 +27,7 @@ class FileInput extends Component
         $this->placeholder = $placeholder;
         $this->prepend = $prepend;
         $this->value = $value;
-
-
+        $this->oldImage = $oldImage;
     }
 
     /**

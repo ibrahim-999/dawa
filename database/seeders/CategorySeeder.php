@@ -16,9 +16,13 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory()->count(50)->create()->each(function ($category){
-            Category::factory()->count(10)->create(['parent_id'=>$category->id])->each(function ($sub_category){
-                Category::factory()->count(5)->create(['parent_id'=>$sub_category->id]);
+        Category::factory()->count(7)->create()->each(function ($category){
+            $category->addMediaFromUrl(url(asset('category/' . rand(1, 3) . '.jpeg')))->toMediaCollection('images');
+            Category::factory()->count(5)->create(['parent_id'=>$category->id])->each(function ($sub_category){
+                $sub_category->addMediaFromUrl(url(asset('category/' . rand(1, 3) . '.jpeg')))->toMediaCollection('images');
+                Category::factory()->count(3)->create(['parent_id'=>$sub_category->id])->each(function ($cat){
+                    $cat->addMediaFromUrl(url(asset('category/' . rand(1, 3) . '.jpeg')))->toMediaCollection('images');
+                });;
             });
         });
     }

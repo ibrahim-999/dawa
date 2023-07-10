@@ -35,7 +35,7 @@ class VariantController extends ApiController
         $data= VariantsResource::collection($variants)->resource->toArray();
         $data_array=['variants'=>$data['data']];
         unset($data['data']);
-        return $this->successShowPaginationResponse($data_array,$data, 'brand_list');
+        return $this->successShowPaginationResponse($data_array,$data, 'variant_list');
     }
     public function VariantsInfo(Request $request)
     {

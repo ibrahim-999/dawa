@@ -34,7 +34,7 @@ trait ApiResponseTrait
             'line' => $line,
         ];
 
-        info(implode(', ', $msg));
+        info(implode(', ', $message));
 
         return $msg;
         return response()->json($data, HttpRequestStatusEnum::STATUS_BAD_REQUEST->value);

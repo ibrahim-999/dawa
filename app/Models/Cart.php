@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Domains\Product\v1\Services\CouponService;
+use App\Domains\User\v1\Services\CartService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,7 +39,25 @@ class Cart extends Model
     public function getTotalPriceAttribute()
     {
         return $this->variants->sum(function($variant) {
+            return $variant->pivot->quantity * $variant->price;
+        });
+    }
+    public function getTotalNetPriceAttribute()
+    {
+        return $this->variants->sum(function($variant) {
             return $variant->pivot->quantity * $variant->net_price;
         });
+    }
+
+    public function getCouponDiscountAttribute()
+    {
+        $couponService = app()->make(CouponService::class);
+        $cartService = app()->make(CartService::class);
+        $coupon = $couponService->find('code', request()->coupon_code);
+        if (!$coupon) {
+            return 0;
+        }
+        $discount = $cartService->getCouponDiscount($coupon, $this);
+        return (double) $discount;
     }
 }

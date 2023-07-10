@@ -11,5 +11,11 @@ class Setting extends Model implements TranslatableContract
 {
     use HasFactory,Translatable;
 
+    protected $fillable = [
+        'fixed_value',
+        'group',
+        'is_fixed',
+    ];
+    
     public $translatedAttributes = ['value'];
 }

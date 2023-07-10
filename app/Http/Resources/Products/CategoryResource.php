@@ -19,7 +19,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'image'=>url(asset('category/' . rand(1, 3) . '.jpeg')),
+            'image'=> $this->image,
             'childs' => CategoryResource::collection($this->whenLoaded('childs'))
         ];
         return $data;

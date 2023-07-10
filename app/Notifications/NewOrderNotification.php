@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Channels\FcmChannel;
 use App\Domains\Shared\v1\Enums\ModelEnum;
+use App\Domains\Shared\v1\Enums\NotificationReasonEnum;
 use App\Domains\Shared\v1\Services\FcmService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -19,8 +20,8 @@ class NewOrderNotification extends Notification implements ShouldQueue
 
     public function __construct($order)
     {
-        $this->fcmService = app()->make(FcmService::class); 
-        $this->order = $order; 
+        $this->fcmService = app()->make(FcmService::class);
+        $this->order = $order;
     }
     /**
      * Get the notification's delivery channels.
@@ -29,7 +30,7 @@ class NewOrderNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['database', FcmChannel::class,'mail'];
+        return ['database', FcmChannel::class];
     }
 
     /**
@@ -42,7 +43,12 @@ class NewOrderNotification extends Notification implements ShouldQueue
         $data = [
             'title' => __ ('messages.new_order_admin_notification_title'),
             'body' => __ ('messages.new_order_admin_created_notification_body'),
-            'device_tokens' => $deviceTokens
+            'device_tokens' => $deviceTokens,
+            'data'=>[
+                'model_type' => 'order',
+                'model_id' => $this->order->id,
+                'reason' => NotificationReasonEnum::NewOrder->value
+            ]
         ];
 
         $this->fcmService->send($data);
@@ -77,7 +83,9 @@ class NewOrderNotification extends Notification implements ShouldQueue
             ],
 
             'model_type' => 'order',
-            'model_id' => $this->order->id 
-        ];
-    }
+            'model_id' => $this->order->id,
+            'reason' => NotificationReasonEnum::NewOrder->value
+
+    ];
+}
 }

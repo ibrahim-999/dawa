@@ -28,7 +28,7 @@
                     <x-admin.v1.form.form title="{{__('forms.edit_category_title')}}-{{$category->name}}"
                                           description="{{__('forms.edit_category_description')}}"
                                           url="{{route('categories.update',$category->id)}}"
-                                          method="POST" fileable="false">
+                                          method="POST" fileable="true">
                         <x-slot name="inputs">
                             @method('PATCH')
                             <x-admin.v1.form.select-input multiple="0" size="col-md-6" name="parent_id"
@@ -56,6 +56,10 @@
                                                                  title="{{__('labels.description')}}"
                                                                  placeholder="{{__('placeholders.description')}}"/>
                             @endforeach
+
+                            <x-admin.v1.form.file-input  oldImage="{{ $category->getFirstMediaUrl('images') }}" value="{{old('image')}}" prepend="" size="col-md-6" name="image"
+                                title="{{__('labels.image')}}"
+                                placeholder="{{__('placeholders.image')}}"/>
 
                         </x-slot>
                         <x-slot name="buttons">

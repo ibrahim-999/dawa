@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Driver\V1\AuthController;
+use App\Http\Controllers\Api\Driver\V1\OrderController;
 use App\Http\Controllers\Api\Driver\V1\RegisterController;
 use App\Http\Controllers\Api\Driver\V1\PasswordController;
 use App\Http\Controllers\Api\Driver\V1\ProfileController;
@@ -25,13 +26,12 @@ Route::group(['prefix' => 'password'], function () {
         Route::post('send-otp', [RegisterController::class, 'sendRegisterOtp']);
         Route::post('verify-otp', [RegisterController::class, 'verifyRegisterOtp']);
     });
+
 });
-Route::group(['middleware' => ['auth:sanctum-driver', 'checkDriverStatus','checkDriverProfileStatus'] ], function () {
+
+Route::group(['middleware' => ['auth:sanctum-driver', 'checkDriverStatus', 'checkDriverProfileStatus', 'driverHeaders']], function () {
     Route::get('me', [AuthController::class, 'me']);
 
-});
-
-Route::group(['middleware' => ['auth:sanctum-driver'] ], function () {
     Route::post('profile/step/1/complete', [ProfileController::class, 'CompleteProfileStepOne']);
     Route::post('profile/step/2/complete', [ProfileController::class, 'CompleteProfileStepTwo']);
     Route::post('profile/step/3/complete', [ProfileController::class, 'CompleteProfileStepThree']);
@@ -40,4 +40,9 @@ Route::group(['middleware' => ['auth:sanctum-driver'] ], function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
 
+    // Route::post('orders', [OrderController::class, 'store']);
+    Route::get('orders', [OrderController::class, 'index']);
+    Route::get('orders/{order}', [OrderController::class, 'show']);
+    Route::patch('orders/{order}/update-status', [OrderController::class, 'updateStatus']);
 });
+

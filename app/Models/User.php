@@ -5,14 +5,18 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Domains\Shared\v1\Traits\FirebaseDeviceTokensTrait;
+use App\Domains\Shared\v1\Traits\PointsTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Propaganistas\LaravelPhone\PhoneNumber;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
+    use HasApiTokens, HasFactory, Notifiable,FirebaseDeviceTokensTrait, PointsTrait, InteractsWithMedia;
     use HasApiTokens, HasFactory, Notifiable, FirebaseDeviceTokensTrait;
 
     /**
@@ -98,7 +102,10 @@ class User extends Authenticatable
      */
     public function getProfileImageAttribute()
     {
-        return $this->images()->where('type', 'profile')->first();
+        // return $this->images()->where('type','profile')->first();
+        return $this->getFirstMedia('images', [
+            'type' => 'profile'
+        ])?->original_url;
     }
 
     /**

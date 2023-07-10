@@ -62,19 +62,19 @@
                                 <label>{{__('forms.days_of_week')}}</label>
                                 <select class="form-control" name="days_of_week" id="days_of_week">
                                     <option
-                                        value="1"{{$campaign->days_of_week=='1'?'selected':null}}>{{__('forms.saturday')}}</option>
+                                        value="1"{{$campaign->days_of_week=='1'?'selected':null}}>{{__('forms.days_1')}}</option>
                                     <option
-                                        value="2"{{$campaign->days_of_week=='2'?'selected':null}}>{{__('forms.sunday')}}</option>
+                                        value="2"{{$campaign->days_of_week=='2'?'selected':null}}>{{__('forms.days_2')}}</option>
                                     <option
-                                        value="3"{{$campaign->days_of_week=='3'?'selected':null}}>{{__('forms.monday')}}</option>
+                                        value="3"{{$campaign->days_of_week=='3'?'selected':null}}>{{__('forms.days_3')}}</option>
                                     <option
-                                        value="4"{{$campaign->days_of_week=='4'?'selected':null}}>{{__('forms.tuesday')}}</option>
+                                        value="4"{{$campaign->days_of_week=='4'?'selected':null}}>{{__('forms.days_4')}}</option>
                                     <option
-                                        value="5"{{$campaign->days_of_week=='5'?'selected':null}}>{{__('forms.wednesday')}}</option>
+                                        value="5"{{$campaign->days_of_week=='5'?'selected':null}}>{{__('forms.days_5')}}</option>
                                     <option
-                                        value="6"{{$campaign->days_of_week=='6'?'selected':null}}>{{__('forms.thursday')}}</option>
+                                        value="6"{{$campaign->days_of_week=='6'?'selected':null}}>{{__('forms.days_6')}}</option>
                                     <option
-                                        value="7"{{$campaign->days_of_week=='7'?'selected':null}}>{{__('forms.friday')}}</option>
+                                        value="7"{{$campaign->days_of_week=='7'?'selected':null}}>{{__('forms.days_7')}}</option>
                                 </select>
                             </div>
 
@@ -84,7 +84,7 @@
                                 @endif>
                                 <x-admin.v1.form.date-time-input
                                     prepend=""
-                                    value="{{$campaign->end_date??old('start_date')}}" size="col-md-12"
+                                    value="{{$campaign->start_date??old('start_date')}}" size="col-md-12"
                                     name="start_date"
                                     title="{{__('labels.start_date')}}"
                                     placeholder="{{__('placeholders.date')}}"/>
@@ -124,7 +124,7 @@
                                     <option
                                         value="2"{{$campaign->user_type=='2'?'selected':null}}>{{__('forms.users')}}</option>
                                     <option
-                                        value="3" {{$campaign->user_type=='3'?'selected':null}}>{{__('forms.vendors')}}</option>
+                                        value="3"{{$campaign->user_type=='3'?'selected':null}}>{{__('forms.vendors')}}</option>
                                 </select>
                             </div>
 

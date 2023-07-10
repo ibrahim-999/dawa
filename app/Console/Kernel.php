@@ -2,8 +2,7 @@
 
 namespace App\Console;
 
-use App\Console\Commands\CampaignCommend;
-use App\Console\Commands\DailyCampaignCommend;
+use App\Console\Commands\CampaignCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +13,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command(CampaignCommend::class)->everyMinute();
+        $schedule->command(CampaignCommand::class)
+            ->withoutOverlapping()
+            ->everyMinute();
     }
 
     /**
@@ -22,7 +23,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__ . '/Commands');
+        $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
     }

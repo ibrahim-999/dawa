@@ -32,8 +32,6 @@ class NumberInput extends Component
         $this->max = $max;
         $this->value = $value;
         $this->errorName = $errorName;
-
-
     }
 
     /**

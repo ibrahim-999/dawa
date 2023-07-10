@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\AttributeStoreRequest;
 use App\Http\Requests\Product\AttributeUpdateRequest;
 use App\Http\Requests\Product\VariantStoreRequest;
+use App\Http\Requests\Product\VariantUpdateRequest;
 use App\Models\Product;
 use App\Models\Variant;
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class VariantController extends Controller
 
 
 
-    public function store(Product $product,VariantStoreRequest $request)
+    public function store(Product $product, VariantStoreRequest $request)
     {
         $attribute = $this->variantService->setProduct($product)->add($request);
 
@@ -76,9 +77,9 @@ class VariantController extends Controller
     }
 
 
-    public function update(Product $product, AttributeUpdateRequest $request)
+    public function update(Variant $variant, VariantUpdateRequest $request)
     {
-        $updated = $this->productService->setBuilder($product)->update($request);
+        $updated = $this->variantService->setBuilder($variant)->update($request);
         if ($updated) {
             return Redirect::route('products.index')->with('success', __('messages.product_updated_successfully'));
         } else {
@@ -86,4 +87,8 @@ class VariantController extends Controller
         }
     }
 
+    public function show(Variant $variant)
+    {
+        return view('admin/v1/product/partials/variant/show', compact('variant'));
+    }
 }

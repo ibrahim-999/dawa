@@ -87,7 +87,7 @@ class CouponService implements CouponServiceContract, CrudContract
         }
     }
 
-    public function find(string $key, string $value): ?Model
+    public function find(string $key, ?string $value): ?Model
     {
         try {
             return $this->couponModel->where($key, $value)->first();

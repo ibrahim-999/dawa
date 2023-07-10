@@ -93,6 +93,7 @@ class VariantService implements VariantServiceContract, CrudContract
     public function add(Request $request): ?Model
     {
         try {
+            // dd($request->values);
             $data = [
                 'en'=>[
                     'title'=>$request->en['title'],
@@ -111,6 +112,17 @@ class VariantService implements VariantServiceContract, CrudContract
             ];
 
             $variant = $this->baseModel->create($data);
+            if ($request->hasFile('image')) {
+                $variant->addMediaFromRequest('image')->withCustomProperties(['type' => 'main'])->toMediaCollection('images');
+            }
+            if ($request->images) {
+                // $variant->clearMediaCollection('images');
+                $variant->addMultipleMediaFromRequest(['images'])
+                ->each(function ($fileAdder) {
+                    $fileAdder->withCustomProperties(['type' => 'sub'])->toMediaCollection('images');
+                });
+            }
+
             if ($variant) {
                 foreach ($request->values as $attribute=>$value)
                 {
@@ -153,10 +165,20 @@ class VariantService implements VariantServiceContract, CrudContract
     public function update(Request $request): bool
     {
         try {
-            $data = $request->validated();
-            if ($request->password) {
-                $data['password'] = Hash::make($request->password);
+            $data = $request->except(['_token','image','images','values','_method']);
+
+            if ($request->hasFile('image')) {
+                $this->baseModel->getFirstMedia('images', ['type' => 'main'])?->delete();
+                $this->baseModel->addMediaFromRequest('image')->withCustomProperties(['type' => 'main'])->toMediaCollection('images');
             }
+            if ($request->images) {
+                // $variant->clearMediaCollection('images');
+                $this->baseModel->addMultipleMediaFromRequest(['images'])
+                ->each(function ($fileAdder) {
+                    $fileAdder->withCustomProperties(['type' => 'sub'])->toMediaCollection('images');
+                });
+            }
+
             return $this->baseModel->update($data);
         } catch (\Throwable $exception) {
             throw $exception;
@@ -209,6 +231,20 @@ class VariantService implements VariantServiceContract, CrudContract
             throw $exception;
         }
     }
+    public function wishList(): ?CrudContract
+    {
+        try {
+             $this->baseModel =$this->baseModel
+                ->whereHas('wishlists',function ($q){
+                    $q->where('user_id',getAuthUser()->id);
+                });
+            return $this ;
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+
+    }
+
 
     //review
     public function review(Variant $variant,Request $request): bool

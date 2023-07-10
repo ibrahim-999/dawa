@@ -28,6 +28,7 @@ class BrandUpdateRequest extends BaseApiFormRequest
             '%title' => 'required|string',
             '%description' => ['nullable', 'string'],
         ]);
+        $rules['image'] = ['nullable', 'image', 'mimes:jpg,png,jpeg,gif,svg'];
         return $rules;
     }
 }

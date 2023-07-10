@@ -100,8 +100,8 @@ class UserService
     public function updateProfileImage(User $user, $request): ?bool
     {
         try {
-            $user->images()->where('type','=','profile')->delete();
-            $image = $this->uploadFile($request->image, $user, 'profile', 'user');
+            $user->clearMediaCollection('images');
+            $image = $user->addMediaFromRequest('image')->withCustomProperties(['type' => 'profile'])->toMediaCollection('images');
             return (bool) $image;
         } catch (\Throwable $exception) {
             throw $exception;

@@ -28,9 +28,11 @@ return [
 
     'show_cart' => 'Show Cart',
     'cart' => 'Carts',
-
     'index_campaign' => 'Campaign',
     'edit_campaign' => 'Edit Campaign',
     'create_campaign' => 'Create Campaign',
 
+    'create_category' => 'create category',
+    'show_variant' => 'show variant',
+    'create_product' => 'create product',
 ];

@@ -37,25 +37,27 @@ class OrderController extends ApiController
         $order = $orderContext->createOrder($request);
 
         $data = OrderResource::make($order);
-
+        $database=app('firebase.database');
+        $database->getReference('new_orders')
+            ->update([$order->id=>$data]);
         return $this->successShowDataResponse($data, 'order');
     }
 
     public function getService($type) : CreateOrderInterface{
         switch ($type) {
             case 1:
-                return app()->make(ProductOrderService::class); 
+                return app()->make(ProductOrderService::class);
             case 2:
-                return app()->make(PrescriptionOrderService::class); 
+                return app()->make(PrescriptionOrderService::class);
             case 3:
-                return app()->make(SearchOrderService::class); 
+                return app()->make(SearchOrderService::class);
             case 4:
-                return app()->make(OfferOrderService::class); 
+                return app()->make(OfferOrderService::class);
             default:
                 return null;
         }
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -85,7 +87,7 @@ class OrderController extends ApiController
     public function updateStatus(int $id, UpdateOrderStatusRequest $request)
     {
         $order = $this->orderService->find('id', $id);
-        
+
         if (!$order) {
             return $this->failResourceNotFoundMessage('order');
         }
@@ -99,7 +101,7 @@ class OrderController extends ApiController
         }
 
         $updated = $this->orderService->updateStatus($order,$request);
-        
+
         if ($updated) {
             return $this->successUpdateNoContentResponse();
         } else {

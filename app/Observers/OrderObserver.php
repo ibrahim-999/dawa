@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Jobs\SendNewOrderCreatedNotificationJob;
 use App\Jobs\SendOrderCreatedSuccessfullyJob;
 use App\Models\Admin;
+use App\Models\Driver;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Vendor;
@@ -24,8 +25,10 @@ class OrderObserver
     {
         $vendors = Vendor::all();
         $admins = Admin::all();
+        //TODO:after election process
+        $drivers = Driver::all();
         $user = $order->user;
-        dispatch(new SendOrderCreatedSuccessfullyJob($user, $order));   
-        dispatch(new SendNewOrderCreatedNotificationJob($admins, $vendors, $order));   
+        dispatch(new SendOrderCreatedSuccessfullyJob($user, $order));
+        dispatch(new SendNewOrderCreatedNotificationJob($admins, $vendors, $order,$drivers));
     }
 }

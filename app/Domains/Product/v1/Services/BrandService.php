@@ -75,11 +75,9 @@ class BrandService implements BrandServiceContract, CrudContract
     public function add(Request $request): ?Model
     {
         try {
-            $data = $request->validated();
+            $data = $request->except(['image','_token']);
             $brand = $this->baseModel->create($data);
-            if ($request->invite) {
-                //TODO:Send Invitation mail
-            }
+            $brand->addMediaFromRequest('image')->toMediaCollection('images');
             return $brand;
         } catch (\Throwable $exception) {
             throw $exception;
@@ -99,9 +97,10 @@ class BrandService implements BrandServiceContract, CrudContract
     public function update(Request $request): bool
     {
         try {
-            $data = $request->validated();
-            if ($request->password) {
-                $data['password'] = Hash::make($request->password);
+            $data = $request->except(['image','_token','_method']);
+            if ($request->hasFile('image')) {
+                $this->baseModel->clearMediaCollection('images');
+                $this->baseModel->addMediaFromRequest('image')->toMediaCollection('images');
             }
             return $this->baseModel->update($data);
         } catch (\Throwable $exception) {

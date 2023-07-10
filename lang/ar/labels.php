@@ -76,5 +76,7 @@ return [
     'categories_index' => 'Categories Index',
     'categories_create' => 'Category Create',
     'categories_show' => 'Show Category',
+    'approve_profile' => 'Approve the Profile',
+    'approve' => 'Approve',
 
 ];

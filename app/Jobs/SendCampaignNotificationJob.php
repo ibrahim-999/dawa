@@ -44,7 +44,7 @@ class SendCampaignNotificationJob implements ShouldQueue
 
             if (!empty($this->vendors)) {
                 foreach ($this->vendors as $vendor) {
-                    Notification::send($this->$vendor, new EmailNotification($this->notification));
+                    Notification::send($vendor, new EmailNotification($this->notification));
                 }
             }
 
@@ -61,7 +61,7 @@ class SendCampaignNotificationJob implements ShouldQueue
             }
             if (!empty($this->vendors)) {
                 foreach ($this->vendors as $vendor) {
-                    Notification::send($this->$vendor, new EmailNotification($this->notification));
+                    Notification::send($vendor, new EmailNotification($this->notification));
                 }
             }
         }

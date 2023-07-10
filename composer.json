@@ -9,6 +9,7 @@
         "astrotomic/laravel-translatable": "^11.12",
         "darkaonline/l5-swagger": "^8.5",
         "guzzlehttp/guzzle": "^7.2",
+        "kreait/laravel-firebase": "^5.2",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/telescope": "^4.14",

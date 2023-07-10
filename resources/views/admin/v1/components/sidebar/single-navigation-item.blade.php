@@ -7,4 +7,3 @@
         <span> {{$title}} </span>
     </a>
 </li>
-

@@ -33,12 +33,12 @@ class CampaignNotificationRequest extends FormRequest
             'type' => ['required', Rule::in([CampaignTypeEnum::ALL->value, CampaignTypeEnum::EMAIL->value, CampaignTypeEnum::FCM->value, CampaignTypeEnum::SMS->value])],
             'sent_type' => ['required', Rule::in([CampaignSentTypeEnum::NOW->value, CampaignSentTypeEnum::SCHEDULE->value])],
             'user_type' => ['required', Rule::in([CampaignUserTypeEnum::ALL->value, CampaignUserTypeEnum::USERS->value, CampaignUserTypeEnum::VENDORS->value])],
-            'user_id' => 'required_if:user_type,users',
-            'start_date' => 'required_if:sent_type,2',
-            'end_date' => 'required_if:sent_type,2',
-            'schedule_type' => 'required_if:sent_type,2',
-            'days_of_week' => 'required_if:schedule_type,2',
-            'vendor_id' => 'required_if:user_type,vendors',
+            'user_id' => ['required_if:user_type,users'],
+            'start_date' => ['required_if:sent_type,2'],
+            'end_date' => ['required_if:sent_type,2'],
+            'schedule_type' => ['required_if:sent_type,2'],
+            'days_of_week' => ['required_if:schedule_type,2'],
+            'vendor_id' => ['required_if:user_type,vendors'],
             'is_active' => ['nullable', 'boolean']
         ]);
 

@@ -51,12 +51,11 @@
                     <input class="form-control" placeholder="Enter Location" id="pac-input" name="pac-input"/>
                 </div>
             </div>
-            <div id="map" style="height: 400px;"></div>
-            <input type="hidden"  id="pac-lat" name="lat"/>
-            <input type="hidden"  id="pac-lng" name="long"/>
-            <input type="hidden"  id="pac-place-id" name="place_id"/>
-
         </div>
+        <div id="map" style="height: 400px;"></div>
+        <input type="hidden" value="{{old('lat')}}" id="pac-lat" name="lat"/>
+        <input type="hidden" value="{{old('long')}}" id="pac-lng" name="long"/>
+        <input type="hidden" value="{{old('place_id')}}" id="pac-place-id" name="place_id"/>
         </x-slot>
         <x-slot name="buttons">
             <x-admin.v1.buttons.regular-btn btnType="btn-primary" type="submit" title="{{__('labels.create')}}"/>
@@ -71,6 +70,6 @@
 src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap&libraries=places&v=weekly"
 defer
 ></script>
-<script src="{{asset('/')}}create-map.js"></script>
+<script src="{{asset('/')}}map.js"></script>
 
 @endsection

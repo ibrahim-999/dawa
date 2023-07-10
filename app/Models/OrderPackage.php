@@ -9,4 +9,10 @@ class OrderPackage extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function pharmacy(){
+        return $this->belongsTo(Pharmacy::class);
+    }
+    public function variant(){
+        return $this->belongsTo(Variant::class);
+    }
 }

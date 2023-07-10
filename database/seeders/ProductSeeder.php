@@ -22,7 +22,12 @@ class ProductSeeder extends Seeder
     {
         Product::factory()->count(200)->create()->each(function ($product){
 
-            Variant::factory()->count(rand(1,10))->create(['product_id'=>$product->id]);
+            Variant::factory()->count(rand(1,10))->create(['product_id'=>$product->id])->each(function ($variant){
+                $variant->addMediaFromUrl(url(asset('product/' . rand(1, 6) . '.jpeg')))->withCustomProperties(['type' => 'main'])->toMediaCollection('images');
+                $variant->addMediaFromUrl(url(asset('product/' . rand(1, 6) . '.jpeg')))->withCustomProperties(['type' => 'sub'])->toMediaCollection('images');
+                $variant->addMediaFromUrl(url(asset('product/' . rand(1, 6) . '.jpeg')))->withCustomProperties(['type' => 'sub'])->toMediaCollection('images');
+                $variant->addMediaFromUrl(url(asset('product/' . rand(1, 6) . '.jpeg')))->withCustomProperties(['type' => 'sub'])->toMediaCollection('images');
+                });
             Attribute::factory()->count(rand(1,5))->create(['product_id'=>$product->id])->each(function ($attribute) use ($product)
             {
                 AttributeValue::factory()->count(rand(1,5))->create(['attribute_id'=>$attribute->id]);
@@ -34,6 +39,7 @@ class ProductSeeder extends Seeder
                             'attribute_value_id'=>$attribute->values->shuffle()->first()->id
                         ]
                     );
+
                 }
 
             });

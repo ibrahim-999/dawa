@@ -2,10 +2,12 @@
 
 namespace App\Domains\Shared\v1\Services;
 
+use App\Domains\Shared\v1\Enums\SettingGroupEnum;
 use App\Models\Setting;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class SettingService
 {
@@ -35,5 +37,35 @@ class SettingService
         } catch (\Throwable $exception) {
             throw $exception;
         }
+    }
+    
+    public function getByGroup($group = SettingGroupEnum::GENERAL): ?Collection
+    {
+        try {
+            return $this->settingModel->where('group', $group)->get();
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+
+    }
+
+    public function updateLoyaltyPointSettings(Request $request): bool
+    {
+        try {
+            $data = $request->except(['_token','_method']);
+
+            foreach ($data as $key => $value) {
+                $model = $this->find('key', $key);
+
+                if ($key) {
+                    $model->update(['fixed_value' => $value]);
+                }
+            }
+
+            return true;
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+
     }
 }

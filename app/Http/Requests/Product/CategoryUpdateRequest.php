@@ -29,6 +29,7 @@ class CategoryUpdateRequest extends BaseApiFormRequest
             '%description' => ['nullable', 'string'],
         ]);
         $rules['parent_id'] = ['nullable', 'exists:categories,id'];
+        $rules['image'] = ['nullable', 'image', 'mimes:jpg,png,jpeg,gif,svg'];
         return $rules;
     }
 }

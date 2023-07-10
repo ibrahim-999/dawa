@@ -14,7 +14,7 @@
     <x-slot name="modal">
         <x-admin.v1.modals.actions.submit-or-cancel classes="" id="delete-{{$campaign->id}}" header="{{__('texts.delete_driver_header')}}">
             <x-slot name="body">
-                {{__('texts.delete_user_body')}} ,{{$campaign->name}}
+                {{__('texts.delete_campaign_body')}}, {{$campaign->title}}
             </x-slot>
             <x-slot name="actionBtns">
                 <x-admin.v1.buttons.delete-btn btnType="btn-danger waves-effect waves-light"

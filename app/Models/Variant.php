@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Variant extends Model implements TranslatableContract
+class Variant extends Model implements TranslatableContract, HasMedia
 {
-    use HasFactory,Translatable;
-    use HasFactory;
+    use HasFactory, Translatable, InteractsWithMedia;
 
     public $fillable = ['price', 'discount_percentage', 'is_active','product_id'];
     public $translatedAttributes = ['title', 'description','specifications'];
@@ -30,7 +31,7 @@ class Variant extends Model implements TranslatableContract
 
     public function wishlists()
     {
-        return $this->hasMany(Wishlist::class);
+        return $this->hasMany(Wishlist::class,'variant_id','id');
     }
 
     public function inWishlist($userId)
@@ -64,5 +65,54 @@ class Variant extends Model implements TranslatableContract
             ->where('user_id',auth('sanctum')?->id())
             ->where('place_id',request()->header('X-Place'))
             ->first();
+    }
+    public function getCurrentCartQuantityAttribute()
+    {
+        return ($this->currentCart()) ?(int)$this->currentCart()?->pivot->quantity ?? 0 : 0;
+    }
+    public function getIsWishlistedAttribute()
+    {
+        return $this->inWishlist(auth('sanctum')->user()?->id);
+    }
+
+    /**
+     * Get the profile image that owns the Driver
+     *
+     * @return Image
+     */
+    public function getMainImageAttribute()
+    {
+        // return $this->images()->where('type','profile')->first();
+        return $this->getFirstMedia('images', [
+            'type' => 'main'
+        ])?->original_url;
+    }
+
+    /**
+     * Get the profile image that owns the Driver
+     *
+     * @return Image
+     */
+    public function getSubImagesAttribute()
+    {
+        // return $this->images()->where('type','profile')->first();
+        return $this->getMedia('images', [
+            'type' => 'sub'
+        ]);
+    }
+
+    /**
+     * Get the profile image that owns the Driver
+     *
+     * @return Image
+     */
+    public function getSubImagesArrayAttribute()
+    {
+        $data = [];
+        $images = $this->sub_images;
+        foreach ($images as $image) {
+           $data[] = $image->original_url;
+        }
+        return $data;
     }
 }

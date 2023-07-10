@@ -9,9 +9,9 @@
         <td class="table-user">
             <img src="{{asset('admin-panel-assets/v1/images/companies/amazon.png')}}" alt="table-user"
                  class="mr-2 rounded-circle">
-{{--            <a href="{{route('products.show',$variant->id)}}" class="text-body font-weight-semibold">--}}
+           <a href="{{route('variants.show',$variant->id)}}" class="text-body font-weight-semibold">
                 {{$variant->title}}
-{{--            </a>--}}
+           </a>
         </td>
         <td>
             <div class="badge bg-danger text-white "><del>{{$variant->price}}</del></div>

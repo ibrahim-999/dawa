@@ -24,14 +24,14 @@
             <x-admin.v1.form.form title="{{__('forms.add_brand_title')}}"
                                   description="{{__('forms.add_brand_description')}}"
                                   url="{{route('brands.store')}}"
-                                  method="POST" fileable="false">
+                                  method="POST" fileable="true">
                 <x-slot name="inputs">
-
+                    <div class="row">
                     @foreach(config('translatable.locales') as $local)
                         <div class="col-md-12">
                             <h5>{{__('labels.language')}}-{{ucfirst($local)}}</h5>
                         </div>
-                        <div class="row">
+
                             <x-admin.v1.form.text-input errorName="{{$local}}.title" prepend="" value="{{old($local.'[title]')}}" size="col-md-6"
                             name="{{$local}}[title]"
                             title="{{__('labels.title',['local'=>$local])}}"
@@ -41,9 +41,12 @@
                                                             name="{{$local}}[description]"
                                                             title="{{__('labels.description',['local'=>$local])}}"
                                                             placeholder="{{__('placeholders.description')}}"/>
-                        </div>
-                    @endforeach
 
+                    @endforeach
+                    <x-admin.v1.form.file-input  oldImage="" value="{{old('image')}}" prepend="" size="col-md-6" name="image"
+                        title="{{__('labels.image')}}"
+                        placeholder="{{__('placeholders.image')}}"/>
+                    </div>
                 </x-slot>
                 <x-slot name="buttons">
                     <x-admin.v1.buttons.regular-btn btnType="btn-primary" type="submit"

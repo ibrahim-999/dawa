@@ -13,18 +13,25 @@ class CampNotification extends Model
 
     public $translatedAttributes = ['title', 'description', 'subject'];
 
-    public $fillable = ['type', 'user_type', 'start_date', 'end_date', 'schedule_type','days_of_week', 'sent_type', 'sent_type', 'is_active'];
+    public $fillable = [
+        'type',
+        'user_type',
+        'start_date',
+        'end_date',
+        'schedule_type',
+        'days_of_week',
+        'sent_type',
+        'is_active'
+    ];
 
     public function vendors()
     {
         return $this->morphMany(Vendor::class, 'campaignable');
     }
-
     public function customers()
     {
         return $this->morphMany(User::class, 'campaignable');
     }
-
     public function campaigns()
     {
         return $this->hasMany(Campaignable::class, 'notification_id');

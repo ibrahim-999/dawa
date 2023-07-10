@@ -44,4 +44,17 @@ class OrderStatusValidationService
 
     }
 
+    public function ValidateDriverAcceptOrder($order, Request $request): bool
+    {
+        try {
+            if ($order->status != OrderStatusEnum::PENDING->value) {
+                return false;
+            }
+
+            return true;
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+    }
+
 }

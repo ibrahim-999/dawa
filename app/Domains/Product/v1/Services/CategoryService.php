@@ -105,9 +105,7 @@ class CategoryService implements CategoryServiceContract, CrudContract
         try {
             $data = $request->validated();
             $category = $this->categoryModel->create($data);
-            if ($request->invite) {
-                //TODO:Send Invitation mail
-            }
+            $category->addMediaFromRequest('image')->toMediaCollection('images');
             return $category;
         } catch (\Throwable $exception) {
             throw $exception;
@@ -138,8 +136,9 @@ class CategoryService implements CategoryServiceContract, CrudContract
     {
         try {
             $data = $request->validated();
-            if ($request->password) {
-                $data['password'] = Hash::make($request->password);
+            if ($request->hasFile('image')) {
+                $this->categoryModel->clearMediaCollection('images');
+                $this->categoryModel->addMediaFromRequest('image')->toMediaCollection('images');
             }
             return $this->categoryModel->update($data);
         } catch (\Throwable $exception) {

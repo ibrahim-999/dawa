@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{{asset('admin-panel-assets/v1')}}/libs/chartist/chartist.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+    @vite('resources/js/app.js')
 
     <link href="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
     <link href="{{asset('admin-panel-assets/v1')}}/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
@@ -557,15 +558,6 @@
 <script src="{{asset('admin-panel-assets/v1')}}/libs/jquery-knob/jquery.knob.min.js"></script>
 <script src="{{asset('admin-panel-assets/v1')}}/js/pages/form-advanced.init.js"></script>
 
-{{-- <script src="{{asset('admin-panel-assets/v1')}}/libs/selectize/js/standalone/selectize.min.js"></script> --}}
-{{-- <script src="{{asset('admin-panel-assets/v1')}}/js/standalone/selectize.min.js"></script> --}}
-{{-- <script src="{{asset('admin-panel-assets/v1')}}/libs/selectize/js/standalone/selectize.min.js"></script> --}}
-<script src="{{asset('admin-panel-assets/v1')}}/libs/mohithg-switchery/switchery.min.js"></script>
-<script src="{{asset('admin-panel-assets/v1')}}/libs/multiselect/js/jquery.multi-select.js"></script>
-<script src="{{asset('admin-panel-assets/v1')}}/libs/select2/js/select2.min.js"></script>
-<script src="{{asset('admin-panel-assets/v1')}}/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
-<script src="{{asset('admin-panel-assets/v1')}}/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
-<script src="{{asset('admin-panel-assets/v1')}}/libs/bootstrap-select/js/bootstrap-select.min.js"></script>
 
 <!--Chartist Chart-->
 <script src="{{asset('admin-panel-assets/v1')}}/libs/chartist/chartist.min.js"></script>

@@ -9,6 +9,8 @@ use App\Http\Requests\Admin\AdminStoreDriverRequest;
 use App\Http\Requests\Admin\AdminUpdateDriverRequest;
 use App\Models\Driver;
 use App\Models\User;
+use App\Notifications\DriverProfileApprovalNotification;
+use App\Notifications\WelcomeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -93,5 +95,18 @@ class DriverController extends Controller
     {
         $updated = $this->driverService->warningDriverByAdmin($request, $driver);
         return Redirect::back();
+    }
+    public function approveProfile(Driver $driver, Request $request)
+    {
+        $updated = $this->driverService->approveDriverProfile($driver);
+        $driver->notify((new DriverProfileApprovalNotification())->delay([
+            'mail' => now()->addMinutes(5)
+        ]));
+
+        if ($updated) {
+            return Redirect::back()->with('success', __('messages.driver_approved_successfully'));
+        } else {
+            return Redirect::back();
+        }
     }
 }

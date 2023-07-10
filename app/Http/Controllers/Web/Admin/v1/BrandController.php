@@ -61,9 +61,8 @@ class BrandController extends Controller
 
     public function show(Brand $brand)
     {
-        $pharmacies = $brand->pharmacies()->paginate(10);
-        $accesses = $brand->accesses;
-        $vendors = $this->vendorService->list()->all();
+
+        $vendors = $this->brandService->list()->all();
         return view('admin/v1/brand/show', compact('brand','pharmacies','accesses','vendors'));
     }
 

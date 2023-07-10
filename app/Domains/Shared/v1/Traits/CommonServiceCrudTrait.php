@@ -4,6 +4,7 @@ namespace App\Domains\Shared\v1\Traits;
 
 use App\Domains\Product\v1\Contracts\Services\BrandServiceContract;
 use App\Domains\Shared\v1\Contracts\Services\CrudContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -15,6 +16,14 @@ trait CommonServiceCrudTrait
     {
         try {
             return $item->delete();
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+    }
+    public function reset()
+    {
+        try {
+            return new static();
         } catch (\Throwable $exception) {
             throw $exception;
         }
@@ -59,6 +68,14 @@ trait CommonServiceCrudTrait
 
     }
 
+    public function take(int $items): Collection
+    {
+        try {
+            return $this->baseModel->take($items)->get();
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+    }
     public function index(): Collection
     {
         try {

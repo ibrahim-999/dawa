@@ -34,11 +34,15 @@
         var form=$('#form-{{$id}}');
         form.on('submit', function(e) {
             e.preventDefault();
-            var data = $(this).serialize();
+            // var data = $(this).serialize();
+            var data = new FormData(this);
+            console.log(data.values);
             $.ajax({
                 type: "{{$method}}",
                 url: "{{$url}}",
                 data: data,
+                contentType: false,
+                processData: false,
                 success: function( data ) {
                     var message=data.message;
                     console.log(message)

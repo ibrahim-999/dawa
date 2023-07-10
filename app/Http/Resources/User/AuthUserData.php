@@ -28,7 +28,7 @@ class AuthUserData extends JsonResource
             'phone' => $this->phone,
             'phone_number' => $this->national_phone_number,
             'phone_country_code' => $this->phone_country_code,
-            'profile_image' => ($this->profile_image) ? url(Storage::url($this->profile_image?->url)) : null,
+            'profile_image' => $this->profile_image,
             'is_active' => (bool) $this->is_active,
         ];
         if ($this->token) {

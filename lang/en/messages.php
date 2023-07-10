@@ -69,6 +69,11 @@ return [
     'slider_deleted_successfully' => 'Slider Deleted Successfully',
     'slider_updated_successfully' => 'Slider Updated  Successfully',
 
+    'driver_profile_approval_notification_title' => 'profile has been approved',
+    'driver_profile_approval_notification_body' => 'Congratulations your profile has been approved successfully',
+
+
+
     'campaigns_created_successfully' => 'Campaign Created Successfully',
     'campaigns_deleted_successfully' => 'Campaign Deleted Successfully',
     'campaigns_updated_successfully' => 'Campaign Updated  Successfully',

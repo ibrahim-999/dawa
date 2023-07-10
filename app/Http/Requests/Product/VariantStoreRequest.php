@@ -34,6 +34,9 @@ class VariantStoreRequest extends BaseApiFormRequest
         $rules['is_active']=['required','boolean'];
         $rules['values']=['required','array'];
         $rules['values.*']=['required','numeric'];
+        $rules['image'] = ['nullable', 'image', 'mimes:jpg,png,jpeg,gif,svg'];
+        $rules['images'] = ['nullable', 'array'];
+        $rules['images.*'] = ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg'];
         return $rules;
     }
 }

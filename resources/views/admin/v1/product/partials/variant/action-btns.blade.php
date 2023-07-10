@@ -1,4 +1,4 @@
-{{--@include('admin.v1.product.partials.variant.edit')--}}
+@include('admin.v1.product.partials.variant.edit')
 
 {{--delete button with modal components--}}
 <x-admin.v1.buttons.modal-btn class="btn btn-sm action-icon" target="deleteVariants-{{$variant->id}}">

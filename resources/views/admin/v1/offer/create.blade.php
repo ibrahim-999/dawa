@@ -32,12 +32,11 @@
                             <div class="col-md-12">
                                 <h5>{{__('labels.language')}}-{{ucfirst($local)}}</h5>
                             </div>
-
-                                <x-admin.v1.form.text-input errorName="{{$local}}.title" prepend="" value="{{old($local.'[title]')}}" size="col-md-6"
+                                <x-admin.v1.form.text-input errorName="{{$local}}.title" prepend="" value="{{old($local.'.title')}}" size="col-md-6"
                                 name="{{$local}}[title]"
                                 title="{{__('labels.title',['local'=>$local])}}"
                                 placeholder="{{__('placeholders.title',['local'=>$local])}}"/>
-                                <x-admin.v1.form.text-area-input prepend="" value="{{old($local.'[description]')}}" length="500"
+                                <x-admin.v1.form.text-area-input prepend="" value="{{old($local.'.description')}}" length="500"
                                                                 rows="4" size="col-md-6"
                                                                 name="{{$local}}[description]"
                                                                 title="{{__('labels.description',['local'=>$local])}}"
@@ -103,7 +102,7 @@
                     title="{{__('labels.discount')}}"
                     placeholder="{{__('placeholders.discount')}}"/>
 
-                    <x-admin.v1.form.file-input value="{{old('image')}}" prepend="" size="col-md-6" name="image"
+                    <x-admin.v1.form.file-input  oldImage="" value="{{old('image')}}" prepend="" size="col-md-6" name="image"
                     title="{{__('labels.image')}}"
                     placeholder="{{__('placeholders.image')}}"/>
                     </div>

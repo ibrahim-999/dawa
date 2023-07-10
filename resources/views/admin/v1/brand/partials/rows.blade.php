@@ -9,7 +9,7 @@
         <td class="table-user">
             <img src="{{asset('admin-panel-assets/v1/images/companies/amazon.png')}}" alt="table-user"
                  class="mr-2 rounded-circle">
-            <a href="{{route('brands.show',$brand->id)}}" class="text-body font-weight-semibold">{{$brand->title}}</a>
+            {{$brand->title}}
         </td>
 
         <td>

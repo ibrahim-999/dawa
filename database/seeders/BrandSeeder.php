@@ -15,6 +15,8 @@ class BrandSeeder extends Seeder
      */
     public function run(): void
     {
-        Brand::factory()->count(100)->create();
+        Brand::factory()->count(100)->create()->each(function ($brand){
+            // $brand->addMediaFromUrl(url(asset('brand/' . rand(1, 3) . '.jpeg')))->toMediaCollection('images');
+        });
     }
 }

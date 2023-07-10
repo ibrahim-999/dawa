@@ -9,7 +9,7 @@
         <td class="table-user">
             <img src="{{asset('admin-panel-assets/v1/images/companies/amazon.png')}}" alt="table-user"
                  class="mr-2 rounded-circle">
-            <a href="{{route('sliders.show',$slider->id)}}" class="text-body font-weight-semibold">{{$slider->title}}</a>
+            {{$slider->title}}
         </td>
         <td><img src="{{$slider->getFirstMediaUrl('image', 'thumbnail')}}" style="width: 100px"></td>
         <td>

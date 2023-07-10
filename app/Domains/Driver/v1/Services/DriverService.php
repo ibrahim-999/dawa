@@ -113,10 +113,15 @@ class DriverService
             }
             $driverUpdated = DB::transaction(function()use($request,$driver){
 
-                $this->uploadFile($request->id_number_image, $driver, 'id_number_image', 'driver');
+                // $this->uploadFile($request->id_number_image, $driver, 'id_number_image', 'driver');
 
-                $this->uploadFile($request->profile_image, $driver, 'profile', 'driver');
-
+                // $this->uploadFile($request->profile_image, $driver, 'profile', 'driver');
+                // if ($request->hasFile('id_number_image')) {
+                    $driver->addMediaFromRequest('id_number_image')->withCustomProperties(['type' => 'id_number_image'])->toMediaCollection('images');
+                // }
+                // if ($request->hasFile('profile_image')) {
+                    $driver->addMediaFromRequest('profile_image')->withCustomProperties(['type' => 'profile'])->toMediaCollection('images');
+                // }
                 return $driver->update(
                     [
                         'phone' => $this->getRequestPhone($request),
@@ -143,8 +148,10 @@ class DriverService
         try {
             $driverUpdated = DB::transaction(function()use($request,$driver){
 
-                $this->uploadFile($request->driver_license, $driver, 'driver_license', 'driver');
-
+                // $this->uploadFile($request->driver_license, $driver, 'driver_license', 'driver');
+                // if ($request->hasFile('profile_image')) {
+                    $driver->addMediaFromRequest('driver_license')->withCustomProperties(['type' => 'driver_license'])->toMediaCollection('images');
+                // }
                 return $driver->update(
                     [
                         'vehicle_type' => $request->vehicle_type,
@@ -273,6 +280,18 @@ class DriverService
         }
 
     }
+    public function approveDriverProfile(Driver $driver): ?bool
+    {
+        try {
+            $data=[
+                'status'=>DriverStatusEnum::APPROVED
+            ];
+            return $driver->update($data);
+        } catch (\Throwable $exception) {
+            throw $exception;
+        }
+
+    }
 
 
     public function deleteDriver(Driver $driver): ?bool
@@ -322,22 +341,26 @@ class DriverService
     public function warningDriverByAdmin(Request $request, $driver): ?bool
     {
         try {
-            $data = $request->except('_token');
+            $data = $request->except('_token','en_comment_title','ar_comment_title','en_comment_body','ar_comment_body');
             $comment = $driver->warningComment;
+            $commentData = [
+                'en' => [
+                    'title' => $request->en_comment_title,
+                    'body' => $request->en_comment_body,
+                ],
+                'ar' => [
+                    'title' => $request->ar_comment_title,
+                    'body' => $request->ar_comment_body,
+                ],
+                'type' => 'danger',
+                'reason' => 'joining_as_driver',
+            ];
             if (!$comment) {
-                $comment = $driver->comments()->create([
-                    'en' => [
-                        'title' => 'your request is rejected',
-                        'body' => 'your request is rejected',
-                    ],
-                    'ar' => [
-                        'title' => ' ar your request is rejected',
-                        'body' => 'ar  your request is rejected',
-                    ],
-                    'type' => 'danger',
-                    'reason' => 'joining_as_driver',
-                ]);
+                $comment = $driver->comments()->create($commentData);
+            }else{
+                $comment->update($commentData);
             }
+
             foreach ($data as $key => $value) {
                 if ($value) {
                     $key = explode("_",$key,2)[1];

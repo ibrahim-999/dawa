@@ -47,9 +47,7 @@
         }
         return false;
     }
-    // dd(checkArrHasKey($warnings, 'en_name_ad',$driver));
-    // dd(getMessagewithKey($warnings, 'name',$driver));
-    // dd($warnings);
+
 @endphp
 <div class="row">
     <div class="col-md-6 col-xl-3">
@@ -166,7 +164,17 @@
 {{-- start of taps --}}
 <div class="col-xl-12">
     <div class="card-box">
-        <h4 class="header-title mb-4">profile data</h4>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="header-title mb-4">profile data</h4>
+            </div>
+            <div class="col-md-3">
+                @if($driver->status !=\App\Domains\Driver\v1\Enums\DriverStatusEnum::APPROVED->value)
+                    @include('admin.v1.driver.partials.approve-profile-modal')
+                @endif
+            </div>
+        </div>
+
 
         <ul class="nav nav-pills navtab-bg nav-justified">
             <li class="nav-item">
@@ -191,7 +199,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-xl-12">
                         <div class="card-box text-center">
-                            <img src="{{$driver->id_number_image?->url ? url('storage/'.$driver->id_number_image?->url) : asset('admin-panel-assets/v1/images/logo-dark.png')}}" class="rounded-circle avatar-lg img-thumbnail"
+                            <img src="{{$driver->profile_image ? $driver->profile_image : asset('admin-panel-assets/v1/images/logo-dark.png')}}" class="rounded-circle avatar-lg img-thumbnail"
                                 alt="profile-image">
 
                             <h4 class="mb-0">{{ $driver->name }}</h4>
@@ -216,16 +224,16 @@
             <div class="tab-pane" id="profile1">
                     <div class="row">
                         <div class="gal-box col-sm-6 col-xl-3">
-                            <a href="{{$driver->id_number_image?->url ? url('storage/'.$driver->id_number_image?->url) : ''}}" class="image-popup" title="Screenshot-1">
-                                <img src="{{$driver->id_number_image?->url ? url('storage/'.$driver->id_number_image?->url) : ''}}" class="img-fluid" alt="work-thumbnail">
+                            <a href="{{$driver->id_number_image ? $driver->id_number_image : ''}}" class="image-popup" title="Screenshot-1">
+                                <img src="{{$driver->id_number_image ? $driver->id_number_image : ''}}" class="img-fluid" alt="work-thumbnail">
                             </a>
                             <div class="gall-info">
                                 <h4 class="font-16 mt-0">id number image</h4>
                             </div> <!-- gallery info -->
                         </div> <!-- end gal-box -->
                         <div class="gal-box col-sm-6 col-xl-3">
-                            <a href="{{$driver->driver_license?->url ? url('storage/'.$driver->driver_license?->url) : ''}}" class="image-popup" title="Screenshot-1">
-                                <img src="{{$driver->driver_license?->url ? url('storage/'.$driver->driver_license?->url) : ''}}" class="img-fluid" alt="work-thumbnail">
+                            <a href="{{$driver->driver_license ? $driver->driver_license : ''}}" class="image-popup" title="Screenshot-1">
+                                <img src="{{$driver->driver_license ? $driver->driver_license : ''}}" class="img-fluid" alt="work-thumbnail">
                             </a>
                             <div class="gall-info">
                                 <h4 class="font-16 mt-0">driver license</h4>
@@ -242,6 +250,38 @@
 
                         <form method="post" action="{{route('drivers.warningDriverByAdmin',$driver->id)}}" id="stepForm">
                             @csrf
+                            <div class="row">
+                                {{-- star of form comment --}}
+                                <div class="form-group mb-3 col-md-6">
+                                        <label for="en_comment_title">En comment title</label>
+                                        <div class="input-group">
+                                            <input type="text" value="{{$driver?->warningComment?->translate('en')?->title}}" class="form-control" id="en_comment_title" name="en_comment_title"
+                                                placeholder="{{'comment'}}" aria-describedby="inputGroupPrepend"  >
+                                        </div>
+                                </div>
+                                <div class="form-group mb-3 col-md-6">
+                                    <label for="en_comment_body">En body title</label>
+                                    <div class="input-group">
+                                        <input type="text" value="{{$driver?->warningComment?->translate('en')?->body}}" class="form-control" id="en_comment_body" name="en_comment_body"
+                                            placeholder="{{'comment'}}" aria-describedby="inputGroupPrepend"  >
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 col-md-6">
+                                    <label for="ar_comment_title">Ar comment title</label>
+                                    <div class="input-group">
+                                        <input type="text" value="{{$driver?->warningComment?->translate('ar')?->title}}" class="form-control" id="ar_comment_title" name="ar_comment_title"
+                                            placeholder="{{'ar_body_title'}}" aria-describedby="inputGroupPrepend"  >
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3 col-md-6">
+                                    <label for="ar_comment_body">Ar body</label>
+                                    <div class="input-group">
+                                        <input type="text" value="{{$driver?->warningComment?->translate('ar')?->body}}" class="form-control" id="ar_comment_body" name="ar_comment_body"
+                                            placeholder="{{'ar_comment_body'}}" aria-describedby="inputGroupPrepend"  >
+                                    </div>
+                                </div>
+                                {{-- end of form comment --}}
+                            </div>
                             <div id="progressbarwizard">
 
                                 <ul class="nav nav-pills bg-light nav-justified form-wizard-header mb-3">

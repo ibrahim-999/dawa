@@ -28,6 +28,8 @@ class BrandStoreRequest extends FormRequest
             '%title' => 'required|string',
             '%description' => ['nullable', 'string'],
         ]);
+
+        $rules['image'] = ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg'];
         return $rules;
     }
 }

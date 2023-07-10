@@ -20,7 +20,7 @@ class BrandResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'image'=> url(asset('brand/' . rand(1, 3) . '.jpeg'))
+            'image'=> $this->image
         ];
         return $data;
     }
