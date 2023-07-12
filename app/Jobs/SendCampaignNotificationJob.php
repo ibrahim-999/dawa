@@ -28,43 +28,43 @@ class SendCampaignNotificationJob implements ShouldQueue
      */
     public function handle(): void
     {
+        foreach (explode(',', $this->notification->type) as $item) {
+            if ($item == CampaignTypeEnum::FCM->value) {
 
-        if ($this->notification->type == CampaignTypeEnum::FCM->value) {
+                Notification::send($this->customers, new CampaignFcmNotification($this->notification));
 
-            Notification::send($this->customers, new CampaignFcmNotification($this->notification));
+                Notification::send($this->vendors, new CampaignFcmNotification($this->notification));
 
-            Notification::send($this->vendors, new CampaignFcmNotification($this->notification));
-
-        } elseif ($this->notification->type == CampaignTypeEnum::EMAIL->value) {
-            if (!empty($this->customers)) {
-                foreach ($this->customers as $customer) {
-                    Notification::send($customer, new EmailNotification($this->notification));
+            } elseif ($item == CampaignTypeEnum::EMAIL->value) {
+                if (!empty($this->customers)) {
+                    foreach ($this->customers as $customer) {
+                        Notification::send($customer, new EmailNotification($this->notification));
+                    }
                 }
-            }
 
-            if (!empty($this->vendors)) {
-                foreach ($this->vendors as $vendor) {
-                    Notification::send($vendor, new EmailNotification($this->notification));
+                if (!empty($this->vendors)) {
+                    foreach ($this->vendors as $vendor) {
+                        Notification::send($vendor, new EmailNotification($this->notification));
+                    }
                 }
-            }
 
-        } elseif ($this->notification->type == CampaignTypeEnum::SMS->value) {
-            //
-        } else {
-            Notification::send($this->customers, new CampaignFcmNotification($this->notification));
+            } elseif ($item == CampaignTypeEnum::SMS->value) {
+                //
+            } else {
+                Notification::send($this->customers, new CampaignFcmNotification($this->notification));
 
-            Notification::send($this->vendors, new CampaignFcmNotification($this->notification));
-            if (!empty($this->customers)) {
-                foreach ($this->customers as $customer) {
-                    Notification::send($customer, new EmailNotification($this->notification));
+                Notification::send($this->vendors, new CampaignFcmNotification($this->notification));
+                if (!empty($this->customers)) {
+                    foreach ($this->customers as $customer) {
+                        Notification::send($customer, new EmailNotification($this->notification));
+                    }
                 }
-            }
-            if (!empty($this->vendors)) {
-                foreach ($this->vendors as $vendor) {
-                    Notification::send($vendor, new EmailNotification($this->notification));
+                if (!empty($this->vendors)) {
+                    foreach ($this->vendors as $vendor) {
+                        Notification::send($vendor, new EmailNotification($this->notification));
+                    }
                 }
             }
         }
-
     }
 }

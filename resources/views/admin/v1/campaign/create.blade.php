@@ -60,7 +60,10 @@
                                      style="display: none"
                                 @endif>
                                 <label>{{__('forms.days_of_week')}}</label>
-                                <select class="form-control" name="days_of_week" id="days_of_week">
+                                <select class="form-control selectpicker"
+                                        data-actions-box="true"
+                                        data-live-search="true"
+                                        multiple name="days_of_week[]" id="days_of_week">
                                     <option
                                         value="1"{{old('days_of_week')=='1'?'selected':null}}>{{__('forms.days_1')}}</option>
                                     <option
@@ -100,10 +103,23 @@
                                     title="{{__('labels.end_date')}}"
                                     placeholder="{{__('placeholders.date')}}"/>
                             </div>
+                            <div class="col-md-12 mt-2" id="time_div"
+                                 @if(old('sent_type')!='2')
+                                     style="display: none"
+                                @endif>
+                                <input type="time" class="form-control"
+                                        value="{{old('time')}}" size="col-md-12"
+                                       name="time"
+                                       title="{{__('labels.time')}}"
+                                       placeholder="{{__('placeholders.time')}}"/>
+                            </div>
 
                             <div class="col-md-6 mt-2">
                                 <label>{{__('forms.type')}}</label>
-                                <select class="form-control" name="type" id="notification_type">
+                                <select class="form-control selectpicker"
+                                        data-actions-box="true"
+                                        data-live-search="true"
+                                        multiple name="type[]" id="notification_type">
                                     <option value="">{{__('forms.select')}}</option>
                                     <option
                                         value="1" {{old('type')=='1'?'selected':null}}>{{__('forms.all')}}</option>

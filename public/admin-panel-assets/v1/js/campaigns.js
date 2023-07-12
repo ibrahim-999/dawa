@@ -9,6 +9,7 @@ $('#sent_type').on('change', function () {
     if ($(this).val() == '2') {
         $('#start_date_div').fadeIn();
         $('#schedule_type_dev').fadeIn();
+        $('#time_div').fadeIn();
         $('#end_date_div').fadeIn();
         $('#Id-Start_date').val('');
         $('#Id-End_date').val('');
@@ -19,6 +20,7 @@ $('#sent_type').on('change', function () {
         $('#start_date_div').fadeOut();
         $('#days_of_week_dev').fadeOut();
         $('#schedule_type_dev').fadeOut();
+        $('#time_div').fadeOut();
         $('#end_date_div').fadeOut();
         $('#Id-Start_date').val('');
         $('#Id-End_date').val('');

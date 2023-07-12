@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Models\Vendor;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class CampaignCommand extends Command
 {
@@ -69,7 +68,9 @@ class CampaignCommand extends Command
                 }
 
                 if (Carbon::parse($dailyCampNotification->start_date)->gte(Carbon::now()) && Carbon::parse($dailyCampNotification->end_date)->gte(Carbon::now())) {
-                    SendCampaignNotificationJob::dispatch($customers, $vendors, $dailyCampNotification);
+                    if (Carbon::parse($dailyCampNotification->time)->eq(Carbon::now())) {
+                        SendCampaignNotificationJob::dispatch($customers, $vendors, $dailyCampNotification);
+                    }
                 }
             }
         }
@@ -82,7 +83,9 @@ class CampaignCommand extends Command
                 }
                 if (date('D') == __('texts.days_' . $weeklyCampNotification->days_of_week)) {
                     if (Carbon::parse($weeklyCampNotification->start_date)->gte(Carbon::now()) && Carbon::parse($weeklyCampNotification->end_date)->gte(Carbon::now())) {
-                        SendCampaignNotificationJob::dispatch($customers, $vendors, $weeklyCampNotification);
+                        if (Carbon::parse($weeklyCampNotification->time)->eq(Carbon::now())) {
+                            SendCampaignNotificationJob::dispatch($customers, $vendors, $weeklyCampNotification);
+                        }
                     }
                 }
             }

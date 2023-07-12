@@ -18,6 +18,7 @@ class CampNotification extends Model
         'user_type',
         'start_date',
         'end_date',
+        'time',
         'schedule_type',
         'days_of_week',
         'sent_type',

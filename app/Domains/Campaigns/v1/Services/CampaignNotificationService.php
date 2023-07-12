@@ -95,10 +95,17 @@ class CampaignNotificationService
     public function add(Request $request): ?Model
     {
         try {
+            $days_of_week = null;
+            $type = implode(',', $request->type);
 
-            $campaign = $this->campaignNotificationModel->create($request->all());
+            if ($request->days_of_week) {
+                $days_of_week = implode(',', $request->days_of_week);
+            }
+            $campaign = $this->campaignNotificationModel->create($request->except('type', 'days_of_week'));
 
             $campaign->update([
+                'type' => json_encode($type, true),
+                'days_of_week' => json_encode($days_of_week, true),
                 'is_active' => $request->is_active ? 1 : 0
             ]);
 
@@ -106,16 +113,17 @@ class CampaignNotificationService
                 $customers = User::whereIn('id', $request->user_id)->get();
 
                 $vendors = [];
-
                 if ($customers->count()) {
                     foreach ($customers as $customer) {
-                        $customer->campaignable()->create([
-                            'title' => $campaign->title,
-                            'description' => $campaign->description,
-                            'subject' => $campaign->subject,
-                            'notification_type' => $request->type,
-                            'notification_id' => $campaign->id,
-                        ]);
+                        foreach ($request->type as $item) {
+                            $customer->campaignable()->create([
+                                'title' => $campaign->title,
+                                'description' => $campaign->description,
+                                'subject' => $campaign->subject,
+                                'notification_type' => $item,
+                                'notification_id' => $campaign->id,
+                            ]);
+                        }
                     }
                 }
 
@@ -127,14 +135,17 @@ class CampaignNotificationService
 
                 if ($vendors->count()) {
                     foreach ($vendors as $item) {
-                        $item->campaignable()->create([
-                            'title' => $campaign->title,
-                            'description' => $campaign->description,
-                            'subject' => $campaign->subject,
-                            'notification_type' => $request->type,
-                            'notification_id' => $campaign->id,
+                        foreach ($request->type as $item) {
 
-                        ]);
+                            $item->campaignable()->create([
+                                'title' => $campaign->title,
+                                'description' => $campaign->description,
+                                'subject' => $campaign->subject,
+                                'notification_type' => $request->type,
+                                'notification_id' => $campaign->id,
+
+                            ]);
+                        }
                     }
                 }
 
@@ -152,13 +163,22 @@ class CampaignNotificationService
         }
     }
 
-    public function update(Request $request)
+    public
+    function update(Request $request)
     {
         try {
-            $campaign = $this->campaignNotificationModel->update($request->all());
+            $days_of_week = null;
+            $type = implode(',', $request->type);
+
+            if ($request->days_of_week) {
+                $days_of_week = implode(',', $request->days_of_week);
+            }
+            $campaign = $this->campaignNotificationModel->update($request->except('type', 'days_of_week'));
 
             $this->campaignNotificationModel->update([
-                'is_active' => $request->is_active ? 1 : 0
+                'is_active' => $request->is_active ? 1 : 0,
+                'type' => json_encode($type, true),
+                'days_of_week' => json_encode($days_of_week, true),
             ]);
 
             $this->campaignNotificationModel->campaigns()->delete();
@@ -169,14 +189,16 @@ class CampaignNotificationService
                 $vendors = [];
                 if ($customers->count()) {
                     foreach ($customers as $customer) {
-                        $customer->campaignable()->create([
-                            'title' => $this->campaignNotificationModel->title,
-                            'description' => $this->campaignNotificationModel->description,
-                            'subject' => $this->campaignNotificationModel->subject,
-                            'notification_type' => $request->type,
-                            'notification_id' => $this->campaignNotificationModel->id,
+                        foreach ($request->type as $item) {
+                            $customer->campaignable()->create([
+                                'title' => $this->campaignNotificationModel->title,
+                                'description' => $this->campaignNotificationModel->description,
+                                'subject' => $this->campaignNotificationModel->subject,
+                                'notification_type' => $item,
+                                'notification_id' => $this->campaignNotificationModel->id,
 
-                        ]);
+                            ]);
+                        }
                     }
                 }
 
@@ -188,13 +210,15 @@ class CampaignNotificationService
 
                 if ($vendors->count()) {
                     foreach ($vendors as $vendor) {
-                        $vendor->campaignable()->create([
-                            'title' => $this->campaignNotificationModel->title,
-                            'description' => $this->campaignNotificationModel->description,
-                            'subject' => $this->campaignNotificationModel->subject,
-                            'notification_type' => $request->type,
-                            'notification_id' => $this->campaignNotificationModel->id,
-                        ]);
+                        foreach ($request->type as $item) {
+                            $vendor->campaignable()->create([
+                                'title' => $this->campaignNotificationModel->title,
+                                'description' => $this->campaignNotificationModel->description,
+                                'subject' => $this->campaignNotificationModel->subject,
+                                'notification_type' => $item,
+                                'notification_id' => $this->campaignNotificationModel->id,
+                            ]);
+                        }
                     }
                 }
 
@@ -214,7 +238,8 @@ class CampaignNotificationService
         }
     }
 
-    public function destroy($item)
+    public
+    function destroy($item)
     {
         try {
             $item->campaigns()->delete();

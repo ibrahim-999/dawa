@@ -60,21 +60,38 @@
                                      style="display: none"
                                 @endif>
                                 <label>{{__('forms.days_of_week')}}</label>
-                                <select class="form-control" name="days_of_week" id="days_of_week">
+                                <select class="form-control selectpicker"
+                                        data-actions-box="true"
+                                        data-live-search="true"
+                                        name="days_of_week[]" multiple id="days_of_week">
                                     <option
-                                        value="1"{{$campaign->days_of_week=='1'?'selected':null}}>{{__('forms.days_1')}}</option>
+                                        value="1"@foreach(explode(',',json_decode($campaign->days_of_week,true)) as $day)
+                                        {{$day=='1'?'selected':null}}
+                                        @endforeach>{{__('forms.days_1')}}</option>
                                     <option
-                                        value="2"{{$campaign->days_of_week=='2'?'selected':null}}>{{__('forms.days_2')}}</option>
+                                        value="2"@foreach(explode(',',json_decode($campaign->days_of_week,true)) as $day)
+                                        {{$day=='2'?'selected':null}}
+                                        @endforeach>{{__('forms.days_2')}}</option>
                                     <option
-                                        value="3"{{$campaign->days_of_week=='3'?'selected':null}}>{{__('forms.days_3')}}</option>
+                                        value="3"@foreach(explode(',',json_decode($campaign->days_of_week,true)) as $day)
+                                        {{$day=='3'?'selected':null}}
+                                        @endforeach>{{__('forms.days_3')}}</option>
                                     <option
-                                        value="4"{{$campaign->days_of_week=='4'?'selected':null}}>{{__('forms.days_4')}}</option>
+                                        value="4"@foreach(explode(',',json_decode($campaign->days_of_week,true)) as $day)
+                                        {{$day=='4'?'selected':null}}
+                                        @endforeach>{{__('forms.days_4')}}</option>
                                     <option
-                                        value="5"{{$campaign->days_of_week=='5'?'selected':null}}>{{__('forms.days_5')}}</option>
+                                        value="5"@foreach(explode(',',json_decode($campaign->days_of_week,true)) as $day)
+                                        {{$day=='5'?'selected':null}}
+                                        @endforeach>{{__('forms.days_5')}}</option>
                                     <option
-                                        value="6"{{$campaign->days_of_week=='6'?'selected':null}}>{{__('forms.days_6')}}</option>
+                                        value="6"@foreach(explode(',',json_decode($campaign->days_of_week,true)) as $day)
+                                        {{$day=='6'?'selected':null}}
+                                        @endforeach>{{__('forms.days_6')}}</option>
                                     <option
-                                        value="7"{{$campaign->days_of_week=='7'?'selected':null}}>{{__('forms.days_7')}}</option>
+                                        value="7"@foreach(explode(',',json_decode($campaign->days_of_week,true)) as $type)
+                                        {{$type=='7'?'selected':null}}
+                                        @endforeach>{{__('forms.days_7')}}</option>
                                 </select>
                             </div>
 
@@ -100,19 +117,44 @@
                                     title="{{__('labels.end_date')}}"
                                     placeholder="{{__('placeholders.date')}}"/>
                             </div>
+                            <div class="col-md-12 mt-2" id="time_div"
+                                 @if($campaign->sent_type!='2')
+                                     style="display: none"
+                                @endif>
+                                <input type="time" class="form-control"
+                                       value="{{$campaign->time??old('time')}}" size="col-md-12"
+                                       name="time"
+                                       title="{{__('labels.time')}}"
+                                       placeholder="{{__('placeholders.time')}}"/>
+                            </div>
 
                             <div class="col-md-6 mt-2">
                                 <label>{{__('forms.type')}}</label>
-                                <select class="form-control" name="type" id="notification_type">
+                                <select class="form-control selectpicker"
+                                        data-actions-box="true"
+                                        data-live-search="true"
+                                        name="type[]" multiple
+                                        id="notification_type">
                                     <option value="">{{__('forms.select')}}</option>
                                     <option
-                                        value="1" {{$campaign->type=='1'?'selected':null}}>{{__('forms.all')}}</option>
+                                        value="1"
+                                    @foreach(explode(',',json_decode($campaign->type,true)) as $type)
+                                        {{$type=='1'?'selected':null}}
+                                        @endforeach
+                                    >{{__('forms.all')}}</option>
                                     <option
-                                        value="3" {{$campaign->type=='3'?'selected':null}}>{{__('forms.fcm')}}</option>
+                                        value="3"
+                                    @foreach(explode(',',json_decode($campaign->type,true)) as $type)
+                                        {{$type=='3'?'selected':null}}
+                                        @endforeach>{{__('forms.fcm')}}</option>
                                     <option
-                                        value="4" {{$campaign->type=='4'?'selected':null}}>{{__('forms.sms')}}</option>
+                                        value="4" @foreach(explode(',',json_decode($campaign->type,true)) as $type)
+                                        {{$type=='4'?'selected':null}}
+                                        @endforeach>{{__('forms.sms')}}</option>
                                     <option
-                                        value="2" {{$campaign->type=='2'?'selected':null}}>{{__('forms.email')}}</option>
+                                        value="2" @foreach(explode(',',json_decode($campaign->type,true)) as $type)
+                                        {{$type=='2'?'selected':null}}
+                                        @endforeach>{{__('forms.email')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mt-2">

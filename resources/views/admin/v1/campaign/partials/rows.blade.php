@@ -19,7 +19,9 @@
             {{\App\Domains\Campaigns\v1\Enums\CampaignUserTypeEnum::from((int)$campaign->user_type)->name}}
         </td>
         <td>
-            {{\App\Domains\Campaigns\v1\Enums\CampaignTypeEnum::from((int)$campaign->type)->name}}
+            @foreach(explode(',',json_decode($campaign->type,true)) as $type)
+                     {{\App\Domains\Campaigns\v1\Enums\CampaignTypeEnum::from((int)$type)->name}} <br>
+             @endforeach
         </td>
         <td>
             @if($campaign->is_active)
